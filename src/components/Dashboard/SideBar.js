@@ -30,12 +30,12 @@ export default function SideBar() {
                     </li>
                     <li><a className="has-arrow ai-icon"  aria-expanded="false">
                     <i className="fa fa-building"></i>
-							<span className="nav-text">Sociétés</span>
+							<span className="nav-text">Fermes</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><Link to={`/Taches`}><i className="fa fa-plus"></i>Ajouter Sociétés</Link></li>
-                            <li><Link to={`/Taches`}><i className="fa fa-list"></i>Lister Sociétés</Link></li>
-                            <li><Link to={`/Taches`}><i className="fa fa-tasks"></i>Affecter Fermier</Link></li>
+                            <li><Link to={`/AjouterFermes`}><i className="fa fa-plus"></i>Ajouter Fermes</Link></li>
+                            <li><Link to={`/Fermes`}><i className="fa fa-list"></i>Lister Fermes</Link></li>
+                            <li><Link to={`/AffecterFermier`}><i className="fa fa-tasks"></i>Affecter Fermier</Link></li>
                         </ul>
                     </li>
                     <li><a className="has-arrow ai-icon"  aria-expanded="false">
@@ -43,8 +43,8 @@ export default function SideBar() {
 							<span className="nav-text">Stock</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><Link to={`/Taches`}><i className="fa fa-plus"></i>Ajouter Stock</Link></li>
-                            <li><Link to={`/Taches`}><i className="fa fa-list"></i>Lister Stock</Link></li>
+                            <li><Link to={`/AjouterStock`}><i className="fa fa-plus"></i>Ajouter Stock</Link></li>
+                            <li><Link to={`/Stocks`}><i className="fa fa-list"></i>Lister Stock</Link></li>
                             
                         </ul>
                     </li>
