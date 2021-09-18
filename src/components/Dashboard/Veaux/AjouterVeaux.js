@@ -9,9 +9,18 @@ import { useHistory } from "react-router-dom";
 export default function AjouterVeaux() {
   let history = useHistory();
   const [Veaux, setVeaux] = useState({
-    Nom: "",
-    Code: "",
-    SUPAD: "",
+    animalsType: "string",
+    birthday: "2021-09-18T13:14:36.136Z",
+    bornStatus: 0,
+    born_weight: 0,
+    description: "string",
+    gender: "string",
+    images: "string",
+    matriculeAnimal: "string",
+    originFather: "string",
+    originMother: "string",
+    originWeight: 0,
+    receiveWeight: 0,
   });
   const [users,setUsers]=useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,21 +49,24 @@ export default function AjouterVeaux() {
     });
   };
 function Verif(){
-  if((document.getElementById("NomVeaux").value=="")||(document.getElementById("CodeVeaux").value=="")||(document.getElementById("SUPAD").value=="")){
+  if((document.getElementById("animalsType").value=="")
+||(document.getElementById("birthday").value=="")
+  ||(document.getElementById("bornStatus").value=="")
+  ||(document.getElementById("born_weight").value=="")
+  ||(document.getElementById("description").value=="")
+  ||(document.getElementById("gender").value=="")
+  ||(document.getElementById("images").value=="")
+  ||(document.getElementById("matriculeAnimal").value=="")
+  ||(document.getElementById("originFather").value=="") 
+  ||(document.getElementById("originMother").value=="")
+  ||(document.getElementById("receiveWeight").value=="")){
 return false
   }
   else{
     return true
   }     
 }
-function GenerateCode(e){
-  e.preventDefault();
-        var uuid = require("uuid");
-  var id = uuid.v4();
-  document.getElementById("CodeVeaux").value=id;
-  document.getElementById("PlaceholderVeauxCode").value=id;
-  console.log(id)
-      }
+
 
   const handleClick = (e) => {
     if(Verif()){
@@ -68,23 +80,41 @@ function GenerateCode(e){
     }).then((result) => {
       if (result.isConfirmed) {
         
-        Veaux.Nom = document.getElementById("NomVeaux").value;
-        Veaux.Code = document.getElementById("CodeVeaux").value;
-        Veaux.SUPAD = document.getElementById("SUPAD").value;
+        Veaux.animalsType = document.getElementById("animalsType").value;
+        Veaux.birthday = document.getElementById("birthday").value;
+        Veaux.bornStatus = document.getElementById("bornStatus").value;
+        Veaux.born_weight = document.getElementById("born_weight").value;
+        Veaux.description = document.getElementById("description").value;
+        Veaux.gender = document.getElementById("gender").value;
+        Veaux.images = document.getElementById("images").value;
+        Veaux.matriculeAnimal = document.getElementById("matriculeAnimal").value;
+        Veaux.originFather = document.getElementById("originFather").value;
+        Veaux.originMother = document.getElementById("originMother").value;
+        Veaux.originWeight = document.getElementById("originWeight").value;
+        Veaux.receiveWeight = document.getElementById("receiveWeight").value;
         console.log({ Veaux });
 
         e.preventDefault();
         axios
-          //.post("http://localhost:4000/veauxs/create", {
-            .post("http://143.110.210.169:4000/veauxs/create", {
-            Nom: Veaux.Nom,
-            Code: Veaux.Code,
-            SUPAD: Veaux.SUPAD,
+          //.post("http://localhost:4000/veaux/create", {
+            .post("http://localhost:8187/api/animals/Veaux/save", {
+              animalsType:  Veaux.animalsType,
+              birthday: Veaux.birthday,
+              bornStatus:  Veaux.bornStatus,
+              born_weight: Veaux.born_weight,
+              description: Veaux.description,
+              gender:Veaux.gender,
+              images: Veaux.images,
+              matriculeAnimal: Veaux.matriculeAnimal,
+              originFather: Veaux.originFather,
+              originMother: Veaux.originMother,
+              originWeight: Veaux.originWeight,
+              receiveWeight: Veaux.receiveWeight,
           })
           .then((res) => {
             Swal.fire("Success", "Votre Veaux a été créé :) ", "success");
             console.log(res.data);
-            history.push("/veauxs");
+            history.push("/veaux");
           })
           .catch((err) => {
             Swal.fire("Ooops", "Une Erreur au niveau de l'insertion ", "error");
@@ -107,7 +137,7 @@ function GenerateCode(e){
           <div className="page-titles">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> <a><strong>Ajouter Veaux</strong></a>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> <a href="javascript:void(0)"><strong>Ajouter Veaux</strong></a>
               </li>
             </ol>
           </div>
@@ -120,31 +150,135 @@ function GenerateCode(e){
               <form>
                 <div className="form-row">
                   <div className="form-group col-md-3">
-                    <label>Nom Veaux</label>
+                    <label><strong>Annimal Type :</strong></label>
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Nom Complet De la Veaux"
+                      placeholder="Type de la Veaux"
                       type="text"
-                      id={"NomVeaux"}
-                      name={"NomVeaux"}
+                      id={"animalsType"}
+                      name={"animalsType"}
+                    />
+                  </div>
+
+                  <div className="form-group col-md-3">
+                    <label><strong>Date Naissance :</strong> </label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      placeholder="Date Naissance de la Veaux"
+           
+                      id={"birthday"}
+                      name={"birthday"}
+                    />
+                  </div>
+                  <div className="form-group col-md-3">
+                    <label><strong>Status Naissance :</strong></label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Status de naissance de la veaux"
+             
+                      id={"bornStatus"}
+                      name={"bornStatus"}
+                    />
+                  </div>
+                  <div className="form-group col-md-3">
+                    <label><strong>Poid de naissance : </strong></label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Poid naissance de la veaux"
+                 
+                      id={"born_weight"}
+                      name={"born_weight"}
+                    />
+                  </div>
+                  <div className="form-group col-md-3">
+                    <label><strong> Genre :</strong></label>
+                    <select
+                      className="form-control"
+                
+                      id={"gender"}
+                      name={"gender"}
+                    >
+                      <option>M</option>
+                      <option>F</option>
+                    </select>
+                  </div>
+                  <div class="basic-form custom_file_input col-md-3">
+                  <div class="form-group mb-3">
+                  <label><strong>Choisire Image :</strong></label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id={"images"}/>
+                                                <label class="custom-file-label">Veuillez Choisire une Image</label>
+                                            </div>
+                                        </div>
+                    </div>
+                    <div class="form-group col-md-9" >
+                                            <label><strong>Matricule :</strong></label>
+                                        <textarea class="form-control" rows="5" id="comment" placeholder="Matricule de la Veaux.."
+                                        id={"matriculeAnimal"}
+                                        name={"matriculeAnimal"}
+                                        ></textarea>
+                                        </div>
+
+                                        <br/>
+                                        <div class="form-group col-md-9" >
+                                            <label><strong>Description Detaillé :</strong></label>
+                                        <textarea class="form-control" rows="5" id="comment" placeholder="Description Detaillé de la Veaux.."
+                                        id={"description"}
+                                        name={"description"}
+                                        ></textarea>
+                                        </div>
+
+                                        <br/>
+                <div className="form-group col-md-3">
+                    <label><strong>Pére d'origine :</strong></label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Pére d'origine De la Veaux"
+                 
+                      id={"originFather"}
+                      name={"originFather"}
+                    />
+                  </div>
+                  <div className="form-group col-md-3">
+                    <label><strong>Mére d'origine :</strong></label>
+                    <input
+                      type="string"
+                      className="form-control"
+                      placeholder="Mére d'origine De la Veaux"
+                 
+                      id={"originMother"}
+                      name={"originMother"}
+                    />
+                  </div>
+                  <div className="form-group col-md-3">
+                    <label><strong>Poid d'origine :</strong></label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Poid Complet De la Veaux"
+                 
+                      id={"originWeight"}
+                      name={"originWeight"}
+                    />
+                  </div>
+                  <div className="form-group col-md-3">
+                    <label><strong>Poid Recu :</strong></label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Poid Recu De la veaux "
+                 
+                      id={"receiveWeight"}
+                      name={"receiveWeight"}
                     />
                   </div>
                   
-                  <div class="form-group col-md-3">
-                                            <label>Code Veaux</label>
-                                            <button className="btn btn-primary form-control" onClick={GenerateCode} id={"CodeVeaux"} name={"CodeVeaux"} ><i className="fa fa-plus-square"></i> GenerateCode </button>
-                                            <input type="text" class="form-control" id={"PlaceholderVeauxCode"}/>
-                                            </div>
-                  
-                  
-                  <div className="form-group col-md-5">
-              <label>Super Admin</label><br></br>
-              <select class="dropdown bootstrap-select show-tick form-control col-md-5 " id={"SUPAD"}
-                      name={"SUPAD"}>
-              {SelectList}
-</select>
-            </div> 
+               
                   
                 </div>
                 

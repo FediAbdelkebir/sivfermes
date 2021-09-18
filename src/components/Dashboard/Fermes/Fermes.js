@@ -71,15 +71,15 @@ export default function Fermes() {
 
 function Trienom(e){
     e.preventDefault();
-  setFermes(sortBy(fermes, "Nom"));
+  setFermes(sortBy(fermes, "name"));
 }
-function TrieCode(e){
+function TrieManager(e){
     e.preventDefault();
-  setFermes(sortBy(fermes, "Code"));
+  setFermes(sortBy(fermes, "manager"));
 }
-function TrieResponsable(e){
+function TrieNumtel(e){
     e.preventDefault();
-  setFermes(sortBy(fermes, "SUPAD"));
+  setFermes(sortBy(fermes, "numTel"));
 }
 
     const content = isLoading ? <div class="loader">
@@ -206,15 +206,41 @@ function TrieResponsable(e){
 
         </div>
         
-        <a  href="#" className="btn btn-info ml-auto" onClick={Trienom}> <i className="fa fa-sort"></i> Trie Par Nom</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieCode}><i className="fa fa-sort"></i> Trie Par Code</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieResponsable}><i className="fa fa-sort"></i> Trie Par Responsable</a>
+
+ 
         <Link to={`/AjouterFermes`} className="btn btn-primary ml-auto"><i className="fa fa-plus-circle"></i> Ajouter fermes</Link>
       </div>
       <div className="card-body">
         <div className="table-responsive">
           <table className="table table-responsive-md">
             <thead>
+            <tr>
+                <th className="width50">
+                  <div className="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                    <input
+                      type="checkbox"
+                      className="custom-control-input"
+                      id="checkAll"
+                      required=""
+                    />
+                    <label className="custom-control-label" for="checkAll"></label>
+                  </div>
+                </th>
+                
+                <th>
+                <a href="#" className="btn btn-primary ml-auto" onClick={Trienom}><i className="fa fa-sort"></i></a>
+                </th>
+                
+                <th>
+                <a href="#" className="btn btn-primary ml-auto" onClick={TrieManager}><i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a href="#" className="btn btn-primary ml-auto" onClick={TrieNumtel}><i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                  <strong></strong>
+                </th>
+              </tr>
               <tr>
                 <th className="width50">
                   <div className="custom-control custom-checkbox checkbox-success check-lg mr-3">

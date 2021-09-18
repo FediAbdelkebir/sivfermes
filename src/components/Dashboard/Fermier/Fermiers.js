@@ -200,27 +200,27 @@ export default function Fermiers() {
   }
   function Trienom(e){
     e.preventDefault();
-    setTaches(sortBy(Fermiers, "Nom"));
+    setTaches(sortBy(Fermiers, "name"));
 }
-function TrieCode(e){
+function TrieEmail(e){
   e.preventDefault();
-  setTaches(sortBy(Fermiers, "Code"));
+  setTaches(sortBy(Fermiers, "email"));
 }
-function TrieResponsable(e){
+function TrieGenre(e){
   e.preventDefault();
-  setTaches(sortBy(Fermiers, "SUPAD"));
+  setTaches(sortBy(Fermiers, "gender"));
 }
-function TrieEtat(e){
+function Triedatedebut(e){
   e.preventDefault();
-setTaches(sortBy(Fermiers, "Etat"));
+setTaches(sortBy(Fermiers, "dateJoin"));
 }
-function TrieDescription(e){
+function Triedatefin(e){
   e.preventDefault();
-  setTaches(sortBy(Fermiers, "Description"));
+  setTaches(sortBy(Fermiers, "dateOff"));
 }
-function TriePoints(e){
+function Triedatenaissance(e){
   e.preventDefault();
-  setTaches(sortBy(Fermiers, "Points"));
+  setTaches(sortBy(Fermiers, "birthday"));
 }
     return (
 <div>
@@ -244,12 +244,8 @@ function TriePoints(e){
           </div>
           <input type="text" className="form-control" placeholder="Rechercher.." id="ValeurRechercheTaches" onChange={handleChange}/>
         </div>
-        <a href="#" className="btn btn-info ml-auto" onClick={Trienom}> <i className="fa fa-sort"></i> Nom</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieCode}><i className="fa fa-sort"></i> Code</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieDescription}><i className="fa fa-sort"></i> Description</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TriePoints}><i className="fa fa-sort"></i> Points</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieResponsable}><i className="fa fa-sort"></i> Responsable</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieEtat}><i className="fa fa-sort"></i> Etat</a>
+        
+
         <Link to={`/AjouterFermier`} className="btn btn-primary ml-auto">
           <i className="fa fa-plus-circle"></i> Ajouter Fermier
         </Link>
@@ -258,6 +254,39 @@ function TriePoints(e){
         <div className="table-responsive">
           <table className="table table-responsive-md">
             <thead>
+            <tr>
+                <th className="width50">
+                  <div className="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                    <input
+                      type="checkbox"
+                      className="custom-control-input"
+                      id="checkAll"
+                      required=""
+                    />
+                    <label className="custom-control-label" htmlFor="checkAll"></label>
+                  </div>
+                </th>
+                
+                <th>
+                <a href="#" className="btn btn-info ml-auto" onClick={Trienom}> <i className="fa fa-sort"></i></a>
+                </th>
+                
+                <th>
+                <a href="#" className="btn btn-info ml-auto" onClick={TrieEmail}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a href="#" className="btn btn-info ml-auto" onClick={TrieGenre}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a href="#" className="btn btn-info ml-auto" onClick={Triedatedebut}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a href="#" className="btn btn-info ml-auto" onClick={Triedatefin}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a href="#" className="btn btn-info ml-auto" onClick={Triedatenaissance}> <i className="fa fa-sort"></i></a>
+                </th>
+              </tr>
               <tr>
                 <th className="width50">
                   <div className="custom-control custom-checkbox checkbox-success check-lg mr-3">
