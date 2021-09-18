@@ -6,34 +6,49 @@ import '../../css/Card.css';
 import SideBar from '../SideBar';
 import Swal from "sweetalert2";
 
-export default function AjouterTache() {
+export default function AjouterFermier() {
     const [isLoading, setIsLoading] = useState(true);
     const [users,setUsers]=useState([]);
-    const [taches,setTaches]=useState([]);
-    const [usertaches,setUserTaches]=useState([]);
+    const [fermiers,setFermiers]=useState([]);
+    const [Farms,setFarms]=useState([]);
+    const [userfermiers,setUserFermiers]=useState([]);
     const [UT,setUT]=useState([]);
 
     useEffect(()=>{
-      
-        //axios.get("http://localhost:4000/taches/")
-        axios.get("http://143.110.210.169:4000/taches/")
+        axios.get("http://localhost:8187/api/farms/list1/")
         .then(res=>{
             console.log(res);
-            setTaches(res.data);
+            setFarms(res.data);
             setIsLoading(false);
         })
         .catch(err=>console.log)
     }, []);
 
     useEffect(()=>{
-        //axios.get("http://localhost:4000/users")
-        axios.get("http://143.110.210.169:4000/users")
+        axios.get("http://localhost:8187/api/employees/list")
         .then(res=>{
-            setUsers(res.data);
+          setFermiers(res.data);
             setIsLoading(false);
         })
         .catch(err=>console.log)
     }, []);
+    const FarmsList = isLoading ? <option>Chargements des Farms ...</option> : Farms.length ? (
+      Farms
+          .map(user=>{
+              return(
+                <option selected>{user.name}</option>
+              )
+          })
+      ): <h3>Aucun Fermier Trouvé !</h3>;
+      const FermiersList = isLoading ? <option>Chargements des fermiers ...</option> : fermiers.length ? (
+        fermiers
+            .map(user=>{
+                return(
+                  <option selected>{user.name}</option>
+                )
+            })
+        ): <h3>Aucun Fermier Trouvé !</h3>;
+
     const handleChange = (e) => {
       var keyword = document.getElementById("ValeurRechercheAffecter").value;
       if (keyword.length<1){
@@ -52,7 +67,7 @@ export default function AjouterTache() {
       }
       
 }
-function handleajout(idtache,iduser){
+function handleajout(idfermier,iduser){
     Swal.fire({
         title: "Vous etez sur?",
         text: "Veuillez Vérifier vos besoin avant de envoyé ",
@@ -62,12 +77,12 @@ function handleajout(idtache,iduser){
         denyButtonText: `Non`,
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire("Success", "Votre tache a été créé :) ", "success");
-          console.log(idtache,iduser);
+          Swal.fire("Success", "Votre fermier a été créé :) ", "success");
+          console.log(idfermier,iduser);
           axios
-            .post("http://143.110.210.169:4000/usertaches/createusertaches", {
-              //.post("http://localhost:4000/usertaches/createusertaches", {
-              idtache: idtache,
+            .post("http://143.110.210.169:4000/userfermiers/createuserfermiers", {
+              //.post("http://localhost:4000/userfermiers/createuserfermiers", {
+              idfermier: idfermier,
               iduser: iduser,
             })
             .then((res) => {
@@ -78,11 +93,11 @@ function handleajout(idtache,iduser){
               console.error(err);
             });
         } else {
-          Swal.fire("Annulé", "Vous Avez Annulé l'ajout d'une tache.", "error");
+          Swal.fire("Annulé", "Vous Avez Annulé l'ajout d'une fermier.", "error");
         }
       });
 }
-function handledelete(idtache,iduser){
+function handledelete(idfermier,iduser){
   Swal.fire({
       title: "Vous etez sur?",
       text: "Veuillez Vérifier vos besoin avant de envoyé ",
@@ -93,12 +108,12 @@ function handledelete(idtache,iduser){
     }).then((result) => {
       if (result.isConfirmed) {
         
-        console.log(idtache,iduser);
+        console.log(idfermier,iduser);
         axios
-          //.delete("http://localhost:4000/usertaches/deleteusertaches/"+idtache+"/"+iduser)
-          .delete("http://143.110.210.169:4000/usertaches/deleteusertaches/"+idtache+"/"+iduser)
+          //.delete("http://localhost:4000/userfermiers/deleteuserfermiers/"+idfermier+"/"+iduser)
+          .delete("http://143.110.210.169:4000/userfermiers/deleteuserfermiers/"+idfermier+"/"+iduser)
           .then((res) => {
-            Swal.fire("Success", "Vous avez supprimer cette tache :) ", "success");
+            Swal.fire("Success", "Vous avez supprimer cette fermier :) ", "success");
             console.log(res.data);
           })
           .catch((err) => {
@@ -113,48 +128,48 @@ function handledelete(idtache,iduser){
 
 
 function Ajouter(iduser){
-let idtache="";
+let idfermier="";
 
-const ValueList=taches.reduce((a, c) => {
+const ValueList=fermiers.reduce((a, c) => {
   a[c._id] = c.Nom
   return a
  }, {});
-    //axios.get("http://localhost:4000/usertaches/"+iduser)
-    axios.get("http://143.110.210.169:4000/usertaches/"+iduser)
+    //axios.get("http://localhost:4000/userfermiers/"+iduser)
+    axios.get("http://143.110.210.169:4000/userfermiers/"+iduser)
         .then(res=>{
             console.log(res);
-            setUserTaches(res.data);
+            setUserFermiers(res.data);
             setIsLoading(false);
         })
         .catch(err=>console.log)
 
 Swal.fire({
-        title: 'Ajouter Une Tache',
+        title: 'Ajouter Une Fermier',
         input: 'select',
         inputOptions: {ValueList},
-        inputPlaceholder: 'Selectioner une tache',
+        inputPlaceholder: 'Selectioner une fermier',
         showDenyButton: true,
         confirmButtonText: `Ajouter`,
         denyButtonText: `Non`,
         position:'top-start',
         inputValidator: function (value) {
-          idtache=value;
+          idfermier=value;
         }
       }).then((result) => {
         if (result.isConfirmed) {
-          handleajout(idtache,iduser);
+          handleajout(idfermier,iduser);
         } else {
 
-          Swal.fire({title:"Vous Avez Annuler L'affectation d'une tache",
+          Swal.fire({title:"Vous Avez Annuler L'affectation d'une fermier",
           position:'bottom-end'});
         }
       });
 }
 function Supprimer(iduser){
-  let idtache="";
+  let idfermier="";
   let ValueList="";
-    //axios.get("http://localhost:4000/usertaches/listtaches/"+iduser)
-    axios.get("http://143.110.210.169:4000/usertaches/listtaches/"+iduser)
+    //axios.get("http://localhost:4000/userfermiers/listfermiers/"+iduser)
+    axios.get("http://143.110.210.169:4000/userfermiers/listfermiers/"+iduser)
     .then(res=>{
         setUT(res.data);
         setIsLoading(false);
@@ -162,29 +177,29 @@ function Supprimer(iduser){
     .catch(err=>console.log)
 if (UT.length>0){
    ValueList=UT.reduce((a, c) => {
-    a[c._id] = taches.find((tache)=>{
-      if(tache._id == c.idtache){
-        return tache.Nom;
+    a[c._id] = fermiers.find((fermier)=>{
+      if(fermier._id == c.idfermier){
+        return fermier.Nom;
       }
     })
     return a
    }, {});
 }
     Swal.fire({
-            title: 'Supprimer Une Tache',
+            title: 'Supprimer Une Fermier',
             input: 'select',
             inputOptions: {ValueList},
-            inputPlaceholder: 'Selectioner une tache a supprimer',
+            inputPlaceholder: 'Selectioner une fermier a supprimer',
             showDenyButton: true,
             position:'top-start',
             confirmButtonText: `Supprimer`,
             denyButtonText: `Non`,
             inputValidator: (value) => {
-              idtache=value;
+              idfermier=value;
             }
           }).then((result) => {
             if (result.isConfirmed) {
-              handledelete(idtache,iduser);
+              handledelete(idfermier,iduser);
             }else{
               Swal.fire({title:"Vous Avez Annuler la Supprision",
               position:'bottom-end'});
@@ -192,7 +207,7 @@ if (UT.length>0){
           });
     }
 
-    function handleValider(idtache,iduser){
+    function handleValider(idfermier,iduser){
       Swal.fire({
           title: "Vous etez sur?",
           text: "Veuillez Vérifier vos besoin avant de envoyé ",
@@ -202,12 +217,12 @@ if (UT.length>0){
           denyButtonText: `Non`,
         }).then((result) => {
           if (result.isConfirmed) {
-            console.log(idtache);
+            console.log(idfermier);
             axios
-              //.put("http://localhost:4000/taches/ValiderTache/"+idtache,{iduser:iduser})
-              .put("http://143.110.210.169:4000/taches/ValiderTache/"+idtache,{iduser:iduser})
+              //.put("http://localhost:4000/fermiers/ValiderFermier/"+idfermier,{iduser:iduser})
+              .put("http://143.110.210.169:4000/fermiers/ValiderFermier/"+idfermier,{iduser:iduser})
               .then((res) => {
-                Swal.fire("Success", "Vous avez valider cette tache :) ", "success");
+                Swal.fire("Success", "Vous avez valider cette fermier :) ", "success");
                 console.log(res.data);
               })
               .catch((err) => {
@@ -220,10 +235,10 @@ if (UT.length>0){
         });
     }
     function Valider(iduser){
-      let idtache="";
+      let idfermier="";
       let ValueList="";
-       // axios.get("http://localhost:4000/usertaches/listtaches/"+iduser)
-        axios.get("http://143.110.210.169:4000/usertaches/listtaches/"+iduser)
+       // axios.get("http://localhost:4000/userfermiers/listfermiers/"+iduser)
+        axios.get("http://143.110.210.169:4000/userfermiers/listfermiers/"+iduser)
         .then(res=>{
             setUT(res.data);
             setIsLoading(false);
@@ -231,29 +246,29 @@ if (UT.length>0){
         .catch(err=>console.log)
     if (UT.length>0){
        ValueList=UT.reduce((a, c) => {
-        a[c.idtache] = taches.find((tache)=>{
-          if(tache._id == c.idtache){
-            return tache.Nom;
+        a[c.idfermier] = fermiers.find((fermier)=>{
+          if(fermier._id == c.idfermier){
+            return fermier.Nom;
           }
         })
         return a
        }, {});
     }
         Swal.fire({
-                title: 'Valider Une Tache',
+                title: 'Valider Une Fermier',
                 input: 'select',
                 position:'top-start',
                 inputOptions: {ValueList},
-                inputPlaceholder: 'Selectioner une tache a Valider',
+                inputPlaceholder: 'Selectioner une fermier a Valider',
                 showDenyButton: true,
                 confirmButtonText: `Valider`,
                 denyButtonText: `Non`,
                 inputValidator: (value) => {
-                  idtache=value;
+                  idfermier=value;
                 }
               }).then((result) => {
                 if (result.isConfirmed) {
-                  handleValider(idtache,iduser);
+                  handleValider(idfermier,iduser);
                 }else{
                     Swal.fire({title:"Vous Avez Annuler la Validation",
                     position:'bottom-end'});
@@ -262,7 +277,7 @@ if (UT.length>0){
         }
 
 
-    const UsersTaches = isLoading ? (
+    const UsersFermiers = isLoading ? (
       <div class="loader">
       <div class="dot">L</div>
       <div class="dot">O</div>
@@ -319,33 +334,53 @@ if (UT.length>0){
         <h3>Vide</h3>
       );
     return (
-        <div Style="font-family: 'poppins', sans-serif;">
-        <SideBar />
-        <div className="content-body" >
-          <div className="container-fluid">
-            <div className="page-titles">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                  <a href="javascript:void(0)">Affecter Tache</a>
-                </li>
-              </ol>
-            </div>
-            <div className="form-head d-flex mb-4 mb-md-5 align-items-start">
-        <div className="input-group search-area d-inline-flex">
-          <div className="input-group-append">
-            <span className="input-group-text">
-              <i className="flaticon-381-search-2"></i>
-            </span>
+      <div Style="font-family: 'poppins', sans-serif;">
+      <SideBar />
+      <div className="content-body">
+        <div className="container-fluid">
+          <div className="page-titles">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+              <div class="toggle-sidebar" checked="checked"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>  <a href="javascript:void(0)"><strong>Affecter Des Femiers</strong></a></div>
+              
+              </li>
+            </ol>
           </div>
-          <input type="text" className="form-control" placeholder="Rechercher un utilisateur.." id="ValeurRechercheAffecter" onChange={handleChange}/>&nbsp;
 
-        </div>
-      </div>
-     
-      <div className="row" ><div className="hero-container">{UsersTaches} </div></div>
+          <div className="card-body">
+            <div className="basic-form">
+              <form>
+                <div className="form-row">
+
+                  <div className="form-group col-md-6">
+              <label><strong>Choisire Fermier : </strong></label><br></br>
+              <select class="dropdown bootstrap-select show-tick form-control col-md-6 " id={"Fermier"}
+                      name={"Fermier"}>
+
+              {FermiersList}
+</select>
+            </div> 
+            <div className="form-group col-md-6">
+              <label><strong>Choisire Farm :</strong></label><br></br>
+              <select class="dropdown bootstrap-select show-tick form-control col-md-6 " id={"Farm"}
+                      name={"Farm"}>
+
+              {FarmsList}
+</select>
+            </div>
+              
+                  
+                </div>
+                
+              </form>
+              <button className="btn btn-primary" onClick={handleValider}>
+              <strong><i className="fa fa-plus-square"></i> Affecter Fermier</strong>
+              </button>
+            </div>
           </div>
         </div>
       </div>
+    </div>
 
     );
 }

@@ -129,6 +129,7 @@ export default function Fermiers() {
               <td>{Fermier.gender}</td>
               <td>{Fermier.dateJoin}</td>
               <td>{Fermier.dateOff}</td>
+              <td>{Fermier.birthday}</td>
               <td>
                 <div className="d-flex">
                   <Link
@@ -285,6 +286,9 @@ function TriePoints(e){
                 </th>
                 <th>
                   <strong>Date Fin</strong>
+                </th>
+                <th>
+                  <strong>Date Naissance</strong>
                 </th>
               </tr>
             </thead> 

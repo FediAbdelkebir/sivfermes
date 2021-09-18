@@ -17,65 +17,66 @@ export default function SideBar() {
               
             <div className="deznav-scroll">
 				<ul className="metismenu" id="menu">
+                <li><a className="has-arrow ai-icon"  aria-expanded="false">
+                    <i className="fa fa-building" Style="color:#0d6efd;"></i>
+							<span className="nav-text" Style="color:black;"><strong>Farm</strong></span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><Link to={`/AjouterFermes`}><i className="fa fa-plus" Style="color:#0d6efd;"></i>Ajouter Fermes</Link></li>
+                            <li><Link to={`/Fermes`}><i className="fa fa-list" Style="color:#0d6efd;"></i>Lister Fermes</Link></li>
+                            <li><Link to={`/AffecterFermier`}><i className="fa fa-tasks" Style="color:#0d6efd;"></i>Affecter Fermier</Link></li>
+                        </ul>
+                    </li>
                     
                 <li><a className="has-arrow ai-icon"  aria-expanded="false">
-                <i className="fa fa-seedling"></i>
-							<span className="nav-text">Fermier</span>
+                <i className="fa fa-user" Style="color:#f06a53;"></i>
+							<span className="nav-text" Style="color:black;"><strong>Fermier</strong></span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><Link to={`/AjouterFermier`}><i className="fa fa-plus"></i>Ajouter Fermier</Link></li>
-                            <li><Link to={`/Fermiers`}><i className="fa fa-list"></i>Lister Fermier</Link></li>
+                            <li><Link to={`/AjouterFermier`}><i className="fa fa-plus" Style="color:#f06a53;"></i>Ajouter Fermier</Link></li>
+                            <li><Link to={`/Fermiers`}><i className="fa fa-list" Style="color:#f06a53;"></i>Lister Fermier</Link></li>
+                            
+                        </ul>
+                    </li>
+                   
+                    <li><a className="has-arrow ai-icon"  aria-expanded="false">
+                    <i className="fa fa-cubes" Style="color:#6c1d27;"></i>
+							<span className="nav-text" Style="color:black;"><strong>Stock</strong></span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><Link to={`/AjouterStock`}><i className="fa fa-plus" Style="color:#6c1d27;"></i>Ajouter Stock</Link></li>
+                            <li><Link to={`/Stocks`}><i className="fa fa-list" Style="color:#6c1d27;"></i>Lister Stock</Link></li>
                             
                         </ul>
                     </li>
                     <li><a className="has-arrow ai-icon"  aria-expanded="false">
-                    <i className="fa fa-building"></i>
-							<span className="nav-text">Fermes</span>
+                    <i className="fa fa-group" Style="color:#c4583b;"></i>
+							<span className="nav-text" Style="color:black;"><strong>Catégorie-Stock</strong></span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><Link to={`/AjouterFermes`}><i className="fa fa-plus"></i>Ajouter Fermes</Link></li>
-                            <li><Link to={`/Fermes`}><i className="fa fa-list"></i>Lister Fermes</Link></li>
-                            <li><Link to={`/AffecterFermier`}><i className="fa fa-tasks"></i>Affecter Fermier</Link></li>
-                        </ul>
-                    </li>
-                    <li><a className="has-arrow ai-icon"  aria-expanded="false">
-                    <i className="fa fa-cubes"></i>
-							<span className="nav-text">Stock</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><Link to={`/AjouterStock`}><i className="fa fa-plus"></i>Ajouter Stock</Link></li>
-                            <li><Link to={`/Stocks`}><i className="fa fa-list"></i>Lister Stock</Link></li>
+                            <li><Link to={`/AjouterCategorieStock`}><i className="fa fa-plus" Style="color:#c4583b;"></i>Ajouter Catégorie-Stock</Link></li>
+                            <li><Link to={`/CategorieStocks`}><i className="fa fa-list" Style="color:#c4583b;"></i>Lister Catégorie-Stock</Link></li>
                             
                         </ul>
                     </li>
                     <li><a className="has-arrow ai-icon"  aria-expanded="false">
-                    <i className="fa fa-layer-group"></i>
-							<span className="nav-text">Catégorie-Stock</span>
+                    <i className="fa fa-paw" Style="color:#6418c3;"></i>
+							<span className="nav-text" Style="color:black;"><strong>Vaches</strong></span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><Link to={`/AjouterCategorieStock`}><i className="fa fa-plus"></i>Ajouter Catégorie-Stock</Link></li>
-                            <li><Link to={`/CategorieStocks`}><i className="fa fa-list"></i>Lister Catégorie-Stock</Link></li>
-                            
-                        </ul>
-                    </li>
-                    <li><a className="has-arrow ai-icon"  aria-expanded="false">
-                    <i className="fa fa-hat-cowboy-side"></i>
-							<span className="nav-text">Vaches</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><Link to={`/AjouterVache`}><i className="fa fa-plus"></i>Ajouter Vaches</Link></li>
-                            <li><Link to={`/Vaches`}><i className="fa fa-list"></i>Lister Vaches</Link></li>
+                            <li><Link to={`/AjouterVache`}><i className="fa fa-plus" Style="color:#6418c3;"></i>Ajouter Vaches</Link></li>
+                            <li><Link to={`/Vaches`}><i className="fa fa-list" Style="color:#6418c3;"></i>Lister Vaches</Link></li>
                             
                         </ul>
                     </li>
 
                     <li><a className="has-arrow ai-icon "  aria-expanded="false">
-                    <i className="fa fa-horse-head"></i>
-							<span className="nav-text">Veaux</span>
+                    <i className="fa fa-paw" Style="color:#dc3ccc;"></i>
+							<span className="nav-text" Style="color:black;"><strong>Veaux</strong></span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><Link to={`/AjouterVeaux`}><i className="fa fa-plus"></i>Ajouter Veaux</Link></li>
-                            <li><Link to={`/Veaux`}><i className="fa fa-list"></i>Lister Veaux</Link></li>
+                            <li><Link to={`/AjouterVeaux`}><i className="fa fa-plus" Style="color:#dc3ccc;"></i>Ajouter Veaux</Link></li>
+                            <li><Link to={`/Veaux`}><i className="fa fa-list" Style="color:#dc3ccc;"></i>Lister Veaux</Link></li>
                             
                         </ul>
                     </li>

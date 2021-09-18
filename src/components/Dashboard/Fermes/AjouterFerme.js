@@ -9,15 +9,17 @@ import { useHistory } from "react-router-dom";
 export default function AjouterFerme() {
   let history = useHistory();
   const [Ferme, setFerme] = useState({
-    Nom: "",
-    Code: "",
-    SUPAD: "",
+    name: "",
+    adress: "",
+    description: "",
+    numtel:"",
+    manager:""
   });
   const [users,setUsers]=useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(()=>{
     //axios.get("http://localhost:4000/users")
-    axios.get("http://143.110.210.169:4000/users")
+    axios.get("http://localhost:8187/api/employees/list")
     .then(res=>{
         setUsers(res.data);
         setIsLoading(false);
@@ -40,21 +42,14 @@ export default function AjouterFerme() {
     });
   };
 function Verif(){
-  if((document.getElementById("NomFerme").value=="")||(document.getElementById("CodeFerme").value=="")||(document.getElementById("SUPAD").value=="")){
+  if((document.getElementById("nameFerme").value=="")||(document.getElementById("AdressFerme").value=="")||(document.getElementById("Manager").value=="")||(document.getElementById("numtel").value=="")){
 return false
   }
   else{
     return true
   }     
 }
-function GenerateCode(e){
-  e.preventDefault();
-        var uuid = require("uuid");
-  var id = uuid.v4();
-  document.getElementById("CodeFerme").value=id;
-  document.getElementById("PlaceholderFermeCode").value=id;
-  console.log(id)
-      }
+
 
   const handleClick = (e) => {
     if(Verif()){
@@ -68,18 +63,24 @@ function GenerateCode(e){
     }).then((result) => {
       if (result.isConfirmed) {
         
-        Ferme.Nom = document.getElementById("NomFerme").value;
-        Ferme.Code = document.getElementById("CodeFerme").value;
-        Ferme.SUPAD = document.getElementById("SUPAD").value;
+        Ferme.name = document.getElementById("nameFerme").value;
+        Ferme.adress = document.getElementById("AdressFerme").value;
+        Ferme.manager = document.getElementById("Manager").value;
+        Ferme.description =document.getElementById("Descriptionferme").value;
+        Ferme.numtel= document.getElementById("numtel").value;
         console.log({ Ferme });
 
         e.preventDefault();
         axios
-          //.post("http://localhost:4000/fermes/create", {
-            .post("http://143.110.210.169:4000/fermes/create", {
-            Nom: Ferme.Nom,
-            Code: Ferme.Code,
-            SUPAD: Ferme.SUPAD,
+            .post("http://localhost:8187/api/farms/save", {
+            name: Ferme.name,
+            adress: Ferme.adress,
+            numtel: Ferme.numtel,
+            manager: Ferme.manager,
+            description: Ferme.description,
+            
+          },{
+            headers: {"Access-Control-Allow-Origin": "*"}
           })
           .then((res) => {
             Swal.fire("Success", "Votre Ferme a été créé :) ", "success");
@@ -107,50 +108,67 @@ function GenerateCode(e){
           <div className="page-titles">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <a href="javascript:void(0)">Ajouter Ferme</a>
+              <div class="toggle-sidebar" checked="checked"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>  <a href="javascript:void(0)"><strong>Ajouter Ferme</strong></a></div>
+              
               </li>
             </ol>
           </div>
 
-
-
-          
           <div className="card-body">
             <div className="basic-form">
               <form>
                 <div className="form-row">
                   <div className="form-group col-md-3">
-                    <label>Nom Ferme</label>
+                    <label><strong>Nom Ferme</strong></label>
                     <input
                       type="text"
                       className="form-control"
                       placeholder="Nom Complet De la Ferme"
                       type="text"
-                      id={"NomFerme"}
-                      name={"NomFerme"}
+                      id={"nameFerme"}
+                      name={"nameFerme"}
                     />
                   </div>
                   
                   <div class="form-group col-md-3">
-                                            <label>Code Ferme</label>
-                                            <button className="btn btn-primary form-control" onClick={GenerateCode} id={"CodeFerme"} name={"CodeFerme"} ><i className="fa fa-plus-square"></i> GenerateCode </button>
-                                            <input type="text" class="form-control" id={"PlaceholderFermeCode"}/>
+                                            <label><strong>Adress Ferme</strong></label>
+                                            <input type="text" class="form-control" id={"AdressFerme"} name={"AdressFerme"}placeholder="Adress Complete De la Ferme"/>
                                             </div>
                   
-                  
-                  <div className="form-group col-md-5">
-              <label>Super Admin</label><br></br>
-              <select class="dropdown bootstrap-select show-tick form-control col-md-5 " id={"SUPAD"}
-                      name={"SUPAD"}>
+                                            <div className="form-group col-md-2">
+                    <label><strong>Numero Téléphone</strong></label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Numero de Télephone"
+                     
+                      id={"numtel"}
+                      name={"numtel"}
+                    />
+                  </div>
+                  <div className="form-group col-md-4">
+              <label><strong>Manager</strong></label><br></br>
+              <select class="dropdown bootstrap-select show-tick form-control col-md-4 " id={"Manager"}
+                      name={"Manager"}>
+
               {SelectList}
 </select>
             </div> 
+            
+                  <div class="form-group col-md-9" >
+                                            <label><strong>Description detaillé de la ferme </strong></label>
+                                        <textarea class="form-control" rows="5" id="comment" placeholder="Description sur la ferme.."
+                                        id={"Descriptionferme"}
+                                        name={"Descriptionferme"}
+                                        ></textarea>
+                                        </div>
+                                        <br/>
                   
                 </div>
                 
               </form>
               <button className="btn btn-primary" onClick={handleClick}>
-              <i className="fa fa-plus-square"></i> Ajouter Ferme
+              <strong><i className="fa fa-plus-square"></i> Ajouter Ferme</strong>
               </button>
             </div>
           </div>

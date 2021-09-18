@@ -1,29 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import '../../vendor/bootstrap-select/dist/css/bootstrap-select.min.css';
-import '../../css/style.css';
-import SideBar from '../SideBar';
+import "../../vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
+import "../../css/style.css";
+import SideBar from "../SideBar";
 import Swal from "sweetalert2";
-export default function Ajouterfermier({history}) {
-    const [fermier, setFermier] = useState({
-        Nom: "",
-        Code: "",
-        Description: "",
-        Etat:"",
-        Responsable:"",
-        Points:"",
-      });
-      const handleChange = (e) => {
-        setFermier({
-            fermier,
-          [e.target.id]: e.target.value,
-        });
-      };
-      const [users,setUsers]=useState([]);
-      const [isLoading, setIsLoading] = useState(true);
+import { useHistory } from "react-router-dom";
+
+export default function AjouterFermier() {
+  
+  let history = useHistory();
+  const [Fermier, setFermier] = useState({
+    name: "",
+    adress: "",
+    birthdate:"",
+    email:"",
+    dateJoin:"",
+    dateOff:"",
+    image:""
+  });
+  const [users,setUsers]=useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(()=>{
     //axios.get("http://localhost:4000/users")
-    axios.get("http://143.110.210.169:4000/users")
+    axios.get("http://localhost:8187/api/employees/list")
     .then(res=>{
         setUsers(res.data);
         setIsLoading(false);
@@ -31,157 +30,185 @@ export default function Ajouterfermier({history}) {
     .catch(err=>console.log)
 }, []);
 
-const SelectList = isLoading ? <option>Chargements des utilisateurs ...</option> : users.length ? (
-  users
-      .map(user=>{
-          return(
-            <option selected>{user.name}</option>
-          )
-      })
-  ): <h3>Aucun Utilisateur Trouvé !</h3>;
-    function Verif(){
-      if ((document.getElementById("Nomfermier").value=="")||(document.getElementById("Codefermier").value=="")||
-      (document.getElementById("Descriptionfermier").value=="")||(document.getElementById("Pointsfermier").value=="")){
-        return false;
-      }else{
-        return true;
-      }
+   const SelectList = isLoading ? <option>Chargements des utilisateurs ...</option> : users.length ? (
+    users
+        .map(user=>{
+            return(
+              <option selected>{user.name}</option>
+            )
+        })
+    ): <h3>Aucun Utilisateur Trouvé !</h3>;
+  const handleChange = (e) => {
+    setFermier({
+      Fermier,
+      [e.target.id]: e.target.value,
+    });
+  };
+function Verif(){
+  if((document.getElementById("nameFermier").value=="")||(document.getElementById("AdressFermier").value=="")||(document.getElementById("Email").value=="")||(document.getElementById("birthdate").value=="")||(document.getElementById("dateJoin").value=="")||(document.getElementById("dateOff").value=="")||(document.getElementById("image").value=="")){
+return false
+  }
+  else{
+    return true
+  }     
+}
 
-    };
-    function GenerateCode(e){
-e.preventDefault();
-      var uuid = require("uuid");
-var id = uuid.v4();
-document.getElementById("Codefermier").value=id;
-document.getElementById("Placeholder").value=id;
-console.log(id)
-    }
-      const handleClick = (e) => {
-        if (Verif()){
-        Swal.fire({
-          title: "Vous etez sur?",
-          text: "Veuillez Vérifier vos besoin avant de envoyé ",
-          icon: "warning",
-          showDenyButton: true,
-          confirmButtonText: `Ajouter`,
-          denyButtonText: `Non`,
-        }).then((result) => {
-          if (result.isConfirmed) {
+
+  const handleClick = (e) => {
+    if(Verif()){
+    Swal.fire({
+      title: "Vous etez sur?",
+      text: "Veuillez Vérifier vos besoin avant de envoyé ",
+      icon: "warning",
+      showDenyButton: true,
+      confirmButtonText: `Ajouter`,
+      denyButtonText: `Non`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
+        Fermier.name = document.getElementById("nameFermier").value;
+        Fermier.adress = document.getElementById("AdressFermier").value;
+        Fermier.email = document.getElementById("Email").value;
+        Fermier.birthdate= document.getElementById("birthdate").value;
+        Fermier.dateJoin=document.getElementById("dateJoin").value;
+        Fermier.dateOff=document.getElementById("dateOff").value;
+        Fermier.image=document.getElementById("image").value;
+        console.log({ Fermier });
+
+        e.preventDefault();
+        axios
+            .post("http://localhost:8187/api/farms/save", {
+            name: Fermier.name,
+            adress: Fermier.adress,
+            birthdate: Fermier.birthdate,
+            email: Fermier.email,
+            dateJoin:Fermier.dateJoin,
+            dateOff:Fermier.dateOff,
+            image:Fermier.image
             
-            fermier.Nom = document.getElementById("Nomfermier").value;
-            fermier.Code = document.getElementById("Codefermier").value;
-            fermier.Description = document.getElementById("Descriptionfermier").value;
-            fermier.Etat = "En Cours";
-            fermier.Points = document.getElementById("Pointsfermier").value;
-            fermier.Responsable = document.getElementById("Responsablefermier").value;;
-            console.log({ fermier });
-    
-            e.preventDefault();
-            axios
-              //.post("http://localhost:4000/fermiers/createfermier", {
-                .post("/api/employees/save", {
-                Nom: fermier.Nom,
-                Code: fermier.Code,
-                Description: fermier.Description,
-                Etat: fermier.Etat,
-                Points:fermier.Points,
-                Responsable:fermier.Responsable,
-              })
-              .then((res) => {
-                Swal.fire("Success", "Votre fermier a été créé :) ", "success");
-                console.log(res.data);
-                history.push("/fermiers");
-              })
-              .catch((err) => {
-                Swal.fire("Ooops", "Une Erreur au niveau de l'insertion ", "error");
-                console.error(err);
-              });
-          } else {
-            Swal.fire("Annulé", "Vous Avez Annulé l'ajout d'une fermier.", "error");
-          }
-        });
-      }else{
-        Swal.fire("Erreur", "Veuillez remplire tous les champs", "error");
+          },{
+            headers: {"Access-Control-Allow-Origin": "*"}
+          })
+          .then((res) => {
+            Swal.fire("Success", "Votre Fermier a été créé :) ", "success");
+            console.log(res.data);
+            history.push("/fermiers");
+          })
+          .catch((err) => {
+            Swal.fire("Ooops", "Une Erreur au niveau de l'insertion ", "error");
+            console.error(err);
+          });
+      } else {
+        Swal.fire("Annulé", "Vous Avez Annulé l'ajout d'une Fermier.", "error");
       }
-      };
+    });
+  }else{
+    Swal.fire("Erreur", "Veuillez remplire tous les champs .", "error");
+  }
+  };
+  
+  return (
+    <div Style="font-family: 'poppins', sans-serif;">
+      <SideBar />
+      <div className="content-body">
+        <div className="container-fluid">
+          <div className="page-titles">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+              <div class="toggle-sidebar" checked="checked"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>  <a href="javascript:void(0)"><strong>Ajouter Fermier</strong></a></div>
+              
+              </li>
+            </ol>
+          </div>
 
-    return (
-<div Style="font-family: 'poppins', sans-serif;">
-  <SideBar />
-  <div class="content-body">
-    <div class="container-fluid">
-      <div class="page-titles">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="javascript:void(0)">Ajouter fermiers</a>
-          </li>
-        </ol>
-      </div>
-      <div class="card-body">
-                                <div class="basic-form">
-                                    <form>
+          <div className="card-body">
+            <div className="basic-form">
+              <form>
+                <div className="form-row">
+                  <div className="form-group col-md-3">
+                    <label><strong>Nom Fermier</strong></label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Nom Complet De la Fermier"
+                      type="text"
+                      id={"nameFermier"}
+                      name={"nameFermier"}
+                    />
+                  </div>
+                  
+                  <div class="form-group col-md-3">
+                                            <label><strong>Adress Fermier</strong></label>
+                                            <input type="text" class="form-control" id={"AdressFermier"} name={"AdressFermier"}placeholder="Adress Complete De la Fermier"/>
+                                            </div>
+                  
+                                            <div className="form-group col-md-2">
+                    <label><strong>Date Naissance</strong></label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      placeholder="Date Naissance"
+                     
+                      id={"birthdate"}
+                      name={"birthdate"}
+                    />
+                  </div>
+                  <div className="form-group col-md-3">
+              <label><strong>Email</strong></label><br></br>
+              <input
+                      type="email"
+                      className="form-control"
+                      placeholder="Adress E-mail"
+                     
+                      id={"Email"}
+                      name={"Email"}
+                    />
+            </div> 
+            
+            <div className="form-group col-md-2">
+                    <label><strong>Date Debut :</strong></label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      placeholder="Date Debut Contract"
+                     
+                      id={"dateJoin"}
+                      name={"dateJoin"}
+                    />
+                  </div>
+                  <div className="form-group col-md-2">
+                    <label><strong>Date Fin :</strong></label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      placeholder="Date Fin Contract"
+                     
+                      id={"dateOff"}
+                      name={"dateOff"}
+                    />
+                  </div>
+                  <div class="basic-form custom_file_input col-md-3">
+                  <div class="form-group mb-3">
+                  <label><strong>Choisire Image :</strong></label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id={"image"}/>
+                                                <label class="custom-file-label">Veuillez Choisire une Image</label>
+                                            </div>
+                                        </div>
+                    </div>
 
-                                        <div class="form-row">
-                                            <div class="form-group col-md-3">
-                                                <label>Nom fermier</label>
-                                                <input type="text" class="form-control" placeholder="Nom Complet De la fermier"
-                                                                      id={"Nomfermier"}
-                                                                      name={"Nomfermier"}
-                                                />
-                                            </div>
-                                            
-                                            <div class="form-group col-md-3">
-                                            <label>Code fermier</label>
-                                            <button className="btn btn-primary form-control" onClick={GenerateCode} id={"Codefermier"} name={"Codefermier"} ><i className="fa fa-plus-square"></i> GenerateCode </button>
-                                            <input type="text" class="form-control" id={"Placeholder"}readOnly="true"/>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                            <label>Nombre de Points </label>
-                                            <input type="text" class="form-control"
-                                             id={"Pointsfermier"}
-                                             name={"Pointsfermier"}
-                                             placeholder="Nombre de points"
-                                            />
-                                            </div>
-                                            <div className="form-group col-md-5">
-              <label>Responsable </label><br></br>
-              <select class="dropdown bootstrap-select show-tick form-control col-md-5 " id={"Responsablefermier"}
-                      name={"Responsablefermier"}>
-              {SelectList}
-</select>
+                                        <br/>
+                  
+                </div>
+                
+              </form>
+              <button className="btn btn-primary" onClick={handleClick}>
+              <strong><i className="fa fa-plus-square"></i> Ajouter Fermier</strong>
+              </button>
             </div>
-                                            
-                                            
-                                            <div class="form-group col-md-9" >
-                                            <label>Description detaillé de la fermier </label>
-                                        <textarea class="form-control" rows="5" id="comment" placeholder="Description sur la fermier.."
-                                        id={"Descriptionfermier"}
-                                        name={"Descriptionfermier"}
-                                        ></textarea>
-                                        </div>
-                                        
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"/>
-                                                <label class="form-check-label">
-                                                    Send Mail 
-                                                </label>
-                                            </div>
-                                        </div>
-                                        
-                                        
-                                    </form>
-                                    <button className="btn btn-primary" onClick={handleClick}><i className="fa fa-plus-square"></i> Ajouter fermier</button>
-                                    
-                                </div>
-                            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
- 
-</div>
-
-      
-    );
+  );
 }

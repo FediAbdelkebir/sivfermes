@@ -21,7 +21,7 @@ import Veaux from "./components/Dashboard/Veaux/Veaux";
 import ModifierVeaux from "./components/Dashboard/Veaux/ModifierVeaux";
 function App(props) {
     return (
-        <div className="App">
+        <div className="App" Style="letter-spacing: 0.7px;font-family: Roboto;text-transform: capitalize;">
             <Switch>
                 <Route exact={true} path={"/"} render={(props)=><Fermier {...props} />} />
                 <Route path={"/AffecterFermier"} render={(props)=><AffecterFermier {...props} />} />

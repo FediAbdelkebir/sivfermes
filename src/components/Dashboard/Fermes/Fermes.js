@@ -17,8 +17,7 @@ export default function Fermes() {
         var keyword = document.getElementById("ValeurRechercheFermes").value;
         if (keyword.length<1){
           console.log("Fergha");
-          axios.get("http://143.110.210.169:4000/fermes/")
-          //axios.get("http://localhost:4000/fermes/")
+          axios.get("http://localhost:8187/api/farms/list1")
         .then(res=>{
             setFermes(res.data);
             setIsLoading(false);
@@ -27,7 +26,7 @@ export default function Fermes() {
         }else{
         var filtered_ferme = fermes;
 
-          filtered_ferme=fermes.filter(ferme=>ferme.Nom.toLowerCase().includes(keyword.toLowerCase()));
+          filtered_ferme=fermes.filter(ferme=>ferme.name.toLowerCase().includes(keyword.toLowerCase()));
           setFermes(filtered_ferme);
         }
         
@@ -44,8 +43,8 @@ export default function Fermes() {
         denyButtonText: `Non, Annuler`,
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete("http://143.110.210.169:4000/fermes/"+id);
-         // axios.delete("http://localhost:4000/fermes/"+id);
+          axios.delete("http://localhost:8187/api/farms/"+id);
+         
           Swal.fire("Success", "Votre tache a été Modifié :) ", "success");
         } else {
           Swal.fire(
@@ -58,32 +57,11 @@ export default function Fermes() {
 
       
     };
-    const deleteall = (id) => {
-      Swal.fire({
-        title: "Vous etez sur?",
-        text: "Veuillez Vérifier vos besoin avant de envoyé ",
-        icon: "warning",
-        showDenyButton: true,
-        confirmButtonText: `Oui, Supprimer`,
-        denyButtonText: `Non, Annuler`,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axios.delete("http://143.110.210.169:4000/fermes/"+id);
-          //axios.delete("http://localhost:4000/fermes/"+id);
-          Swal.fire("Success", "fermes Supprimé :) ", "success");
-        } else {
-          Swal.fire(
-            "Annulé",
-            "Vous Avez Annulé la suppresion de ces fermes.",
-            "error"
-          );
-        }
-      });
-    }
+    
 
     useEffect(()=>{
-      axios.get("http://143.110.210.169:4000/fermes/")
-        //axios.get("http://localhost:4000/fermes/")
+    
+        axios.get("http://localhost:8187/api/farms/list1")
         .then(res=>{
             setFermes(res.data);
             setIsLoading(false);
@@ -136,15 +114,15 @@ function TrieResponsable(e){
         fermes
         .map(ferme=>{
             return(
-                    <tr key={ferme._id} id="RechercheFermes">
+                    <tr key={ferme.idFerme} id="RechercheFermes">
                 <td>
-                  <div className="custom-control custom-checkbox checkbox-success check-lg mr-3" name={ferme._id}>
+                  <div className="custom-control custom-checkbox checkbox-success check-lg mr-3" name={ferme.idFerme}>
                     <input
                       type="checkbox"
                       className="custom-control-input"
-                      id={ferme._id}
+                      id={ferme.idFerme}
                       required=""
-                      name={ferme._id}
+                      name={ferme.idFerme}
                     />
                     <label
                       className="custom-control-label"
@@ -161,20 +139,42 @@ function TrieResponsable(e){
                       alt=""
                       width="24"
                     />
-                    <span className="w-space-no">{ferme.Nom}</span>
+                    <span className="w-space-no">{ferme.name}</span>
+                  </div>
+                </td>
+                <td>
+                  <div className="d-flex align-items-center">
+                    <img
+                      src="images/avatar/1.jpg"
+                      className="rounded-lg mr-2"
+                      alt=""
+                      width="24"
+                    />
+                    <span className="w-space-no">{ferme.manager}</span>
+                  </div>
+                </td>
+                <td>
+                  <div className="d-flex align-items-center">
+                    <img
+                      src="images/avatar/1.jpg"
+                      className="rounded-lg mr-2"
+                      alt=""
+                      width="24"
+                    />
+                    <span className="w-space-no">{ferme.numTel}</span>
                   </div>
                 </td>
                 
-                <td>{ferme.SUPAD}</td>
+                
                 <td>
                   <div className="d-flex">
                     <Link
-                      to={`/ModifierSociete/`+ferme._id}
+                      to={`/ModifierFerme/`+ferme.idFerme}
                       className="btn btn-primary shadow btn-xs sharp mr-1"
                     >
                       <i className="fa fa-pencil"></i>
                     </Link>
-                    <a href="#" onClick={(e) =>deletesociete(ferme._id, e)} className="btn btn-danger shadow btn-xs sharp">
+                    <a href="#" onClick={(e) =>deletesociete(ferme.idFerme, e)} className="btn btn-danger shadow btn-xs sharp">
                       <i className="fa fa-trash"></i>
                       </a>
                   </div>
@@ -195,32 +195,6 @@ function TrieResponsable(e){
           </li>
         </ol>
       </div>
-      <div className="row">
-      <div className="col-xl-3 col-lg-6 col-sm-6">
-						<div className="widget-stat card">
-							<div className="card-body p-4">
-								<h4 className="card-title">Total fermes</h4>
-								<h3>{fermes.length}</h3>
-								<div className="progress mb-2">
-									<div className="progress-bar progress-animated bg-primary" Style="width: 80%"></div>
-								</div>
-								<small>80% Increase in 20 Days</small>
-							</div>
-						</div>
-                    </div>
-        <div className="col-xl-3 col-lg-6 col-sm-6">
-						<div className="widget-stat card">
-							<div className="card-body p-4">
-								<h4 className="card-title">Nouveaux fermes</h4>
-								<h3>{fermes.length}</h3>
-								<div className="progress mb-2">
-									<div className="progress-bar progress-animated bg-warning" Style="width: 50%"></div>
-								</div>
-								<small>50% Increase in 25 Days</small>
-							</div>
-						</div>
-                    </div>
-        </div>
       <div className="form-head d-flex mb-4 mb-md-5 align-items-start">
         <div className="input-group search-area d-inline-flex">
           <div className="input-group-append">
@@ -259,7 +233,13 @@ function TrieResponsable(e){
                 </th>
                 
                 <th>
-                  <strong>Responsable</strong>
+                  <strong>Manager</strong>
+                </th>
+                <th>
+                  <strong>Numero Télephone</strong>
+                </th>
+                <th>
+                  <strong>Gestion</strong>
                 </th>
               </tr>
             </thead>
@@ -273,7 +253,7 @@ function TrieResponsable(e){
           <div className="input-group-append">
           </div>
         </div>
-        <a href="#" className="btn btn-danger ml-auto" onClick={deleteall}><i className="fa fa-trash"></i> Delete Selected items</a>
+        
       </div>
 
     </div>

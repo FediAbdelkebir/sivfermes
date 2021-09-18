@@ -25,8 +25,7 @@ const [Fermes,setFermes]=useState([]);
   const [users,setUsers]=useState([]);
   
   useEffect(()=>{
-    //axios.get("http://localhost:4000/users")
-    axios.get("http://143.110.210.169:4000/users")
+    axios.get("http://localhost:8187/api/employees/list")
     .then(res=>{
         setUsers(res.data);
         setIsLoading(false);
@@ -44,19 +43,13 @@ const [Fermes,setFermes]=useState([]);
         })
     ): <h3>Aucun Utilisateur Trouvé !</h3>;
 
-    function GenerateCode(e){
-      e.preventDefault();
-            var uuid = require("uuid");
-      var id = uuid.v4();
-      document.getElementById("NouveauCodeFerme").value=id;
-      document.getElementById("PlaceholderFermeCode").value=id;
-      console.log(id)
-          }
-
   const handleClick = (e) => {
-    Ferme.Nom = document.getElementById("NouveauNomFerme").value;
-    Ferme.Code = document.getElementById("NouveauCodeFerme").value;
-    Ferme.SUPAD = document.getElementById("NouveauSUPAD").value;
+
+    Ferme.name = document.getElementById("NouveauNomFerme").value;
+    Ferme.adress = document.getElementById("NouveauCodeFerme").value;
+    Ferme.manager = document.getElementById("NouveauSUPAD").value;
+    Ferme.description =document.getElementById("Descriptionferme").value;
+    Ferme.numtel= document.getElementById("numtel").value;
     console.log({ Ferme });
 
     Swal.fire({
@@ -74,10 +67,13 @@ const [Fermes,setFermes]=useState([]);
         
         axios
           //.put("http://localhost:4000/Fermes/UpdateFerme/"+props.id, {
-            .put("http://143.110.210.169:4000/Fermes/UpdateFerme/"+props.id, {
-            Nom: Ferme.Nom,
-            Code: Ferme.Code,
-            SUPAD: Ferme.SUPAD,
+            .put("http://localhost:8187/api/farms/"+props.id, {
+              idFerme:Ferme.idFerme,
+              name: Ferme.name,
+              adress: Ferme.adress,
+              numtel: Ferme.numtel,
+              manager: Ferme.manager,
+              description: Ferme.description,
           })
           .then((res) => {
             console.log(res.data);
@@ -95,10 +91,11 @@ const [Fermes,setFermes]=useState([]);
 
 
     useEffect(()=>{
-        //axios.get("http://localhost:4000/Fermes/"+props.id)
-        axios.get("http://143.110.210.169:4000/Fermes/"+props.id)
+
+        axios.get("http://localhost:8187/api/farms/one/"+props.id)
         .then(res=>{
             setFermes(res.data);
+            console.log(Fermes);
             setIsLoading(false);
         })
         .catch(err=>console.log)
@@ -135,7 +132,7 @@ const [Fermes,setFermes]=useState([]);
   </div> : Fermes.length ? (
         Fermes.map(Ferme=>{
             return(
-                <div className="content-body"  key={Ferme._id}>
+                <div className="content-body"  key={Ferme.idFerme}>
                 <div className="container-fluid">
                   <div className="page-titles">
                     <ol className="breadcrumb">
@@ -149,7 +146,7 @@ const [Fermes,setFermes]=useState([]);
                       <form>
                         <div className="form-row">
                           <div className="form-group col-md-3">
-                            <label>Nom Ferme :</label>
+                            <label>Nouvelle Nom Ferme :</label>
                             <input
                               type="text"
                               className="form-control"
@@ -157,25 +154,44 @@ const [Fermes,setFermes]=useState([]);
                               type="text"
                               id={"NouveauNomFerme"}
                               name={"NouveauNomFerme"}
-                              defaultValue={Ferme.Nom}
+                              defaultValue={Ferme.name}
                               onChange={handleChange}
                             />
                           </div>
                           <div class="form-group col-md-3">
-                          <label>Génerer Automatiquement Code Tache :</label>
-                          <button className="btn btn-primary form-control" onClick={GenerateCode} id={"NouveauCodeFerme"} name={"NouveauCodeFerme"} onChange={handleChange}><i className="fa fa-plus-square"></i> Génerer Code </button><br/>Génerer Manuellement :
-                          <input type="text" class="form-control" id={"PlaceholderFermeCode"}defaultValue={Ferme.Code}/>
+                          <label>Nouvelle Adress Ferme</label>
+                          <input type="text" class="form-control" id={"PlaceholderFermeCode"}defaultValue={Ferme.adress}/>
                            </div>
 
 
-                         
+                           <div className="form-group col-md-2">
+                    <label>Numero Téléphone</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Numero de Télephone"
+                     
+                      id={"numtel"}
+                      name={"numtel"}
+                      defaultValue={Ferme.numTel}
+                    />
+                  </div>
                           <div className="form-group col-md-5">
-              <label>Super Admin :</label><br></br>
+              <label>Nouveaux Manager</label><br></br>
               <select class="dropdown bootstrap-select show-tick form-control col-md-5 " id={"NouveauSUPAD"}
                       name={"NouveauSUPAD"}>
               {SelectList}
 </select>
             </div> 
+            <div class="form-group col-md-9" >
+                                            <label>Nouvelle Description detaillé de la ferme </label>
+                                        <textarea class="form-control" rows="5" id="comment" placeholder="Description sur la ferme.."
+                                        id={"Descriptionferme"}
+                                        name={"Descriptionferme"}
+                                        defaultValue={Ferme.description}
+                                        ></textarea>
+                                        </div>
+                                        <br/>
                         </div>
                       </form>
                       <button className="btn btn-primary" onClick={handleClick}>
