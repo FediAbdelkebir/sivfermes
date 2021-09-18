@@ -195,32 +195,7 @@ function TrieResponsable(e){
           </li>
         </ol>
       </div>
-      <div className="row">
-      <div className="col-xl-3 col-lg-6 col-sm-6">
-						<div className="widget-stat card">
-							<div className="card-body p-4">
-								<h4 className="card-title">Total veauxs</h4>
-								<h3>{veauxs.length}</h3>
-								<div className="progress mb-2">
-									<div className="progress-bar progress-animated bg-primary" Style="width: 80%"></div>
-								</div>
-								<small>80% Increase in 20 Days</small>
-							</div>
-						</div>
-                    </div>
-        <div className="col-xl-3 col-lg-6 col-sm-6">
-						<div className="widget-stat card">
-							<div className="card-body p-4">
-								<h4 className="card-title">Nouveaux veauxs</h4>
-								<h3>{veauxs.length}</h3>
-								<div className="progress mb-2">
-									<div className="progress-bar progress-animated bg-warning" Style="width: 50%"></div>
-								</div>
-								<small>50% Increase in 25 Days</small>
-							</div>
-						</div>
-                    </div>
-        </div>
+      
       <div className="form-head d-flex mb-4 mb-md-5 align-items-start">
         <div className="input-group search-area d-inline-flex">
           <div className="input-group-append">
@@ -235,7 +210,7 @@ function TrieResponsable(e){
         <a  href="#" className="btn btn-info ml-auto" onClick={Trienom}> <i className="fa fa-sort"></i> Trie Par Nom</a>
           <a href="#" className="btn btn-info ml-auto" onClick={TrieCode}><i className="fa fa-sort"></i> Trie Par Code</a>
           <a href="#" className="btn btn-info ml-auto" onClick={TrieResponsable}><i className="fa fa-sort"></i> Trie Par Responsable</a>
-        <Link to={`/AjouterVeauxs`} className="btn btn-primary ml-auto"><i className="fa fa-plus-circle"></i> Ajouter veauxs</Link>
+        <Link to={`/AjouterVeaux`} className="btn btn-primary ml-auto"><i className="fa fa-plus-circle"></i> Ajouter veauxs</Link>
       </div>
       <div className="card-body">
         <div className="table-responsive">

@@ -10,18 +10,14 @@ export default function AjouterVache() {
   let history = useHistory();
   const [Vache, setVache] = useState({
     animalsType: "string",
-    birthId: 0,
     birthday: "2021-09-18T13:14:36.136Z",
     bornStatus: 0,
     born_weight: 0,
     description: "string",
     gender: "string",
-    idAnimals: 0,
-    idCages: 0,
     images: "string",
     matriculeAnimal: "string",
     originFather: "string",
-    originId: 0,
     originMother: "string",
     originWeight: 0,
     receiveWeight: 0,
@@ -53,21 +49,24 @@ export default function AjouterVache() {
     });
   };
 function Verif(){
-  if((document.getElementById("NomVache").value=="")||(document.getElementById("CodeVache").value=="")||(document.getElementById("SUPAD").value=="")){
+  if((document.getElementById("animalsType").value=="")
+||(document.getElementById("birthday").value=="")
+  ||(document.getElementById("bornStatus").value=="")
+  ||(document.getElementById("born_weight").value=="")
+  ||(document.getElementById("description").value=="")
+  ||(document.getElementById("gender").value=="")
+  ||(document.getElementById("images").value=="")
+  ||(document.getElementById("matriculeAnimal").value=="")
+  ||(document.getElementById("originFather").value=="") 
+  ||(document.getElementById("originMother").value=="")
+  ||(document.getElementById("receiveWeight").value=="")){
 return false
   }
   else{
     return true
   }     
 }
-function GenerateCode(e){
-  e.preventDefault();
-        var uuid = require("uuid");
-  var id = uuid.v4();
-  document.getElementById("CodeVache").value=id;
-  document.getElementById("PlaceholderVacheCode").value=id;
-  console.log(id)
-      }
+
 
   const handleClick = (e) => {
     if(Verif()){
@@ -82,18 +81,14 @@ function GenerateCode(e){
       if (result.isConfirmed) {
         
         Vache.animalsType = document.getElementById("animalsType").value;
-        Vache.birthId = document.getElementById("birthId").value;
         Vache.birthday = document.getElementById("birthday").value;
         Vache.bornStatus = document.getElementById("bornStatus").value;
         Vache.born_weight = document.getElementById("born_weight").value;
         Vache.description = document.getElementById("description").value;
         Vache.gender = document.getElementById("gender").value;
-        Vache.idAnimals = document.getElementById("idAnimals").value;
-        Vache.idCages = document.getElementById("idCages").value;
         Vache.images = document.getElementById("images").value;
         Vache.matriculeAnimal = document.getElementById("matriculeAnimal").value;
         Vache.originFather = document.getElementById("originFather").value;
-        Vache.originId = document.getElementById("originId").value;
         Vache.originMother = document.getElementById("originMother").value;
         Vache.originWeight = document.getElementById("originWeight").value;
         Vache.receiveWeight = document.getElementById("receiveWeight").value;
@@ -104,18 +99,14 @@ function GenerateCode(e){
           //.post("http://localhost:4000/vaches/create", {
             .post("http://localhost:8187/api/animals/Vaches/save", {
               animalsType:  Vache.animalsType,
-              birthId:  Vache.birthId ,
               birthday: Vache.birthday,
               bornStatus:  Vache.bornStatus,
               born_weight: Vache.born_weight,
               description: Vache.description,
               gender:Vache.gender,
-              idAnimals:  Vache.idAnimals,
-              idCages: Vache.idCages,
               images: Vache.images,
               matriculeAnimal: Vache.matriculeAnimal,
               originFather: Vache.originFather,
-              originId: Vache.originId,
               originMother: Vache.originMother,
               originWeight: Vache.originWeight,
               receiveWeight: Vache.receiveWeight,
@@ -229,6 +220,15 @@ function GenerateCode(e){
                                         <textarea class="form-control" rows="5" id="comment" placeholder="Matricule de la Vache.."
                                         id={"matriculeAnimal"}
                                         name={"matriculeAnimal"}
+                                        ></textarea>
+                                        </div>
+
+                                        <br/>
+                                        <div class="form-group col-md-9" >
+                                            <label><strong>Description Detaillé :</strong></label>
+                                        <textarea class="form-control" rows="5" id="comment" placeholder="Description Detaillé de la Vache.."
+                                        id={"description"}
+                                        name={"description"}
                                         ></textarea>
                                         </div>
 

@@ -250,7 +250,7 @@ function TriePoints(e){
           <a href="#" className="btn btn-info ml-auto" onClick={TriePoints}><i className="fa fa-sort"></i> Points</a>
           <a href="#" className="btn btn-info ml-auto" onClick={TrieResponsable}><i className="fa fa-sort"></i> Responsable</a>
           <a href="#" className="btn btn-info ml-auto" onClick={TrieEtat}><i className="fa fa-sort"></i> Etat</a>
-        <Link to={`/AjouterTache`} className="btn btn-primary ml-auto">
+        <Link to={`/AjouterFermier`} className="btn btn-primary ml-auto">
           <i className="fa fa-plus-circle"></i> Ajouter Fermier
         </Link>
       </div>

@@ -17,8 +17,7 @@ export default function Vaches() {
         var keyword = document.getElementById("ValeurRechercheVaches").value;
         if (keyword.length<1){
           console.log("Fergha");
-          axios.get("http://143.110.210.169:4000/vaches/")
-          //axios.get("http://localhost:4000/vaches/")
+          axios.get("http://localhost:8187/api/animals/vaches/list")
         .then(res=>{
             setVaches(res.data);
             setIsLoading(false);
@@ -27,7 +26,7 @@ export default function Vaches() {
         }else{
         var filtered_vache = vaches;
 
-          filtered_vache=vaches.filter(vache=>vache.Nom.toLowerCase().includes(keyword.toLowerCase()));
+          filtered_vache=vaches.filter(vache=>vache.matriculeAnimal.toLowerCase().includes(keyword.toLowerCase()));
           setVaches(filtered_vache);
         }
         
@@ -44,13 +43,13 @@ export default function Vaches() {
         denyButtonText: `Non, Annuler`,
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete("http://143.110.210.169:4000/vaches/"+id);
+          axios.delete("http://localhost:8187/api/animals/vaches/delete"+id);
          // axios.delete("http://localhost:4000/vaches/"+id);
           Swal.fire("Success", "Votre tache a été Modifié :) ", "success");
         } else {
           Swal.fire(
             "Annulé",
-            "Vous Avez Annulé la suppresion de cette tache.",
+            "Vous Avez Annulé la suppresion de cette Vache.",
             "error"
           );
         }
@@ -58,32 +57,10 @@ export default function Vaches() {
 
       
     };
-    const deleteall = (id) => {
-      Swal.fire({
-        title: "Vous etez sur?",
-        text: "Veuillez Vérifier vos besoin avant de envoyé ",
-        icon: "warning",
-        showDenyButton: true,
-        confirmButtonText: `Oui, Supprimer`,
-        denyButtonText: `Non, Annuler`,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axios.delete("http://143.110.210.169:4000/vaches/"+id);
-          //axios.delete("http://localhost:4000/vaches/"+id);
-          Swal.fire("Success", "vaches Supprimé :) ", "success");
-        } else {
-          Swal.fire(
-            "Annulé",
-            "Vous Avez Annulé la suppresion de ces vaches.",
-            "error"
-          );
-        }
-      });
-    }
+
 
     useEffect(()=>{
-      axios.get("http://143.110.210.169:4000/vaches/")
-        //axios.get("http://localhost:4000/vaches/")
+      axios.get("http://localhost:8187/api/animals/vaches/list")
         .then(res=>{
             setVaches(res.data);
             setIsLoading(false);
@@ -91,17 +68,49 @@ export default function Vaches() {
         .catch(err=>console.log)
     }, []);
 
-function Trienom(e){
+function Trieweightrecived(e){
     e.preventDefault();
   setVaches(sortBy(vaches, "Nom"));
 }
-function TrieCode(e){
+function TrieoriginWeight(e){
     e.preventDefault();
-  setVaches(sortBy(vaches, "Code"));
+  setVaches(sortBy(vaches, "originWeight"));
 }
-function TrieResponsable(e){
+function Trieborn_weight(e){
     e.preventDefault();
-  setVaches(sortBy(vaches, "SUPAD"));
+  setVaches(sortBy(vaches, "born_weight"));
+}
+function Triegender(e){
+  e.preventDefault();
+setVaches(sortBy(vaches, "gender"));
+}
+function Triebirthday(e){
+  e.preventDefault();
+setVaches(sortBy(vaches, "birthday"));
+}
+function TriebornStatus(e){
+  e.preventDefault();
+setVaches(sortBy(vaches, "bornStatus"));
+}
+function TrieanimalsType(e){
+  e.preventDefault();
+setVaches(sortBy(vaches, "animalsType"));
+}
+function TrieoriginFather(e){
+  e.preventDefault();
+setVaches(sortBy(vaches, "originFather"));
+}
+function TrieoriginMother(e){
+  e.preventDefault();
+setVaches(sortBy(vaches, "originMother"));
+}
+function TriematriculeAnimal(e){
+  e.preventDefault();
+setVaches(sortBy(vaches, "matriculeAnimal"));
+}
+function Triedescription(e){
+  e.preventDefault();
+setVaches(sortBy(vaches, "description"));
 }
 
     const content = isLoading ? <div class="loader">
@@ -136,15 +145,15 @@ function TrieResponsable(e){
         vaches
         .map(vache=>{
             return(
-                    <tr key={vache._id} id="RechercheVaches">
+                    <tr key={vache.idAnimals} id="RechercheVaches">
                 <td>
                   <div className="custom-control custom-checkbox checkbox-success check-lg mr-3" name={vache._id}>
                     <input
                       type="checkbox"
                       className="custom-control-input"
-                      id={vache._id}
+                      id={vache.idAnimals}
                       required=""
-                      name={vache._id}
+                      name={vache.idAnimals}
                     />
                     <label
                       className="custom-control-label"
@@ -161,11 +170,20 @@ function TrieResponsable(e){
                       alt=""
                       width="24"
                     />
-                    <span className="w-space-no">{vache.Nom}</span>
+                    <span className="w-space-no">{vache.receiveWeight}</span>
                   </div>
                 </td>
                 
-                <td>{vache.SUPAD}</td>
+                <td>{vache.originWeight}</td>
+                <td>{vache.born_weight}</td>
+                <td>{vache.gender}</td>
+                <td>{vache.birthday}</td>
+                <td>{vache.bornStatus}</td>
+                <td>{vache.animalsType}</td>
+                <td>{vache.originFather}</td>
+                <td>{vache.originMother}</td>
+                <td>{vache.matriculeAnimal}</td>
+                <td>{vache.description}</td>
                 <td>
                   <div className="d-flex">
                     <Link
@@ -207,15 +225,61 @@ function TrieResponsable(e){
 
         </div>
         
-        <a  href="#" className="btn btn-info ml-auto" onClick={Trienom}> <i className="fa fa-sort"></i> Trie Par Nom</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieCode}><i className="fa fa-sort"></i> Trie Par Code</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieResponsable}><i className="fa fa-sort"></i> Trie Par Responsable</a>
-        <Link to={`/AjouterVaches`} className="btn btn-primary ml-auto"><i className="fa fa-plus-circle"></i> Ajouter vaches</Link>
+        
+        <Link to={`/AjouterVache`} className="btn btn-primary ml-auto"><i className="fa fa-plus-circle"></i> Ajouter vaches</Link>
       </div>
       <div className="card-body">
         <div className="table-responsive">
           <table className="table table-responsive-md">
             <thead>
+            <tr>
+                <th className="width50">
+                  <div className="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                    <input
+                      type="checkbox"
+                      className="custom-control-input"
+                      id="checkAll"
+                      required=""
+                    />
+                    <label className="custom-control-label" for="checkAll"></label>
+                  </div>
+                </th>
+                
+                <th>
+                  <a  href="#" className="btn btn-info ml-auto" onClick={Trieweightrecived}> <i className="fa fa-sort"></i></a>
+                </th>
+                
+                <th>
+                <a  href="#" className="btn btn-info ml-auto" onClick={TrieoriginWeight}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a  href="#" className="btn btn-info ml-auto" onClick={Trieborn_weight}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a  href="#" className="btn btn-info ml-auto" onClick={Triegender}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a  href="#" className="btn btn-info ml-auto" onClick={Triebirthday}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a  href="#" className="btn btn-info ml-auto" onClick={TriebornStatus}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a  href="#" className="btn btn-info ml-auto" onClick={TrieanimalsType}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a  href="#" className="btn btn-info ml-auto" onClick={TrieoriginMother}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a  href="#" className="btn btn-info ml-auto" onClick={TrieoriginFather}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a  href="#" className="btn btn-info ml-auto" onClick={TriematriculeAnimal}> <i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a  href="#" className="btn btn-info ml-auto" onClick={Triedescription}> <i className="fa fa-sort"></i></a>
+                </th>
+              </tr>
               <tr>
                 <th className="width50">
                   <div className="custom-control custom-checkbox checkbox-success check-lg mr-3">
@@ -230,11 +294,38 @@ function TrieResponsable(e){
                 </th>
                 
                 <th>
-                  <strong>Nom Sociéte</strong>
+                  <strong>Receive Weight</strong>
                 </th>
                 
                 <th>
-                  <strong>Responsable</strong>
+                  <strong>Origin Weight</strong>
+                </th>
+                <th>
+                  <strong>Born Weight</strong>
+                </th>
+                <th>
+                  <strong>Gender</strong>
+                </th>
+                <th>
+                  <strong>Birthday</strong>
+                </th>
+                <th>
+                  <strong>Born Status</strong>
+                </th>
+                <th>
+                  <strong>Type</strong>
+                </th>
+                <th>
+                  <strong>Origine Mother</strong>
+                </th>
+                <th>
+                  <strong>Origine Father</strong>
+                </th>
+                <th>
+                  <strong>Matricule</strong>
+                </th>
+                <th>
+                  <strong>Description</strong>
                 </th>
               </tr>
             </thead>
@@ -248,7 +339,7 @@ function TrieResponsable(e){
           <div className="input-group-append">
           </div>
         </div>
-        <a href="#" className="btn btn-danger ml-auto" onClick={deleteall}><i className="fa fa-trash"></i> Delete Selected items</a>
+
       </div>
 
     </div>
