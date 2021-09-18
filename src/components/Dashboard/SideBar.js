@@ -63,8 +63,8 @@ export default function SideBar() {
 							<span className="nav-text">Vaches</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><Link to={`/Taches`}><i className="fa fa-plus"></i>Ajouter Vaches</Link></li>
-                            <li><Link to={`/Taches`}><i className="fa fa-list"></i>Lister Vaches</Link></li>
+                            <li><Link to={`/AjouterVache`}><i className="fa fa-plus"></i>Ajouter Vaches</Link></li>
+                            <li><Link to={`/Vaches`}><i className="fa fa-list"></i>Lister Vaches</Link></li>
                             
                         </ul>
                     </li>
