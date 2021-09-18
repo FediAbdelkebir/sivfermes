@@ -191,36 +191,11 @@ function TrieResponsable(e){
       <div className="page-titles">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <a href="javascript:void(0)">vaches</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> <a><strong>Vaches</strong></a>
           </li>
         </ol>
       </div>
-      <div className="row">
-      <div className="col-xl-3 col-lg-6 col-sm-6">
-						<div className="widget-stat card">
-							<div className="card-body p-4">
-								<h4 className="card-title">Total vaches</h4>
-								<h3>{vaches.length}</h3>
-								<div className="progress mb-2">
-									<div className="progress-bar progress-animated bg-primary" Style="width: 80%"></div>
-								</div>
-								<small>80% Increase in 20 Days</small>
-							</div>
-						</div>
-                    </div>
-        <div className="col-xl-3 col-lg-6 col-sm-6">
-						<div className="widget-stat card">
-							<div className="card-body p-4">
-								<h4 className="card-title">Nouveaux vaches</h4>
-								<h3>{vaches.length}</h3>
-								<div className="progress mb-2">
-									<div className="progress-bar progress-animated bg-warning" Style="width: 50%"></div>
-								</div>
-								<small>50% Increase in 25 Days</small>
-							</div>
-						</div>
-                    </div>
-        </div>
+     
       <div className="form-head d-flex mb-4 mb-md-5 align-items-start">
         <div className="input-group search-area d-inline-flex">
           <div className="input-group-append">
