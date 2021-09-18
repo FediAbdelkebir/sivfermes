@@ -11,37 +11,27 @@ import {countBy} from "underscore";
 export default function CategorieStocks() {
 
     const [isLoading, setIsLoading] = useState(true);
-    const [CategorieStocks,setTaches]=useState([]);
-    const [counttaches,setCountTaches]=useState([]);
-    useEffect(()=>{
-      
-      //axios.get("http://localhost:4000/CategorieStocks/CategorieStock/count")
-      axios.get("http://143.110.210.169:4000/CategorieStocks/CategorieStock/count")
-      .then(res=>{
-        setCountTaches(res.data);
-          setIsLoading(false);
-      })
-      .catch(err=>console.log)
-  }, []);
+    const [CategorieStocks,setCategorieStocks]=useState([]);
+
 
   useEffect(()=>{
     //axios.get("http://localhost:4000/CategorieStocks/")
     axios.get("http://localhost:8187/api/employees/list")
     .then(res=>{
-      setTaches(res.data);
+      setCategorieStocks(res.data);
         setIsLoading(false);
     })
     .catch(err=>console.log)
 }, []);
 
     const handleChange = (e) => {
-      var keyword = document.getElementById("ValeurRechercheTaches").value;
+      var keyword = document.getElementById("ValeurRechercheCategorieStocks").value;
       if (keyword.length<1){
         console.log("Fergha");
         //axios.get("http://localhost:4000/CategorieStocks/")
         axios.get("http://localhost:8187/api/employees/list")
       .then(res=>{
-          setTaches(res.data);
+          setCategorieStocks(res.data);
           setIsLoading(false);
       })
       .catch(err=>console.log)
@@ -49,7 +39,7 @@ export default function CategorieStocks() {
       var filtered_taches = CategorieStocks;
 
         filtered_taches=CategorieStocks.filter(CategorieStock=>CategorieStock.name.toLowerCase().includes(keyword.toLowerCase()));
-        setTaches(filtered_taches);
+        setCategorieStocks(filtered_taches);
       }
       
 }
@@ -84,19 +74,9 @@ export default function CategorieStocks() {
   </div>  : CategorieStocks.length ? (
       CategorieStocks
       .map(CategorieStock=>{
-        let Etat="";
-        if (CategorieStock.Etat=="Validé") {
-          CategorieStock.Etat = <span class="badge light badge-success">Validé</span>;
-        }
-        if (CategorieStock.Etat=="En Cours") {
-          CategorieStock.Etat = <span class="badge light badge-warning">En Cours</span>;
-        }
-        if (CategorieStock.Etat=="Terminé") {
-          CategorieStock.Etat = <span class="badge light badge-danger">Terminé</span>;
-        }
           return(
             
-                  <tr key={CategorieStock.idEmployees}>
+                  <tr key={CategorieStock.id}>
               <td>
                 <div className="custom-control custom-checkbox checkbox-success check-lg mr-3">
                   <input
@@ -121,14 +101,11 @@ export default function CategorieStocks() {
                     alt=""
                     width="24"
                   />{" "}
-                  <span className="w-space-no">{CategorieStock.name}</span>
+                  <span className="w-space-no">{CategorieStock.Marque}</span>
                 </div>
               </td>
               
-              <td>{CategorieStock.email}</td>
-              <td>{CategorieStock.gender}</td>
-              <td>{CategorieStock.dateJoin}</td>
-              <td>{CategorieStock.dateOff}</td>
+              <td>{CategorieStock.Type}</td>
               <td>
                 <div className="d-flex">
                   <Link
@@ -155,13 +132,12 @@ export default function CategorieStocks() {
       denyButtonText: `Non, Annuler`,
     }).then((result) => {
       if (result.isConfirmed) {
-        //axios.delete("http://localhost:4000/CategorieStocks/deletetache/"+id);
         axios.delete("http://143.110.210.169:4000/CategorieStocks/deletetache/"+id);
         Swal.fire("Success", "CategorieStock Supprimé :) ", "success");
         let newList = CategorieStocks.filter(CategorieStock=>{
             return CategorieStock.idEmployees !== id;
         })
-        setTaches(newList);
+        setCategorieStocks(newList);
       } else {
         Swal.fire(
           "Annulé",
@@ -172,55 +148,15 @@ export default function CategorieStocks() {
     });
   };
   
-  const deleteall = (id) => {
-    Swal.fire({
-      title: "Vous etez sur?",
-      text: "Veuillez Vérifier vos besoin avant de envoyé ",
-      icon: "warning",
-      showDenyButton: true,
-      confirmButtonText: `Oui, Supprimer`,
-      denyButtonText: `Non, Annuler`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        //axios.delete("http://localhost:4000/CategorieStocks/deletetaches/:id",{
-          axios.delete("http://143.110.210.169:4000/CategorieStocks/deletetaches/:id",{
-      params: {
-        id: id
-      }});
-        Swal.fire("Success", "CategorieStocks Supprimé :) ", "success");
-      } else {
-        Swal.fire(
-          "Annulé",
-          "Vous Avez Annulé la suppresion de ces CategorieStocks.",
-          "error"
-        );
-      }
-    });
-  }
-  function Trienom(e){
+  function TrieMarque(e){
     e.preventDefault();
-    setTaches(sortBy(CategorieStocks, "Nom"));
+    setCategorieStocks(sortBy(CategorieStocks, "Marque"));
 }
-function TrieCode(e){
+function TrieType(e){
   e.preventDefault();
-  setTaches(sortBy(CategorieStocks, "Code"));
+  setCategorieStocks(sortBy(CategorieStocks, "Type"));
 }
-function TrieResponsable(e){
-  e.preventDefault();
-  setTaches(sortBy(CategorieStocks, "SUPAD"));
-}
-function TrieEtat(e){
-  e.preventDefault();
-setTaches(sortBy(CategorieStocks, "Etat"));
-}
-function TrieDescription(e){
-  e.preventDefault();
-  setTaches(sortBy(CategorieStocks, "Description"));
-}
-function TriePoints(e){
-  e.preventDefault();
-  setTaches(sortBy(CategorieStocks, "Points"));
-}
+
     return (
 <div>
   <SideBar />
@@ -229,7 +165,7 @@ function TriePoints(e){
       <div className="page-titles">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <a>CategorieStocks</a>
+            <a>Categories </a>
           </li>
         </ol>
       </div>
@@ -241,22 +177,40 @@ function TriePoints(e){
               <i className="flaticon-381-search-2"></i>
             </span>
           </div>
-          <input type="text" className="form-control" placeholder="Rechercher.." id="ValeurRechercheTaches" onChange={handleChange}/>
+          <input type="text" className="form-control" placeholder="Rechercher.." id="ValeurRechercheCategorieStocks" onChange={handleChange}/>
         </div>
-        <a href="#" className="btn btn-info ml-auto" onClick={Trienom}> <i className="fa fa-sort"></i> Nom</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieCode}><i className="fa fa-sort"></i> Code</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieDescription}><i className="fa fa-sort"></i> Description</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TriePoints}><i className="fa fa-sort"></i> Points</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieResponsable}><i className="fa fa-sort"></i> Responsable</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieEtat}><i className="fa fa-sort"></i> Etat</a>
+
+        
         <Link to={`/AjouterCategorieStock`} className="btn btn-primary ml-auto">
-          <i className="fa fa-plus-circle"></i> Ajouter CategorieStock
+          <i className="fa fa-plus-circle"></i> Ajouter Categorie
         </Link>
       </div>
       <div className="card-body">
         <div className="table-responsive">
           <table className="table table-responsive-md">
             <thead>
+            <tr>
+                <th className="width50">
+                  <div className="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                    <input
+                      type="checkbox"
+                      className="custom-control-input"
+                      id="checkAll"
+                      required=""
+                    />
+                    <label className="custom-control-label" htmlFor="checkAll"></label>
+                  </div>
+                </th>
+                
+                <th>
+                <a href="#" className="btn btn-info ml-auto" onClick={TrieMarque}> <i className="fa fa-sort"></i></a>
+                </th>
+                
+                <th>
+                <a href="#" className="btn btn-info ml-auto" onClick={TrieType}> <i className="fa fa-sort"></i></a>
+                </th>
+                
+              </tr>
               <tr>
                 <th className="width50">
                   <div className="custom-control custom-checkbox checkbox-success check-lg mr-3">
@@ -271,21 +225,16 @@ function TriePoints(e){
                 </th>
                 
                 <th>
-                  <strong>Nom</strong>
+                  <strong>Marque</strong>
                 </th>
                 
                 <th>
-                  <strong>Email</strong>
+                  <strong>Type</strong>
                 </th>
                 <th>
-                  <strong>Genre</strong>
+                  <strong>Gestion</strong>
                 </th>
-                <th>
-                  <strong>Date Debut</strong>
-                </th>
-                <th>
-                  <strong>Date Fin</strong>
-                </th>
+                
               </tr>
             </thead> 
             
@@ -299,7 +248,6 @@ function TriePoints(e){
           <div className="input-group-append">
           </div>
         </div>
-        <a href="#" className="btn btn-danger ml-auto" onClick={deleteall}><i className="fa fa-trash"></i> Delete Selected items</a>
       </div>
       
     </div>

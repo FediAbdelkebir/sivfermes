@@ -11,45 +11,35 @@ import {countBy} from "underscore";
 export default function Stocks() {
 
     const [isLoading, setIsLoading] = useState(true);
-    const [Stocks,setTaches]=useState([]);
-    const [counttaches,setCountTaches]=useState([]);
-    useEffect(()=>{
-      
-      //axios.get("http://localhost:4000/Stocks/Stock/count")
-      axios.get("http://143.110.210.169:4000/Stocks/Stock/count")
-      .then(res=>{
-        setCountTaches(res.data);
-          setIsLoading(false);
-      })
-      .catch(err=>console.log)
-  }, []);
+    const [Stocks,setStocks]=useState([]);
+  
 
   useEffect(()=>{
     //axios.get("http://localhost:4000/Stocks/")
-    axios.get("http://localhost:8187/api/employees/list")
+    axios.get("http://localhost:8187/api/stocks/list")
     .then(res=>{
-      setTaches(res.data);
+      setStocks(res.data);
         setIsLoading(false);
     })
     .catch(err=>console.log)
 }, []);
 
     const handleChange = (e) => {
-      var keyword = document.getElementById("ValeurRechercheTaches").value;
+      var keyword = document.getElementById("ValeurRechercheStocks").value;
       if (keyword.length<1){
         console.log("Fergha");
         //axios.get("http://localhost:4000/Stocks/")
-        axios.get("http://localhost:8187/api/employees/list")
+        axios.get("http://localhost:8187/api/stocks/list")
       .then(res=>{
-          setTaches(res.data);
+          setStocks(res.data);
           setIsLoading(false);
       })
       .catch(err=>console.log)
       }else{
-      var filtered_taches = Stocks;
+      var filtered_stocks = Stocks;
 
-        filtered_taches=Stocks.filter(Stock=>Stock.name.toLowerCase().includes(keyword.toLowerCase()));
-        setTaches(filtered_taches);
+        filtered_stocks=Stocks.filter(Stock=>Stock.Nom.toLowerCase().includes(keyword.toLowerCase()));
+        setStocks(filtered_stocks);
       }
       
 }
@@ -121,14 +111,12 @@ export default function Stocks() {
                     alt=""
                     width="24"
                   />{" "}
-                  <span className="w-space-no">{Stock.name}</span>
+                  <span className="w-space-no">{Stock.Nom}</span>
                 </div>
               </td>
               
-              <td>{Stock.email}</td>
-              <td>{Stock.gender}</td>
-              <td>{Stock.dateJoin}</td>
-              <td>{Stock.dateOff}</td>
+              <td>{Stock.Categorie}</td>
+              <td>{Stock.Kg}</td>
               <td>
                 <div className="d-flex">
                   <Link
@@ -137,7 +125,7 @@ export default function Stocks() {
                   >
                     <i className="fa fa-pencil"></i>
                   </Link>
-                  <a href="#" onClick={(e) =>deletetache(Stock.idEmployees, e)} className="btn btn-danger shadow btn-xs sharp" ><i className="fa fa-trash"></i></a>
+                  <a href="#" onClick={(e) =>deletetache(Stock.idStock, e)} className="btn btn-danger shadow btn-xs sharp" ><i className="fa fa-trash"></i></a>
                 </div>
               </td>
             </tr>
@@ -155,13 +143,12 @@ export default function Stocks() {
       denyButtonText: `Non, Annuler`,
     }).then((result) => {
       if (result.isConfirmed) {
-        //axios.delete("http://localhost:4000/Stocks/deletetache/"+id);
-        axios.delete("http://143.110.210.169:4000/Stocks/deletetache/"+id);
+        axios.delete("http://localhost:8187/stocks/deletestock/"+id);
         Swal.fire("Success", "Stock Supprimé :) ", "success");
         let newList = Stocks.filter(Stock=>{
-            return Stock.idEmployees !== id;
+            return Stock.idStock !== id;
         })
-        setTaches(newList);
+        setStocks(newList);
       } else {
         Swal.fire(
           "Annulé",
@@ -171,56 +158,20 @@ export default function Stocks() {
       }
     });
   };
-  
-  const deleteall = (id) => {
-    Swal.fire({
-      title: "Vous etez sur?",
-      text: "Veuillez Vérifier vos besoin avant de envoyé ",
-      icon: "warning",
-      showDenyButton: true,
-      confirmButtonText: `Oui, Supprimer`,
-      denyButtonText: `Non, Annuler`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        //axios.delete("http://localhost:4000/Stocks/deletetaches/:id",{
-          axios.delete("http://143.110.210.169:4000/Stocks/deletetaches/:id",{
-      params: {
-        id: id
-      }});
-        Swal.fire("Success", "Stocks Supprimé :) ", "success");
-      } else {
-        Swal.fire(
-          "Annulé",
-          "Vous Avez Annulé la suppresion de ces Stocks.",
-          "error"
-        );
-      }
-    });
-  }
-  function Trienom(e){
+
+  function TrieNom(e){
     e.preventDefault();
-    setTaches(sortBy(Stocks, "Nom"));
+    setStocks(sortBy(Stocks, "Nom"));
 }
-function TrieCode(e){
+function TrieCategorie(e){
   e.preventDefault();
-  setTaches(sortBy(Stocks, "Code"));
+  setStocks(sortBy(Stocks, "Categorie"));
 }
-function TrieResponsable(e){
+function TrieKg(e){
   e.preventDefault();
-  setTaches(sortBy(Stocks, "SUPAD"));
+  setStocks(sortBy(Stocks, "Kg"));
 }
-function TrieEtat(e){
-  e.preventDefault();
-setTaches(sortBy(Stocks, "Etat"));
-}
-function TrieDescription(e){
-  e.preventDefault();
-  setTaches(sortBy(Stocks, "Description"));
-}
-function TriePoints(e){
-  e.preventDefault();
-  setTaches(sortBy(Stocks, "Points"));
-}
+
     return (
 <div>
   <SideBar />
@@ -241,14 +192,11 @@ function TriePoints(e){
               <i className="flaticon-381-search-2"></i>
             </span>
           </div>
-          <input type="text" className="form-control" placeholder="Rechercher.." id="ValeurRechercheTaches" onChange={handleChange}/>
+          <input type="text" className="form-control" placeholder="Rechercher.." id="ValeurRechercheStocks" onChange={handleChange}/>
         </div>
-        <a href="#" className="btn btn-info ml-auto" onClick={Trienom}> <i className="fa fa-sort"></i> Nom</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieCode}><i className="fa fa-sort"></i> Code</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieDescription}><i className="fa fa-sort"></i> Description</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TriePoints}><i className="fa fa-sort"></i> Points</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieResponsable}><i className="fa fa-sort"></i> Responsable</a>
-          <a href="#" className="btn btn-info ml-auto" onClick={TrieEtat}><i className="fa fa-sort"></i> Etat</a>
+        
+        
+        
         <Link to={`/AjouterStock`} className="btn btn-primary ml-auto">
           <i className="fa fa-plus-circle"></i> Ajouter Stock
         </Link>
@@ -257,6 +205,31 @@ function TriePoints(e){
         <div className="table-responsive">
           <table className="table table-responsive-md">
             <thead>
+            <tr>
+                <th className="width50">
+                  <div className="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                    <input
+                      type="checkbox"
+                      className="custom-control-input"
+                      id="checkAll"
+                      required=""
+                    />
+                    <label className="custom-control-label" htmlFor="checkAll"></label>
+                  </div>
+                </th>
+                
+                <th>
+                <a href="#" className="btn btn-info ml-auto" onClick={TrieNom}> <i className="fa fa-sort"></i> </a>
+                </th>
+                
+                <th>
+                <a href="#" className="btn btn-info ml-auto" onClick={TrieCategorie}> <i className="fa fa-sort"></i> </a>
+                </th>
+                <th>
+                <a href="#" className="btn btn-info ml-auto" onClick={TrieKg}> <i className="fa fa-sort"></i> </a>
+                </th>
+              
+              </tr>
               <tr>
                 <th className="width50">
                   <div className="custom-control custom-checkbox checkbox-success check-lg mr-3">
@@ -275,17 +248,15 @@ function TriePoints(e){
                 </th>
                 
                 <th>
-                  <strong>Email</strong>
+                  <strong>Categorie</strong>
                 </th>
                 <th>
-                  <strong>Genre</strong>
+                  <strong>Kg</strong>
                 </th>
                 <th>
-                  <strong>Date Debut</strong>
+                  <strong>Gestion</strong>
                 </th>
-                <th>
-                  <strong>Date Fin</strong>
-                </th>
+                
               </tr>
             </thead> 
             
@@ -299,7 +270,7 @@ function TriePoints(e){
           <div className="input-group-append">
           </div>
         </div>
-        <a href="#" className="btn btn-danger ml-auto" onClick={deleteall}><i className="fa fa-trash"></i> Delete Selected items</a>
+
       </div>
       
     </div>

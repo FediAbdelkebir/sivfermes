@@ -172,32 +172,7 @@ export default function Fermiers() {
       }
     });
   };
-  
-  const deleteall = (id) => {
-    Swal.fire({
-      title: "Vous etez sur?",
-      text: "Veuillez Vérifier vos besoin avant de envoyé ",
-      icon: "warning",
-      showDenyButton: true,
-      confirmButtonText: `Oui, Supprimer`,
-      denyButtonText: `Non, Annuler`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        //axios.delete("http://localhost:4000/Fermiers/deletetaches/:id",{
-          axios.delete("http://143.110.210.169:4000/Fermiers/deletetaches/:id",{
-      params: {
-        id: id
-      }});
-        Swal.fire("Success", "Fermiers Supprimé :) ", "success");
-      } else {
-        Swal.fire(
-          "Annulé",
-          "Vous Avez Annulé la suppresion de ces Fermiers.",
-          "error"
-        );
-      }
-    });
-  }
+ 
   function Trienom(e){
     e.preventDefault();
     setTaches(sortBy(Fermiers, "name"));
@@ -332,7 +307,7 @@ function Triedatenaissance(e){
           <div className="input-group-append">
           </div>
         </div>
-        <a href="#" className="btn btn-danger ml-auto" onClick={deleteall}><i className="fa fa-trash"></i> Delete Selected items</a>
+
       </div>
       
     </div>
