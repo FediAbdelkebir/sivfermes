@@ -10,6 +10,9 @@ import AffecterFermier from "./components/Dashboard/Fermier/AffecterFermier";
 import AjouterStock from "./components/Dashboard/Stocks/AjouterStock";
 import Stocks from "./components/Dashboard/Stocks/Stocks";
 import ModifierStock from "./components/Dashboard/Stocks/ModifierStock";
+import AjouterCategorieStock from "./components/Dashboard/CategorieStock/AjouterCategorieStock";
+import CategorieStocks from "./components/Dashboard/CategorieStock/CategorieStocks";
+import ModifierCategorieStock from "./components/Dashboard/CategorieStock/ModifierCategorieStock";
 
 function App(props) {
     return (
@@ -20,12 +23,15 @@ function App(props) {
                 <Route path={"/AjouterFermier"} render={(props)=><AjouterFermier {...props} />} />
                 <Route path={"/AjouterStock"} render={(props)=><AjouterStock {...props} />} />
                 <Route path={"/AjouterFermes"} render={(props)=><AjouterFermes {...props} />} />
+                <Route path={"/AjouterCategorieStock"} render={(props)=><AjouterCategorieStock {...props} />} />
                 <Route path={"/Fermiers"} render={(props)=><Fermier {...props} />} />
                 <Route path={"/Stocks"} render={(props)=><Stocks {...props} />} />
                 <Route path={"/Fermes"} render={(props)=><Fermes {...props} />} />
+                <Route path={"/CategorieStocks"} render={(props)=><CategorieStocks {...props} />} />
                 <Route exact path="/ModifierFerme/:id" render={(props) => (<ModiferFerme id = {props.match.params.id} /> )}/>
                 <Route path="/ModifierFermier/:id" render={(props) => <ModifierFermier {...props} /> }/>
                 <Route path="/ModifierStock/:id" render={(props) => <ModifierStock {...props} /> }/>
+                <Route path="/ModifierCategorieStock/:id" render={(props) => <ModifierCategorieStock {...props} /> }/>
             
             </Switch>
         </div>

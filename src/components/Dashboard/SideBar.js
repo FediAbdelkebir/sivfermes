@@ -53,8 +53,8 @@ export default function SideBar() {
 							<span className="nav-text">Catégorie-Stock</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><Link to={`/Taches`}><i className="fa fa-plus"></i>Ajouter Catégorie-Stock</Link></li>
-                            <li><Link to={`/Taches`}><i className="fa fa-list"></i>Lister Catégorie-Stock</Link></li>
+                            <li><Link to={`/AjouterCategorieStock`}><i className="fa fa-plus"></i>Ajouter Catégorie-Stock</Link></li>
+                            <li><Link to={`/CategorieStocks`}><i className="fa fa-list"></i>Lister Catégorie-Stock</Link></li>
                             
                         </ul>
                     </li>
