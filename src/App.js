@@ -19,6 +19,7 @@ import ModifierVaches from "./components/Dashboard/Vaches/ModifierVache";
 import AjouterVeaux from "./components/Dashboard/Veaux/AjouterVeaux";
 import Veaux from "./components/Dashboard/Veaux/Veaux";
 import ModifierVeaux from "./components/Dashboard/Veaux/ModifierVeaux";
+import Dashboard from "./components/Dashboard/Home/Dashboard";
 function App(props) {
     return (
         <div className="App" Style="letter-spacing: 0.7px;font-family: Roboto;text-transform: capitalize;">
@@ -36,6 +37,7 @@ function App(props) {
                 <Route path={"/Sociétés"} render={(props)=><Fermes {...props} />} />
                 <Route path={"/Vaches"} render={(props)=><Vaches {...props} />} />
                 <Route path={"/Veaux"} render={(props)=><Veaux {...props} />} />
+                <Route path={"/Dashboard"} render={(props)=><Dashboard {...props} />} />
                 <Route path={"/CategorieStocks"} render={(props)=><CategorieStocks {...props} />} />
                 <Route exact path="/ModifierFerme/:id" render={(props) => (<ModiferFerme id = {props.match.params.id} /> )}/>
                 <Route path="/ModifierFermier/:id" render={(props) => <ModifierFermier {...props} /> }/>

@@ -23,7 +23,7 @@ export default function SideBar() {
 							<span className="nav-text" Style="color:black;"><strong>Dashboard</strong></span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><Link to={`/AjouterSociété`}><i className="fa fa-home" Style="color:#f23e5c;"></i>Home</Link></li>
+                            <li><Link to={`/Dashboard`}><i className="fa fa-home" Style="color:#f23e5c;"></i>Home</Link></li>
                         </ul>
                     </li>
 
