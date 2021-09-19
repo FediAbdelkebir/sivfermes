@@ -73,13 +73,17 @@ function Trienom(e){
     e.preventDefault();
   setFermes(sortBy(fermes, "name"));
 }
-function TrieManager(e){
+function TrieAdress(e){
     e.preventDefault();
-  setFermes(sortBy(fermes, "manager"));
+  setFermes(sortBy(fermes, "adress"));
 }
-function TrieNumtel(e){
+function TrieEmail(e){
     e.preventDefault();
-  setFermes(sortBy(fermes, "numTel"));
+  setFermes(sortBy(fermes, "email"));
+}
+function TrieDescription(e){
+  e.preventDefault();
+setFermes(sortBy(fermes, "description"));
 }
 
     const content = isLoading ? <div class="loader">
@@ -150,7 +154,7 @@ function TrieNumtel(e){
                       alt=""
                       width="24"
                     />
-                    <span className="w-space-no">{ferme.manager}</span>
+                    <span className="w-space-no">{ferme.adress}</span>
                   </div>
                 </td>
                 <td>
@@ -161,7 +165,18 @@ function TrieNumtel(e){
                       alt=""
                       width="24"
                     />
-                    <span className="w-space-no">{ferme.numTel}</span>
+                    <span className="w-space-no">{ferme.email}</span>
+                  </div>
+                </td>
+                <td>
+                  <div className="d-flex align-items-center">
+                    <img
+                      src="images/avatar/1.jpg"
+                      className="rounded-lg mr-2"
+                      alt=""
+                      width="24"
+                    />
+                    <span className="w-space-no">{ferme.description}</span>
                   </div>
                 </td>
                 
@@ -208,7 +223,7 @@ function TrieNumtel(e){
         
 
  
-        <Link to={`/AjouterFermes`} className="btn btn-primary ml-auto"><i className="fa fa-plus-circle"></i> Ajouter fermes</Link>
+        <Link to={`/AjouterSociétés`} className="btn btn-primary ml-auto"><i className="fa fa-plus-circle"></i> Ajouter Sociétés</Link>
       </div>
       <div className="card-body">
         <div className="table-responsive">
@@ -232,10 +247,13 @@ function TrieNumtel(e){
                 </th>
                 
                 <th>
-                <a href="#" className="btn btn-primary ml-auto" onClick={TrieManager}><i className="fa fa-sort"></i></a>
+                <a href="#" className="btn btn-primary ml-auto" onClick={TrieAdress}><i className="fa fa-sort"></i></a>
                 </th>
                 <th>
-                <a href="#" className="btn btn-primary ml-auto" onClick={TrieNumtel}><i className="fa fa-sort"></i></a>
+                <a href="#" className="btn btn-primary ml-auto" onClick={TrieEmail}><i className="fa fa-sort"></i></a>
+                </th>
+                <th>
+                <a href="#" className="btn btn-primary ml-auto" onClick={TrieDescription}><i className="fa fa-sort"></i></a>
                 </th>
                 <th>
                   <strong></strong>
@@ -255,14 +273,17 @@ function TrieNumtel(e){
                 </th>
                 
                 <th>
-                  <strong>Nom Sociéte</strong>
+                  <strong>Nom</strong>
                 </th>
                 
                 <th>
-                  <strong>Manager</strong>
+                  <strong>Adress</strong>
                 </th>
                 <th>
-                  <strong>Numero Télephone</strong>
+                  <strong>E-mail</strong>
+                </th>
+                <th>
+                  <strong>Description</strong>
                 </th>
                 <th>
                   <strong>Gestion</strong>

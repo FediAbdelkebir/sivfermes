@@ -153,8 +153,10 @@ return false
                       name={"birthdate"}
                     />
                   </div>
+                  </div>
+                  <div className="form-row">
                   <div className="form-group col-md-3">
-              <label><strong>Email</strong></label><br></br>
+              <label><strong>Email :</strong></label><br></br>
               <input
                       type="email"
                       className="form-control"
@@ -164,42 +166,22 @@ return false
                       name={"Email"}
                     />
             </div> 
-            
-            <div className="form-group col-md-2">
-                    <label><strong>Date Debut :</strong></label>
-                    <input
-                      type="date"
+            <div className="form-group col-md-3">
+              <label><strong>Mot De Pass :</strong></label><br></br>
+              <input
+                      type="password"
                       className="form-control"
-                      placeholder="Date Debut Contract"
+                      placeholder="Mot de Pass du Compte"
                      
-                      id={"dateJoin"}
-                      name={"dateJoin"}
+                      id={"Password"}
+                      name={"Password"}
                     />
+            </div> 
                   </div>
-                  <div className="form-group col-md-2">
-                    <label><strong>Date Fin :</strong></label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      placeholder="Date Fin Contract"
-                     
-                      id={"dateOff"}
-                      name={"dateOff"}
-                    />
-                  </div>
-                  <div class="basic-form custom_file_input col-md-3">
-                  <div class="form-group mb-3">
-                  <label><strong>Choisire Image :</strong></label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id={"image"}/>
-                                                <label class="custom-file-label">Veuillez Choisire une Image</label>
-                                            </div>
-                                        </div>
-                    </div>
 
                                         <br/>
                   
-                </div>
+                
                 
               </form>
               <button className="btn btn-primary" onClick={handleClick}>

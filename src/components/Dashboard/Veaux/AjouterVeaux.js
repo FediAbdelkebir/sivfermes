@@ -5,14 +5,14 @@ import "../../css/style.css";
 import SideBar from "../SideBar";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
-
+import $ from "jquery";
 export default function AjouterVeaux() {
   let history = useHistory();
   const [Veaux, setVeaux] = useState({
     animalsType: "string",
     birthday: "2021-09-18T13:14:36.136Z",
     bornStatus: 0,
-    born_weight: 0,
+    weight: 0,
     description: "string",
     gender: "string",
     images: "string",
@@ -22,37 +22,33 @@ export default function AjouterVeaux() {
     originWeight: 0,
     receiveWeight: 0,
   });
-  const [users,setUsers]=useState([]);
+  const [fermiers,setFermiers]=useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(()=>{
-    //axios.get("http://localhost:4000/users")
-    axios.get("http://143.110.210.169:4000/users")
-    .then(res=>{
-        setUsers(res.data);
-        setIsLoading(false);
-    })
-    .catch(err=>console.log)
+  
+useEffect(()=>{
+  axios.get("http://localhost:8187/api/employees/list")
+  .then(res=>{
+    setFermiers(res.data);
+      setIsLoading(false);
+  })
+  .catch(err=>console.log)
 }, []);
-
-   const SelectList = isLoading ? <option>Chargements des utilisateurs ...</option> : users.length ? (
-    users
-        .map(user=>{
-            return(
-              <option selected>{user.name}</option>
-            )
-        })
-    ): <h3>Aucun Utilisateur Trouvé !</h3>;
-  const handleChange = (e) => {
-    setVeaux({
-      Veaux,
-      [e.target.id]: e.target.value,
-    });
-  };
+$(document).ready(function () {       
+  document.getElementById('dateajout').value = new Date().toDateInputValue();})
+const FermiersList = isLoading ? <option>Chargements des fermiers ...</option> : fermiers.length ? (
+  fermiers
+      .map(user=>{
+          return(
+            <option selected>{user.name}</option>
+          )
+      })
+  ): <h3>Aucun Fermier Trouvé !</h3>;
+   
 function Verif(){
   if((document.getElementById("animalsType").value=="")
 ||(document.getElementById("birthday").value=="")
   ||(document.getElementById("bornStatus").value=="")
-  ||(document.getElementById("born_weight").value=="")
+  ||(document.getElementById("weight").value=="")
   ||(document.getElementById("description").value=="")
   ||(document.getElementById("gender").value=="")
   ||(document.getElementById("images").value=="")
@@ -83,7 +79,7 @@ return false
         Veaux.animalsType = document.getElementById("animalsType").value;
         Veaux.birthday = document.getElementById("birthday").value;
         Veaux.bornStatus = document.getElementById("bornStatus").value;
-        Veaux.born_weight = document.getElementById("born_weight").value;
+        Veaux.weight = document.getElementById("weight").value;
         Veaux.description = document.getElementById("description").value;
         Veaux.gender = document.getElementById("gender").value;
         Veaux.images = document.getElementById("images").value;
@@ -101,7 +97,7 @@ return false
               animalsType:  Veaux.animalsType,
               birthday: Veaux.birthday,
               bornStatus:  Veaux.bornStatus,
-              born_weight: Veaux.born_weight,
+              weight: Veaux.weight,
               description: Veaux.description,
               gender:Veaux.gender,
               images: Veaux.images,
@@ -149,19 +145,20 @@ return false
             <div className="basic-form">
               <form>
                 <div className="form-row">
-                  <div className="form-group col-md-3">
-                    <label><strong>Annimal Type :</strong></label>
+                 
+                <div className="form-group col-md-3">
+                    <label><strong>Nom Veaux : </strong></label>
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Type de la Veaux"
-                      type="text"
-                      id={"animalsType"}
-                      name={"animalsType"}
+                      placeholder="Nom du veaux"
+                 
+                      id={"Nom"}
+                      name={"Nom"}
                     />
                   </div>
 
-                  <div className="form-group col-md-3">
+                  <div className="form-group col-md-2">
                     <label><strong>Date Naissance :</strong> </label>
                     <input
                       type="date"
@@ -172,29 +169,30 @@ return false
                       name={"birthday"}
                     />
                   </div>
-                  <div className="form-group col-md-3">
-                    <label><strong>Status Naissance :</strong></label>
+                  <div className="form-group col-md-2">
+                    <label><strong>Date d'Ajout :</strong> </label>
                     <input
-                      type="number"
+                      type="date"
                       className="form-control"
-                      placeholder="Status de naissance de la veaux"
-             
-                      id={"bornStatus"}
-                      name={"bornStatus"}
+                      placeholder="Date d'ajout de la Veaux"
+           
+                      id={"dateajout"}
+                      name={"dateajout"}
                     />
                   </div>
-                  <div className="form-group col-md-3">
-                    <label><strong>Poid de naissance : </strong></label>
+                  
+                  <div className="form-group col-md-2">
+                    <label><strong>Poid : </strong></label>
                     <input
                       type="number"
                       className="form-control"
-                      placeholder="Poid naissance de la veaux"
+                      placeholder="Poid  de la veaux"
                  
-                      id={"born_weight"}
-                      name={"born_weight"}
+                      id={"weight"}
+                      name={"weight"}
                     />
                   </div>
-                  <div className="form-group col-md-3">
+                  <div className="form-group col-md-1">
                     <label><strong> Genre :</strong></label>
                     <select
                       className="form-control"
@@ -206,31 +204,18 @@ return false
                       <option>F</option>
                     </select>
                   </div>
-                  <div class="basic-form custom_file_input col-md-3">
-                  <div class="form-group mb-3">
-                  <label><strong>Choisire Image :</strong></label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id={"images"}/>
-                                                <label class="custom-file-label">Veuillez Choisire une Image</label>
-                                            </div>
-                                        </div>
-                    </div>
-                    <div class="form-group col-md-9" >
+                  <div class="form-group col-md-3" >
                                             <label><strong>Matricule :</strong></label>
-                                        <textarea class="form-control" rows="5" id="comment" placeholder="Matricule de la Veaux.."
+                                        <input type="text" class="form-control"  placeholder="Matricule de la Veaux.."
                                         id={"matriculeAnimal"}
                                         name={"matriculeAnimal"}
-                                        ></textarea>
+                                        ></input>
                                         </div>
+                 
+                    
 
                                         <br/>
-                                        <div class="form-group col-md-9" >
-                                            <label><strong>Description Detaillé :</strong></label>
-                                        <textarea class="form-control" rows="5" id="comment" placeholder="Description Detaillé de la Veaux.."
-                                        id={"description"}
-                                        name={"description"}
-                                        ></textarea>
-                                        </div>
+                                
 
                                         <br/>
                 <div className="form-group col-md-3">
@@ -255,32 +240,22 @@ return false
                       name={"originMother"}
                     />
                   </div>
-                  <div className="form-group col-md-3">
-                    <label><strong>Poid d'origine :</strong></label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      placeholder="Poid Complet De la Veaux"
-                 
-                      id={"originWeight"}
-                      name={"originWeight"}
-                    />
+                  <div className="form-group col-md-2">
+              <label><strong>Choisire Fermier : </strong></label><br></br>
+              <select class="dropdown form-control  " id={"Fermier"}
+                      name={"Fermier"}>
+
+              {FermiersList}
+</select>
+            
+            </div>
                   </div>
-                  <div className="form-group col-md-3">
-                    <label><strong>Poid Recu :</strong></label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      placeholder="Poid Recu De la veaux "
-                 
-                      id={"receiveWeight"}
-                      name={"receiveWeight"}
-                    />
-                  </div>
+                
+                  
                   
                
                   
-                </div>
+                
                 
               </form>
               <button className="btn btn-primary" onClick={handleClick}>

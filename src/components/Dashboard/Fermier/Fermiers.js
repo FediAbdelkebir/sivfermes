@@ -126,9 +126,7 @@ export default function Fermiers() {
               </td>
               
               <td>{Fermier.email}</td>
-              <td>{Fermier.gender}</td>
-              <td>{Fermier.dateJoin}</td>
-              <td>{Fermier.dateOff}</td>
+              <td>{Fermier.adress}</td>
               <td>{Fermier.birthday}</td>
               <td>
                 <div className="d-flex">
@@ -181,18 +179,11 @@ function TrieEmail(e){
   e.preventDefault();
   setTaches(sortBy(Fermiers, "email"));
 }
-function TrieGenre(e){
+function TrieAdress(e){
   e.preventDefault();
-  setTaches(sortBy(Fermiers, "gender"));
+  setTaches(sortBy(Fermiers, "adress"));
 }
-function Triedatedebut(e){
-  e.preventDefault();
-setTaches(sortBy(Fermiers, "dateJoin"));
-}
-function Triedatefin(e){
-  e.preventDefault();
-  setTaches(sortBy(Fermiers, "dateOff"));
-}
+
 function Triedatenaissance(e){
   e.preventDefault();
   setTaches(sortBy(Fermiers, "birthday"));
@@ -250,14 +241,9 @@ function Triedatenaissance(e){
                 <a href="#" className="btn btn-info ml-auto" onClick={TrieEmail}> <i className="fa fa-sort"></i></a>
                 </th>
                 <th>
-                <a href="#" className="btn btn-info ml-auto" onClick={TrieGenre}> <i className="fa fa-sort"></i></a>
+                <a href="#" className="btn btn-info ml-auto" onClick={TrieAdress}> <i className="fa fa-sort"></i></a>
                 </th>
-                <th>
-                <a href="#" className="btn btn-info ml-auto" onClick={Triedatedebut}> <i className="fa fa-sort"></i></a>
-                </th>
-                <th>
-                <a href="#" className="btn btn-info ml-auto" onClick={Triedatefin}> <i className="fa fa-sort"></i></a>
-                </th>
+                
                 <th>
                 <a href="#" className="btn btn-info ml-auto" onClick={Triedatenaissance}> <i className="fa fa-sort"></i></a>
                 </th>
@@ -283,16 +269,14 @@ function Triedatenaissance(e){
                   <strong>Email</strong>
                 </th>
                 <th>
-                  <strong>Genre</strong>
+                  <strong>Adress</strong>
                 </th>
-                <th>
-                  <strong>Date Debut</strong>
-                </th>
-                <th>
-                  <strong>Date Fin</strong>
-                </th>
+                
                 <th>
                   <strong>Date Naissance</strong>
+                </th>
+                <th>
+                  <strong>Gestion</strong>
                 </th>
               </tr>
             </thead> 

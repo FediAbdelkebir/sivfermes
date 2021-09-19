@@ -77,15 +77,15 @@ export default function AjouterCategorieStock({history}) {
 
                                         <div class="form-row">
                                             <div class="form-group col-md-3">
-                                                <label>Marque Categorie</label>
+                                                <label>Nom Categorie</label>
                                                 <input type="text" class="form-control" placeholder="Nom Complet De la CategorieStock"
                                                                       id={"NomCategorieStock"}
                                                                       name={"NomCategorieStock"}
                                                 />
                                             </div>
                                             <div class="form-group col-md-3">
-                                                <label>Type Categorie</label>
-                                                <input type="text" class="form-control" placeholder="Nom Complet De la CategorieStock"
+                                                <label>Valeur Categorie</label>
+                                                <input type="text" class="form-control" placeholder="Valeur Complet De la CategorieStock"
                                                                       id={"TypeCategorieStock"}
                                                                       name={"TypeCategorieStock"}
                                                 />

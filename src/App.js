@@ -27,13 +27,13 @@ function App(props) {
                 <Route path={"/AffecterFermier"} render={(props)=><AffecterFermier {...props} />} />
                 <Route path={"/AjouterFermier"} render={(props)=><AjouterFermier {...props} />} />
                 <Route path={"/AjouterStock"} render={(props)=><AjouterStock {...props} />} />
-                <Route path={"/AjouterFermes"} render={(props)=><AjouterFermes {...props} />} />
+                <Route path={"/AjouterSociété"} render={(props)=><AjouterFermes {...props} />} />
                 <Route path={"/AjouterCategorieStock"} render={(props)=><AjouterCategorieStock {...props} />} />
                 <Route path={"/AjouterVache"} render={(props)=><AjouterVaches {...props} />} />
                 <Route path={"/AjouterVeaux"} render={(props)=><AjouterVeaux {...props} />} />
                 <Route path={"/Fermiers"} render={(props)=><Fermier {...props} />} />
                 <Route path={"/Stocks"} render={(props)=><Stocks {...props} />} />
-                <Route path={"/Fermes"} render={(props)=><Fermes {...props} />} />
+                <Route path={"/Sociétés"} render={(props)=><Fermes {...props} />} />
                 <Route path={"/Vaches"} render={(props)=><Vaches {...props} />} />
                 <Route path={"/Veaux"} render={(props)=><Veaux {...props} />} />
                 <Route path={"/CategorieStocks"} render={(props)=><CategorieStocks {...props} />} />

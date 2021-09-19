@@ -17,13 +17,23 @@ export default function SideBar() {
               
             <div className="deznav-scroll">
 				<ul className="metismenu" id="menu">
+                
                 <li><a className="has-arrow ai-icon"  aria-expanded="false">
-                    <i className="fa fa-building" Style="color:#0d6efd;"></i>
-							<span className="nav-text" Style="color:black;"><strong>Farm</strong></span>
+                    <i className="fa fa-home" Style="color:#f23e5c;"></i>
+							<span className="nav-text" Style="color:black;"><strong>Dashboard</strong></span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><Link to={`/AjouterFermes`}><i className="fa fa-plus" Style="color:#0d6efd;"></i>Ajouter Fermes</Link></li>
-                            <li><Link to={`/Fermes`}><i className="fa fa-list" Style="color:#0d6efd;"></i>Lister Fermes</Link></li>
+                            <li><Link to={`/AjouterSociété`}><i className="fa fa-home" Style="color:#f23e5c;"></i>Home</Link></li>
+                        </ul>
+                    </li>
+
+                <li><a className="has-arrow ai-icon"  aria-expanded="false">
+                    <i className="fa fa-building" Style="color:#0d6efd;"></i>
+							<span className="nav-text" Style="color:black;"><strong>Société</strong></span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><Link to={`/AjouterSociété`}><i className="fa fa-plus" Style="color:#0d6efd;"></i>Ajouter Sociétés</Link></li>
+                            <li><Link to={`/Sociétés`}><i className="fa fa-list" Style="color:#0d6efd;"></i>Lister Sociétés</Link></li>
                             <li><Link to={`/AffecterFermier`}><i className="fa fa-tasks" Style="color:#0d6efd;"></i>Affecter Fermier</Link></li>
                         </ul>
                     </li>

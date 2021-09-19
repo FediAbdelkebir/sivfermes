@@ -5,8 +5,11 @@ import "../../css/style.css";
 import SideBar from "../SideBar";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
-
+import $ from "jquery";
 export default function AjouterVache() {
+ 
+
+
   let history = useHistory();
   const [Vache, setVache] = useState({
     animalsType: "string",
@@ -22,32 +25,26 @@ export default function AjouterVache() {
     originWeight: 0,
     receiveWeight: 0,
   });
-  const [users,setUsers]=useState([]);
+  const [fermiers,setFermiers]=useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(()=>{
-    //axios.get("http://localhost:4000/users")
-    axios.get("http://143.110.210.169:4000/users")
-    .then(res=>{
-        setUsers(res.data);
-        setIsLoading(false);
-    })
-    .catch(err=>console.log)
+  
+useEffect(()=>{
+  axios.get("http://localhost:8187/api/employees/list")
+  .then(res=>{
+    setFermiers(res.data);
+      setIsLoading(false);
+  })
+  .catch(err=>console.log)
 }, []);
 
-   const SelectList = isLoading ? <option>Chargements des utilisateurs ...</option> : users.length ? (
-    users
-        .map(user=>{
-            return(
-              <option selected>{user.name}</option>
-            )
-        })
-    ): <h3>Aucun Utilisateur Trouvé !</h3>;
-  const handleChange = (e) => {
-    setVache({
-      Vache,
-      [e.target.id]: e.target.value,
-    });
-  };
+const FermiersList = isLoading ? <option>Chargements des fermiers ...</option> : fermiers.length ? (
+  fermiers
+      .map(user=>{
+          return(
+            <option selected>{user.name}</option>
+          )
+      })
+  ): <h3>Aucun Fermier Trouvé !</h3>;
 function Verif(){
   if((document.getElementById("animalsType").value=="")
 ||(document.getElementById("birthday").value=="")
@@ -128,8 +125,15 @@ return false
     Swal.fire("Erreur", "Veuillez remplire tous les champs .", "error");
   }
   };
-  
+  Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+});
+$(document).ready(function () {       
+  document.getElementById('dateajout').value = new Date().toDateInputValue();})
   return (
+    
     <div Style="font-family: 'poppins', sans-serif;">
       <SideBar />
       <div className="content-body">
@@ -149,19 +153,9 @@ return false
             <div className="basic-form">
               <form>
                 <div className="form-row">
-                  <div className="form-group col-md-3">
-                    <label><strong>Annimal Type :</strong></label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Type de la Vache"
-                      type="text"
-                      id={"animalsType"}
-                      name={"animalsType"}
-                    />
-                  </div>
+                  
 
-                  <div className="form-group col-md-3">
+                  <div className="form-group col-md-2">
                     <label><strong>Date Naissance :</strong> </label>
                     <input
                       type="date"
@@ -172,115 +166,42 @@ return false
                       name={"birthday"}
                     />
                   </div>
-                  <div className="form-group col-md-3">
-                    <label><strong>Status Naissance :</strong></label>
+                  
+                  <div className="form-group col-md-2">
+                    <label><strong>Date d'Ajout :</strong> </label>
                     <input
-                      type="number"
+                      type="date"
                       className="form-control"
-                      placeholder="Status de naissance de la vache"
-             
-                      id={"bornStatus"}
-                      name={"bornStatus"}
+                      placeholder="Date Naissance de la Vache"
+           
+                      id={"dateajout"}
+                      name={"dateajout"}
+                    
                     />
                   </div>
-                  <div className="form-group col-md-3">
-                    <label><strong>Poid de naissance : </strong></label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      placeholder="Poid naissance de la vache"
-                 
-                      id={"born_weight"}
-                      name={"born_weight"}
-                    />
-                  </div>
-                  <div className="form-group col-md-3">
-                    <label><strong> Genre :</strong></label>
-                    <select
-                      className="form-control"
-                
-                      id={"gender"}
-                      name={"gender"}
-                    >
-                      <option>M</option>
-                      <option>F</option>
-                    </select>
-                  </div>
-                  <div class="basic-form custom_file_input col-md-3">
-                  <div class="form-group mb-3">
-                  <label><strong>Choisire Image :</strong></label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id={"images"}/>
-                                                <label class="custom-file-label">Veuillez Choisire une Image</label>
-                                            </div>
-                                        </div>
-                    </div>
-                    <div class="form-group col-md-9" >
-                                            <label><strong>Matricule :</strong></label>
-                                        <textarea class="form-control" rows="5" id="comment" placeholder="Matricule de la Vache.."
-                                        id={"matriculeAnimal"}
-                                        name={"matriculeAnimal"}
-                                        ></textarea>
-                                        </div>
-
-                                        <br/>
-                                        <div class="form-group col-md-9" >
-                                            <label><strong>Description Detaillé :</strong></label>
-                                        <textarea class="form-control" rows="5" id="comment" placeholder="Description Detaillé de la Vache.."
-                                        id={"description"}
-                                        name={"description"}
-                                        ></textarea>
-                                        </div>
-
-                                        <br/>
-                <div className="form-group col-md-3">
-                    <label><strong>Pére d'origine :</strong></label>
+                  <div className="form-group col-md-2">
+                    <label><strong>Matricule Vache :</strong> </label>
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Pére d'origine De la Vache"
-                 
-                      id={"originFather"}
-                      name={"originFather"}
+                      placeholder="Date Naissance de la Vache"
+           
+                      id={"Matricule"}
+                      name={"Matricule"}
                     />
                   </div>
-                  <div className="form-group col-md-3">
-                    <label><strong>Mére d'origine :</strong></label>
-                    <input
-                      type="string"
-                      className="form-control"
-                      placeholder="Mére d'origine De la Vache"
-                 
-                      id={"originMother"}
-                      name={"originMother"}
-                    />
+                  <div className="form-group col-md-2">
+              <label><strong>Choisire Fermier : </strong></label><br></br>
+              <select class="dropdown form-control  " id={"Fermier"}
+                      name={"Fermier"}>
+
+              {FermiersList}
+</select>
+            
+            </div>
                   </div>
-                  <div className="form-group col-md-3">
-                    <label><strong>Poid d'origine :</strong></label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      placeholder="Poid Complet De la Vache"
                  
-                      id={"originWeight"}
-                      name={"originWeight"}
-                    />
-                  </div>
-                  <div className="form-group col-md-3">
-                    <label><strong>Poid Recu :</strong></label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      placeholder="Poid Recu De la vache "
-                 
-                      id={"receiveWeight"}
-                      name={"receiveWeight"}
-                    />
-                  </div>
-                  
-               
-                  
-                </div>
+                
                 
               </form>
               <button className="btn btn-primary" onClick={handleClick}>
@@ -292,4 +213,5 @@ return false
       </div>
     </div>
   );
+  
 }

@@ -361,7 +361,7 @@ if (UT.length>0){
 </select>
             </div> 
             <div className="form-group col-md-6">
-              <label><strong>Choisire Farm :</strong></label><br></br>
+              <label><strong>Choisire Société :</strong></label><br></br>
               <select class="dropdown bootstrap-select show-tick form-control col-md-6 " id={"Farm"}
                       name={"Farm"}>
 
