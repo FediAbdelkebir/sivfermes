@@ -46,17 +46,7 @@ const FermiersList = isLoading ? <option>Chargements des fermiers ...</option> :
       })
   ): <h3>Aucun Fermier Trouvé !</h3>;
 function Verif(){
-  if((document.getElementById("animalsType").value=="")
-||(document.getElementById("birthday").value=="")
-  ||(document.getElementById("bornStatus").value=="")
-  ||(document.getElementById("born_weight").value=="")
-  ||(document.getElementById("description").value=="")
-  ||(document.getElementById("gender").value=="")
-  ||(document.getElementById("images").value=="")
-  ||(document.getElementById("matriculeAnimal").value=="")
-  ||(document.getElementById("originFather").value=="") 
-  ||(document.getElementById("originMother").value=="")
-  ||(document.getElementById("receiveWeight").value=="")){
+  if((document.getElementById("animalsType").value=="")){
 return false
   }
   else{
