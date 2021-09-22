@@ -2,204 +2,217 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import "../../css/style.css";
+
 import SideBar from "../SideBar";
 import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
 
-export default function Modifierfermier(props) {
-    const id = props.match.params.id.trim();
-  const [isLoading, setIsLoading] = useState(true);
-  const [fermiers, setfermiers] = useState([]);
-  const [Nouveaufermier, setNouveaufermier] = useState({
-    Nom: "",
-    Code: "",
-    Description: "",
-    Etat: "",
-    Responsable: "",
-    Points: "",
-  });
-  
-  const ModifierValeur = (e) => {
-    setNouveaufermier({
-      Nouveaufermier,
-      [e.target.id]: e.target.value,
-    });
-  };
-  const [users,setUsers]=useState([]);
-  useEffect(()=>{
-    //axios.get("http://localhost:4000/users")
-    axios.get("http://143.110.210.169:4000/users")
-    .then(res=>{
-        setUsers(res.data);
-        setIsLoading(false);
-    })
-    .catch(err=>console.log)
+export default function ModifierFerme(props) {
+  let history = useHistory();
+const [isLoading, setIsLoading] = useState(true);
+const [Fermier, setFermier] = useState({
+  username: "",
+  adress: "",
+  birthdate:"",
+  email:"",
+  Password:""
+});
+
+useEffect(()=>{
+
+  axios.get("http://admin.laitespoir.com:8187/api/users/one/"+props.id)
+  .then(res=>{
+      setFermier(res.data);
+      console.log(Fermier);
+      setIsLoading(false);
+  })
+  .catch(err=>console.log)
 }, []);
 
-  const SelectList = isLoading ? <option>Chargements des utilisateurs ...</option> : users.length ? (
-    users
-        .map(user=>{
-            return(
-              
-              <option selected >{user.name}</option>
-            )
-        })
-    ): <h3>Aucun Utilisateur Trouvé !</h3>;
+function Verif(){
+  if((document.getElementById("nameFermier").value=="")
+  ||(document.getElementById("AdressFermier").value=="")
+  ||(document.getElementById("Email").value=="")
+  ||(document.getElementById("birthdate").value=="")){
+return false
+  }
+  else{
+    return true
+  }     
+}
 
-    function GenerateCode(e){
+const handleClick = (e) => {
+  if(Verif()){
+  Swal.fire({
+    title: "Vous etez sur?",
+    text: "Veuillez Vérifier vos besoin avant de envoyé ",
+    icon: "warning",
+    showDenyButton: true,
+    confirmButtonText: `Modifier`,
+    denyButtonText: `Non`,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      
+      Fermier.username = document.getElementById("nameFermier").value;
+      Fermier.adress = document.getElementById("AdressFermier").value;
+      Fermier.email = document.getElementById("Email").value;
+      Fermier.birthdate= document.getElementById("birthdate").value;
+      Fermier.Password=document.getElementById("Password").value;
+      console.log({ Fermier });
+
       e.preventDefault();
-            var uuid = require("uuid");
-      var id = uuid.v4();
-      document.getElementById("NouveauCodefermier").value=id;
-      document.getElementById("Placeholder").value=id;
-      console.log(id)
-          }
-          
-  const handleClick = (e) => {
-    Swal.fire({
-      title: "Vous etez sur?",
-      text: "Veuillez Vérifier vos besoin avant de envoyé ",
-      icon: "warning",
-      showDenyButton: true,
-      confirmButtonText: `Modifier`,
-      denyButtonText: `Non`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Success", "Votre fermier a été Modifié :) ", "success");
-        Nouveaufermier.Nom = document.getElementById("NouveauNomfermier").value;
-        Nouveaufermier.Code = document.getElementById("NouveauCodefermier").value;
-        Nouveaufermier.Description = document.getElementById("NouveauDescriptionfermier").value;
-        Nouveaufermier.Etat = "En Cours";
-        Nouveaufermier.Points = document.getElementById("NouveauPointsfermier").value;
-        Nouveaufermier.Responsable = document.getElementById("Responsablefermier").value;
-        console.log("Nouveau fermier : ");
-        console.log({ Nouveaufermier });
+      axios
+          .put("http://admin.laitespoir.com:8187/api/users/update/", {
+          username: Fermier.username,
+          adress: Fermier.adress,
+          birthdate: Fermier.birthdate,
+          email: Fermier.email,
+          password:Fermier.Password,
+          createdAt: "2021-09-22T18:10:36.269Z"
+        },{
+          headers: {"Access-Control-Allow-Origin": "*"}
+        })
+        .then((res) => {
+          Swal.fire("Success", "Votre Fermier a été Modifié :) ", "success");
+          console.log(res.data);
+          history.push("/fermiers");
+        })
+        .catch((err) => {
+          Swal.fire("Ooops", "Une Erreur au niveau de la Modification ", "error");
+          console.error(err);
+        });
+    } else {
+      Swal.fire("Annulé", "Vous Avez Annulé la Modefication du Fermier.", "error");
+    }
+  });
+}else{
+  Swal.fire("Erreur", "Veuillez remplire tous les champs .", "error");
+}
+};
 
-        e.preventDefault();
-        
-        //axios.put(`http://localhost:4000/fermiers/updatefermier/${id}`, {
-          axios.put(`http://admin.laitespoir.com:8187/api/employees/update/${id}`, {
-            Nom: document.getElementById("NouveauNomfermier").value,
-            Code: document.getElementById("NouveauCodefermier").value,
-            Description: document.getElementById("NouveauDescriptionfermier").value,
-            Etat: "En Cours",
-            Points: document.getElementById("NouveauPointsfermier").value,
-            Responsable: document.getElementById("Responsablefermier").value,
-          })
-          .then((res) => {
-            console.log(res.data);
-            props.history.push("/fermiers");
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      } else {
-        Swal.fire(
-          "Annulé",
-          "Vous Avez Annulé la modification de cette fermier.",
-          "error"
-        );
-      }
-    });
-  };
-  useEffect(() => {
-    axios
-      //.get(`http://localhost:4000/fermiers/fermier/${id}`)
-      .get(`http://admin.laitespoir.com:8187/api/employees/one/${id}`)
-      .then((res) => {
-        setfermiers(res.data);
-        setIsLoading(false);
-      })
-      .catch((err) => console.log);
-  }, []);
-  console.log(fermiers);
-  const modifierfermier = isLoading ? (
-    <h3>Loading fermiers...</h3>
-  ) : fermiers.length ? (
-    fermiers.map((fermier) => {
-      return (
-        <div class="content-body" key={fermier.idEmployees}>
-          <div class="container-fluid">
-            <div class="page-titles">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="javascript:void(0)">Modifier fermiers</a>
-                </li>
-              </ol>
-            </div>
-            <div class="card-body">
-              <div class="basic-form">
-                <form>
-                  <div class="form-row">
-                    <div class="form-group col-md-3">
-                      <label>Nom fermier :</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Nouveau Nom Complet De la fermier"
-                        id={"NouveauNomfermier"}
-                        name={"NouveauNomfermier"}
-                        onChange={ModifierValeur}
-                        defaultValue={fermier.name}
-                      />
-                    </div>
-                    <div class="form-group col-md-3">
-                    <label>Génerer Automatiquement Code fermier :</label>
-                    <button className="btn btn-primary form-control" onClick={GenerateCode} id={"NouveauCodefermier"} name={"NouveauCodefermier"} onChange={ModifierValeur} ><i className="fa fa-plus-square"></i> Génerer Code</button><br/>Génerer Manuellement :
-                     <input type="text" class="form-control" id={"Placeholder"} defaultValue={fermier.Code}/>
-                     </div>
-                    
-                    <div class="form-group col-md-2">
-                      <label>Nombre de Points :</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id={"NouveauPointsfermier"}
-                        name={"NouveauPointsfermier"}
-                        placeholder="Nouveau Nombre de points"
-                     
-                        defaultValue={fermier.Points}
-                      />
-                    </div>
-                      <div className="form-group col-md-5">
-              <label>Responsable :</label><br></br>
-              <select class="dropdown bootstrap-select show-tick form-control col-md-5 " id={"Responsablefermier"}
-                      name={"Responsablefermier"}>
-              {SelectList}
-</select>
-            </div>
-                   
+var ListModif=[];
+ListModif.push(Fermier);
 
-                    <div class="form-group col-md-9">
-                      <label>Description detaillé de la fermier :</label>
-                      <textarea
-                        class="form-control"
-                        rows="5"
-                        id="comment"
-                        placeholder="Nouveau Description sur la fermier.."
-                        id={"NouveauDescriptionfermier"}
-                        name={"NouveauDescriptionfermier"}
-                        onChange={ModifierValeur}
-                        defaultValue={fermier.Description}
-                      ></textarea>
-                    </div>
+    const modifier = isLoading ?<div class="loader">
+    <div class="dot">L</div>
+    <div class="dot">O</div>
+    <div class="dot">A</div>
+    <div class="dot">D</div>
+    <div class="dot">I</div>
+    <div class="dot">N</div>
+    <div class="dot">G</div>
+    <div class="cogs">
+      <div class="cog cog0">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <div class="cog cog1">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <div class="cog cog2">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+  </div> : ListModif.length ? (
+        ListModif.map(Fermier=>{
+          console.log(ListModif)
+            return(
+              <div className="content-body">
+        <div className="container-fluid">
+          <div className="page-titles">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+              <div class="toggle-sidebar" checked="checked"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>  <a href="javascript:void(0)"><strong>Modifier Fermier</strong></a></div>
+              
+              </li>
+            </ol>
+          </div>
+
+          <div className="card-body">
+            <div className="basic-form">
+              <form>
+                <div className="form-row">
+                  <div className="form-group col-md-3">
+                    <label><strong>Nom Fermier</strong></label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Nom Complet De la Fermier"
+                      type="text"
+                      id={"nameFermier"}
+                      name={"nameFermier"}
+                      defaultValue={Fermier.username}
+                    />
                   </div>
-                </form>
-                <button className="btn btn-primary" onClick={handleClick}>
-                  <i className="fa fa-gears"></i> Modifier fermier
-                </button>
-              </div>
+                  
+                  <div class="form-group col-md-3">
+                                            <label><strong>Adress Fermier</strong></label>
+                                            <input type="text" class="form-control" id={"AdressFermier"} name={"AdressFermier"}placeholder="Adress Complete De la Fermier"
+                                             defaultValue={Fermier.adress}/>
+                                            </div>
+                  
+                                            <div className="form-group col-md-2">
+                    <label><strong>Date Naissance</strong></label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      placeholder="Date Naissance"
+                     
+                      id={"birthdate"}
+                      name={"birthdate"}
+                      defaultValue={Fermier.birthdate}
+                    />
+                  </div>
+                  </div>
+                  <div className="form-row">
+                  <div className="form-group col-md-3">
+              <label><strong>Email :</strong></label><br></br>
+              <input
+                      type="email"
+                      className="form-control"
+                      placeholder="Adress E-mail"
+                      defaultValue={Fermier.email}
+                      id={"Email"}
+                      name={"Email"}
+                    />
+            </div> 
+            <div className="form-group col-md-3">
+              <label><strong>Mot De Pass :</strong></label><br></br>
+              <input
+                      type="password"
+                      className="form-control"
+                      placeholder="Mot de Pass du Compte"
+                      defaultValue={Fermier.Password}
+                      id={"Password"}
+                      name={"Password"}
+                    />
+            </div> 
+                  </div>
+                                        <br/>
+              </form>
+              <button className="btn btn-primary" onClick={handleClick}>
+              <strong><i className="fa fa-plus-square"></i> Modifier Fermier</strong>
+              </button>
             </div>
           </div>
         </div>
-      );
-    })
-  ) : (
-    <h3>Vide</h3>
-  );
+      </div>
+            )
+        })
+    ): <h3>Vide</h3>;
+
   return (
     <div Style="font-family: 'poppins', sans-serif;">
       <SideBar />
-      {modifierfermier}
+     {modifier}
     </div>
   );
 }

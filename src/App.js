@@ -51,7 +51,7 @@ function App(props) {
                 <Route path={"/Dashboard"} render={(props)=><Dashboard {...props} />} />
                 <Route path={"/CategorieStocks"} render={(props)=><CategorieStocks {...props} />} />
                 <Route exact path="/ModifierFerme/:id" render={(props) => (<ModiferFerme id = {props.match.params.id} /> )}/>
-                <Route path="/ModifierFermier/:id" render={(props) => <ModifierFermier {...props} /> }/>
+                <Route path="/ModifierFermier/:id" render={(props) => <ModifierFermier id = {props.match.params.id} /> }/>
                 <Route path="/ModifierStock/:id" render={(props) => <ModifierStock {...props} /> }/>
                 <Route path="/ModifierCategorieStock/:id" render={(props) => <ModifierCategorieStock {...props} /> }/>
                 <Route path="/ModifierVaches/:id" render={(props) => <ModifierVaches {...props} /> }/>

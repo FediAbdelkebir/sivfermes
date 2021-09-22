@@ -12,21 +12,9 @@ export default function Fermiers() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [Fermiers,setTaches]=useState([]);
-    const [counttaches,setCountTaches]=useState([]);
-    useEffect(()=>{
-      
-      //axios.get("http://localhost:4000/Fermiers/Fermier/count")
-      axios.get("http://143.110.210.169:4000/Fermiers/Fermier/count")
-      .then(res=>{
-        setCountTaches(res.data);
-          setIsLoading(false);
-      })
-      .catch(err=>console.log)
-  }, []);
-
   useEffect(()=>{
     //axios.get("http://localhost:4000/Fermiers/")
-    axios.get("http://admin.laitespoir.com:8187/api/employees/list")
+    axios.get("http://admin.laitespoir.com:8187/api/users/list")
     .then(res=>{
       setTaches(res.data);
         setIsLoading(false);
@@ -39,7 +27,7 @@ export default function Fermiers() {
       if (keyword.length<1){
         console.log("Fergha");
         //axios.get("http://localhost:4000/Fermiers/")
-        axios.get("http://admin.laitespoir.com:8187/api/employees/list")
+        axios.get("http://admin.laitespoir.com:8187/api/users/list")
       .then(res=>{
           setTaches(res.data);
           setIsLoading(false);
@@ -48,7 +36,7 @@ export default function Fermiers() {
       }else{
       var filtered_taches = Fermiers;
 
-        filtered_taches=Fermiers.filter(Fermier=>Fermier.name.toLowerCase().includes(keyword.toLowerCase()));
+        filtered_taches=Fermiers.filter(Fermier=>Fermier.username.toLowerCase().includes(keyword.toLowerCase()));
         setTaches(filtered_taches);
       }
       
@@ -84,19 +72,9 @@ export default function Fermiers() {
   </div>  : Fermiers.length ? (
       Fermiers
       .map(Fermier=>{
-        let Etat="";
-        if (Fermier.Etat=="Validé") {
-          Fermier.Etat = <span class="badge light badge-success">Validé</span>;
-        }
-        if (Fermier.Etat=="En Cours") {
-          Fermier.Etat = <span class="badge light badge-warning">En Cours</span>;
-        }
-        if (Fermier.Etat=="Terminé") {
-          Fermier.Etat = <span class="badge light badge-danger">Terminé</span>;
-        }
           return(
             
-                  <tr key={Fermier.idEmployees}>
+                  <tr key={Fermier.idUsers}>
               <td>
                 <div className="custom-control custom-checkbox checkbox-success check-lg mr-3">
                   <input
@@ -121,7 +99,7 @@ export default function Fermiers() {
                     alt=""
                     width="24"
                   />{" "}
-                  <span className="w-space-no">{Fermier.name}</span>
+                  <span className="w-space-no">{Fermier.username}</span>
                 </div>
               </td>
               
@@ -131,12 +109,12 @@ export default function Fermiers() {
               <td>
                 <div className="d-flex">
                   <Link
-                    to={`/ModifierFermier/`+Fermier.idEmployees} 
+                    to={`/ModifierFermier/`+Fermier.idUsers} 
                     className="btn btn-primary shadow btn-xs sharp mr-1"
                   >
                     <i className="fa fa-pencil"></i>
                   </Link>
-                  <a href="#" onClick={(e) =>deletetache(Fermier.idEmployees, e)} className="btn btn-danger shadow btn-xs sharp" ><i className="fa fa-trash"></i></a>
+                  <a href="#" onClick={(e) =>deletetache(Fermier.idUsers, e)} className="btn btn-danger shadow btn-xs sharp" ><i className="fa fa-trash"></i></a>
                 </div>
               </td>
             </tr>
@@ -155,7 +133,7 @@ export default function Fermiers() {
     }).then((result) => {
       if (result.isConfirmed) {
         //axios.delete("http://localhost:4000/Fermiers/deletetache/"+id);
-        axios.delete("http://143.110.210.169:4000/Fermiers/deletetache/"+id);
+        axios.delete("http://143.110.210.169:4000/users/delete/"+id);
         Swal.fire("Success", "Fermier Supprimé :) ", "success");
         let newList = Fermiers.filter(Fermier=>{
             return Fermier.idEmployees !== id;
@@ -173,7 +151,7 @@ export default function Fermiers() {
  
   function Trienom(e){
     e.preventDefault();
-    setTaches(sortBy(Fermiers, "name"));
+    setTaches(sortBy(Fermiers, "username"));
 }
 function TrieEmail(e){
   e.preventDefault();

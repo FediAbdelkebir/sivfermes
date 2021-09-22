@@ -14,38 +14,15 @@ export default function AjouterFermier() {
     adress: "",
     birthdate:"",
     email:"",
-    dateJoin:"",
-    dateOff:"",
-    image:""
+    Password:""
   });
-  const [users,setUsers]=useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(()=>{
-    //axios.get("http://localhost:4000/users")
-    axios.get("http://admin.laitespoir.com:8187/api/employees/list")
-    .then(res=>{
-        setUsers(res.data);
-        setIsLoading(false);
-    })
-    .catch(err=>console.log)
-}, []);
 
-   const SelectList = isLoading ? <option>Chargements des utilisateurs ...</option> : users.length ? (
-    users
-        .map(user=>{
-            return(
-              <option selected>{user.name}</option>
-            )
-        })
-    ): <h3>Aucun Utilisateur Trouvé !</h3>;
-  const handleChange = (e) => {
-    setFermier({
-      Fermier,
-      [e.target.id]: e.target.value,
-    });
-  };
 function Verif(){
-  if((document.getElementById("nameFermier").value=="")||(document.getElementById("AdressFermier").value=="")||(document.getElementById("Email").value=="")||(document.getElementById("birthdate").value=="")||(document.getElementById("dateJoin").value=="")||(document.getElementById("dateOff").value=="")||(document.getElementById("image").value=="")){
+  if((document.getElementById("nameFermier").value=="")
+  ||(document.getElementById("AdressFermier").value=="")
+  ||(document.getElementById("Email").value=="")
+  ||(document.getElementById("birthdate").value=="")
+  ||(document.getElementById("Password").value=="")){
 return false
   }
   else{
@@ -70,22 +47,18 @@ return false
         Fermier.adress = document.getElementById("AdressFermier").value;
         Fermier.email = document.getElementById("Email").value;
         Fermier.birthdate= document.getElementById("birthdate").value;
-        Fermier.dateJoin=document.getElementById("dateJoin").value;
-        Fermier.dateOff=document.getElementById("dateOff").value;
-        Fermier.image=document.getElementById("image").value;
+        Fermier.Password=document.getElementById("Password").value;
         console.log({ Fermier });
 
         e.preventDefault();
         axios
-            .post("http://admin.laitespoir.com:8187/api/farms/save", {
-            name: Fermier.name,
+            .post("http://admin.laitespoir.com:8187/api/users/save", {
+            username: Fermier.name,
             adress: Fermier.adress,
             birthdate: Fermier.birthdate,
             email: Fermier.email,
-            dateJoin:Fermier.dateJoin,
-            dateOff:Fermier.dateOff,
-            image:Fermier.image
-            
+            password:Fermier.Password,
+            createdAt: "2021-09-22T18:10:36.269Z"
           },{
             headers: {"Access-Control-Allow-Origin": "*"}
           })
