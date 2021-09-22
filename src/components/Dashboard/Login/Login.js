@@ -27,7 +27,7 @@ export default function Login() {
           text: "Veuillez Vérifier vos besoin avant de envoyé ",
           icon: "warning",
           showDenyButton: true,
-          confirmButtonText: `Ajouter`,
+          confirmButtonText: `Connecter`,
           denyButtonText: `Non`,
         }).then((result) => {
           if (result.isConfirmed) {
@@ -62,15 +62,15 @@ export default function Login() {
         if(Verif()){
         Swal.fire({
           title: "Vous etez sur?",
-          text: "Veuillez Vérifier vos besoin avant de envoyé ",
+          text: "Veuillez Vérifier vos besoin avant de Connecter ",
           icon: "warning",
           showDenyButton: true,
-          confirmButtonText: `Ajouter`,
+          confirmButtonText: `Connecter`,
           denyButtonText: `Non`,
         }).then((result) => {
           if (result.isConfirmed) {
             e.preventDefault();
-            history.push("/veaux");
+            history.push("/Dashboard");
           } else {
             Swal.fire("Annulé", "Vous Avez Annulé l'authentification.", "error");
           }
