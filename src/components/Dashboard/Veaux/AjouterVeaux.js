@@ -9,18 +9,15 @@ import $ from "jquery";
 export default function AjouterVeaux() {
   let history = useHistory();
   const [Veaux, setVeaux] = useState({
-    animalsType: "string",
+    Nom:"Nom",
     birthday: "2021-09-18T13:14:36.136Z",
-    bornStatus: 0,
+    dateajout:"2021-09-18T13:14:36.136Z",
     weight: 0,
-    description: "string",
+    Fermier: "Fermier",
     gender: "string",
-    images: "string",
     matriculeAnimal: "string",
     originFather: "string",
-    originMother: "string",
-    originWeight: 0,
-    receiveWeight: 0,
+    originMother: "string"
   });
   const [fermiers,setFermiers]=useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,17 +42,15 @@ const FermiersList = isLoading ? <option>Chargements des fermiers ...</option> :
   ): <h3>Aucun Fermier Trouvé !</h3>;
    
 function Verif(){
-  if((document.getElementById("animalsType").value=="")
+  if((document.getElementById("Nom").value=="")
 ||(document.getElementById("birthday").value=="")
-  ||(document.getElementById("bornStatus").value=="")
+||(document.getElementById("dateajout").value=="")
+||(document.getElementById("Fermier").value=="")
   ||(document.getElementById("weight").value=="")
-  ||(document.getElementById("description").value=="")
   ||(document.getElementById("gender").value=="")
-  ||(document.getElementById("images").value=="")
   ||(document.getElementById("matriculeAnimal").value=="")
   ||(document.getElementById("originFather").value=="") 
-  ||(document.getElementById("originMother").value=="")
-  ||(document.getElementById("receiveWeight").value=="")){
+  ||(document.getElementById("originMother").value=="")){
 return false
   }
   else{
@@ -75,37 +70,32 @@ return false
       denyButtonText: `Non`,
     }).then((result) => {
       if (result.isConfirmed) {
-        
-        Veaux.animalsType = document.getElementById("animalsType").value;
+        Veaux.Nom=document.getElementById("Nom").value;
         Veaux.birthday = document.getElementById("birthday").value;
-        Veaux.bornStatus = document.getElementById("bornStatus").value;
+        Veaux.dateajout=document.getElementById("dateajout").value;
         Veaux.weight = document.getElementById("weight").value;
-        Veaux.description = document.getElementById("description").value;
         Veaux.gender = document.getElementById("gender").value;
-        Veaux.images = document.getElementById("images").value;
         Veaux.matriculeAnimal = document.getElementById("matriculeAnimal").value;
         Veaux.originFather = document.getElementById("originFather").value;
         Veaux.originMother = document.getElementById("originMother").value;
-        Veaux.originWeight = document.getElementById("originWeight").value;
-        Veaux.receiveWeight = document.getElementById("receiveWeight").value;
+        Veaux.Fermier=document.getElementById("Fermier").value;
         console.log({ Veaux });
 
         e.preventDefault();
         axios
           //.post("http://localhost:4000/veaux/create", {
             .post("http://localhost:8187/api/animals/Veaux/save", {
-              animalsType:  Veaux.animalsType,
+              Nom:  Veaux.Nom,
               birthday: Veaux.birthday,
-              bornStatus:  Veaux.bornStatus,
+              dateajout:Veaux.dateajout,
               weight: Veaux.weight,
-              description: Veaux.description,
               gender:Veaux.gender,
-              images: Veaux.images,
               matriculeAnimal: Veaux.matriculeAnimal,
               originFather: Veaux.originFather,
               originMother: Veaux.originMother,
-              originWeight: Veaux.originWeight,
-              receiveWeight: Veaux.receiveWeight,
+              Fermier:Veaux.Fermier
+              
+              
           })
           .then((res) => {
             Swal.fire("Success", "Votre Veaux a été créé :) ", "success");
@@ -137,10 +127,6 @@ return false
               </li>
             </ol>
           </div>
-
-
-
-          
           <div className="card-body">
             <div className="basic-form">
               <form>
