@@ -63,6 +63,7 @@ const handleClick = (e) => {
       e.preventDefault();
       axios
           .put("http://admin.laitespoir.com:8187/api/users/update/", {
+            idUsers:props.id,
           username: Fermier.username,
           adress: Fermier.adress,
           birthdate: Fermier.birthdate,

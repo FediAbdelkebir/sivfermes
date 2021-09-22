@@ -14,15 +14,15 @@ export default function AjouterVache() {
   const [Vache, setVache] = useState({
     birthday: "",
     Matricule: "",
-    dateajout:"",
-    Fermier:""
-
+    createdAt:"",
+    Fermier:"",
+    updatedAt:""
   });
   const [fermiers,setFermiers]=useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
 useEffect(()=>{
-  axios.get("http://admin.laitespoir.com:8187/api/employees/list")
+  axios.get("http://admin.laitespoir.com:8187/api/users/list")
   .then(res=>{
     setFermiers(res.data);
       setIsLoading(false);
@@ -34,10 +34,11 @@ const FermiersList = isLoading ? <option>Chargements des fermiers ...</option> :
   fermiers
       .map(user=>{
           return(
-            <option selected>{user.name}</option>
+            <option selected value={user.idUsers}>{user.username}</option>
           )
       })
   ): <h3>Aucun Fermier Trouvé !</h3>;
+
 function Verif(){
   if((document.getElementById("birthday").value=="")
   ||(document.getElementById("Matricule").value=="")
@@ -49,55 +50,54 @@ return false
     return true
   }     
 }
+const handleClick = (e) => {
+  if(Verif()){
+  Swal.fire({
+    title: "Vous etez sur?",
+    text: "Veuillez Vérifier vos besoin avant de envoyé ",
+    icon: "warning",
+    showDenyButton: true,
+    confirmButtonText: `Ajouter`,
+    denyButtonText: `Non`,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      
+      Vache.birthday = document.getElementById("birthday").value;
+      Vache.createdAt = document.getElementById("dateajout").value;
+      Vache.updatedAt = document.getElementById("dateajout").value;
+      Vache.Matricule = document.getElementById("Matricule").value;
+      Vache.Fermier= document.getElementById("Fermier").value;
+      console.log({ Vache });
 
+      e.preventDefault();
+      axios
+          .post("http://admin.laitespoir.com:8187/api/Vache/save", {
+           // idFerme:5,
+          birthday: Vache.birthday,
+          matriculeAnimal: Vache.Matricule,
+          createdAt: Vache.createdAt,
+          updatedAt:Vache.updatedAt
+        },{
+          headers: {"Access-Control-Allow-Origin": "*"}
+        })
+        .then((res) => {
+          Swal.fire("Success", "Votre Vache a été créé :) ", "success");
+          console.log(res.data);
+          history.push("/Vaches");
+        })
+        .catch((err) => {
+          Swal.fire("Ooops", "Une Erreur au niveau de l'insertion ", "error");
+          console.error(err);
+        });
+    } else {
+      Swal.fire("Annulé", "Vous Avez Annulé l'ajout d'une Vache.", "error");
+    }
+  });
+}else{
+  Swal.fire("Erreur", "Veuillez remplire tous les champs .", "error");
+}
+};
 
-  const handleClick = (e) => {
-    if(Verif()){
-    Swal.fire({
-      title: "Vous etez sur?",
-      text: "Veuillez Vérifier vos besoin avant de envoyé ",
-      icon: "warning",
-      showDenyButton: true,
-      confirmButtonText: `Ajouter`,
-      denyButtonText: `Non`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        
-        Vache.animalsType = document.getElementById("animalsType").value;
-        console.log({ Vache });
-
-        e.preventDefault();
-        axios
-          //.post("http://localhost:4000/vaches/create", {
-            .post("http://admin.laitespoir.com:8187/api/animals/Vaches/save", {
-              birthday:Vache.birthday,
-              dateajout:Vache.dateajout,
-              Matricule:Vache.Matricule,
-              Fermier:Vache.Fermier
-
-          })
-          .then((res) => {
-            Swal.fire("Success", "Votre Vache a été créé :) ", "success");
-            console.log(res.data);
-            history.push("/vaches");
-          })
-          .catch((err) => {
-            Swal.fire("Ooops", "Une Erreur au niveau de l'insertion ", "error");
-            console.error(err);
-          });
-      } else {
-        Swal.fire("Annulé", "Vous Avez Annulé l'ajout d'une Vache.", "error");
-      }
-    });
-  }else{
-    Swal.fire("Erreur", "Veuillez remplire tous les champs .", "error");
-  }
-  };
-  Date.prototype.toDateInputValue = (function() {
-    var local = new Date(this);
-    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-    return local.toJSON().slice(0,10);
-});
 $(document).ready(function () {     
     
   document.getElementById('dateajout').value = new Date().toDateInputValue();})
@@ -114,10 +114,6 @@ $(document).ready(function () {
               </li>
             </ol>
           </div>
-
-
-
-          
           <div className="card-body">
             <div className="basic-form">
               <form>
@@ -130,7 +126,6 @@ $(document).ready(function () {
                       type="date"
                       className="form-control"
                       placeholder="Date Naissance de la Vache"
-           
                       id={"birthday"}
                       name={"birthday"}
                     />
@@ -142,7 +137,6 @@ $(document).ready(function () {
                       type="date"
                       className="form-control"
                       placeholder="Date Naissance de la Vache"
-           
                       id={"dateajout"}
                       name={"dateajout"}
                     
@@ -154,14 +148,13 @@ $(document).ready(function () {
                       type="text"
                       className="form-control"
                       placeholder="Date Naissance de la Vache"
-           
                       id={"Matricule"}
                       name={"Matricule"}
                     />
                   </div>
                   <div className="form-group col-md-2">
               <label><strong>Choisire Fermier : </strong></label><br></br>
-              <select class="dropdown form-control  " id={"Fermier"}
+              <select class="dropdown form-control" id={"Fermier"}
                       name={"Fermier"}>
 
               {FermiersList}

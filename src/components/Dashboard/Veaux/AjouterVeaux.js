@@ -23,7 +23,7 @@ export default function AjouterVeaux() {
   const [isLoading, setIsLoading] = useState(true);
   
 useEffect(()=>{
-  axios.get("http://admin.laitespoir.com:8187/api/employees/list")
+  axios.get("http://admin.laitespoir.com:8187/api/users/list")
   .then(res=>{
     setFermiers(res.data);
       setIsLoading(false);
@@ -36,7 +36,7 @@ const FermiersList = isLoading ? <option>Chargements des fermiers ...</option> :
   fermiers
       .map(user=>{
           return(
-            <option selected>{user.name}</option>
+            <option selected>{user.username}</option>
           )
       })
   ): <h3>Aucun Fermier Trouvé !</h3>;
@@ -93,8 +93,9 @@ return false
               matriculeAnimal: Veaux.matriculeAnimal,
               originFather: Veaux.originFather,
               originMother: Veaux.originMother,
-              Fermier:Veaux.Fermier
-              
+              Fermier:Veaux.Fermier,
+              createdAt: Veaux.dateajout,
+              updatedAt: Veaux.dateajout
               
           })
           .then((res) => {
