@@ -20,11 +20,14 @@ import AjouterVeaux from "./components/Dashboard/Veaux/AjouterVeaux";
 import Veaux from "./components/Dashboard/Veaux/Veaux";
 import ModifierVeaux from "./components/Dashboard/Veaux/ModifierVeaux";
 import Dashboard from "./components/Dashboard/Home/Dashboard";
+import Login from "./components/Dashboard/Login/Login";
+import Error404 from "./components/Dashboard/ErrorPages/ErrorPage404";
 function App(props) {
     return (
         <div className="App" Style="letter-spacing: 0.7px;font-family: Roboto;text-transform: capitalize;">
             <Switch>
-                <Route exact={true} path={"/"} render={(props)=><Fermier {...props} />} />
+                <Route exact={true} path={"/"} render={(props)=><Login {...props} />} />
+                <Route path={"/Error404"} render={(props)=><Error404 {...props} />} />
                 <Route path={"/AffecterFermier"} render={(props)=><AffecterFermier {...props} />} />
                 <Route path={"/AjouterFermier"} render={(props)=><AjouterFermier {...props} />} />
                 <Route path={"/AjouterStock"} render={(props)=><AjouterStock {...props} />} />
