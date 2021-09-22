@@ -12,7 +12,15 @@ import $ from 'jquery';
 export default function Fermes() {
     const [isLoading, setIsLoading] = useState(true);
     const [fermes,setFermes]=useState([]);
-
+    useEffect(()=>{
+    
+      axios.get("http://admin.laitespoir.com:8187/api/Societe/list")
+      .then(res=>{
+          setFermes(res.data);
+          setIsLoading(false);
+      })
+      .catch(err=>console.log)
+  }, []);
     const handleChange = (e) => {
         var keyword = document.getElementById("ValeurRechercheFermes").value;
         if (keyword.length<1){
@@ -70,15 +78,6 @@ export default function Fermes() {
     };
     
 
-    useEffect(()=>{
-    
-        axios.get("http://admin.laitespoir.com:8187/api/Societe/list")
-        .then(res=>{
-            setFermes(res.data);
-            setIsLoading(false);
-        })
-        .catch(err=>console.log)
-    }, []);
 
 function Trienom(e){
     e.preventDefault();

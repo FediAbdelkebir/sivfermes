@@ -71,8 +71,9 @@ useEffect(()=>{
         e.preventDefault();
         
         axios
-          //.put("http://localhost:4000/Fermes/UpdateFerme/"+props.id, {
-            .put("http://admin.laitespoir.com:8187/api/Societe/update/"+props.id, {
+          //.put("http://localhost:4000/Societe/update/"+props.id, {
+            .put("http://admin.laitespoir.com:8187/api/Societe/update/",{
+              id:props.id,
             name: Ferme.name,
             address: Ferme.address,
             matriculeFiscal: Ferme.matriculeFiscal,
