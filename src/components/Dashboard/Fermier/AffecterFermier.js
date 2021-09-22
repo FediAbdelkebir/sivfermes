@@ -15,7 +15,7 @@ export default function AjouterFermier() {
     const [UT,setUT]=useState([]);
 
     useEffect(()=>{
-        axios.get("http://localhost:8187/api/farms/list1/")
+        axios.get("http://admin.laitespoir.com:8187/api/Societe/list")
         .then(res=>{
             console.log(res);
             setFarms(res.data);
@@ -25,7 +25,7 @@ export default function AjouterFermier() {
     }, []);
 
     useEffect(()=>{
-        axios.get("http://localhost:8187/api/employees/list")
+        axios.get("http://admin.laitespoir.com:8187/api/users/list")
         .then(res=>{
           setFermiers(res.data);
             setIsLoading(false);
@@ -54,7 +54,7 @@ export default function AjouterFermier() {
       if (keyword.length<1){
         console.log("Fergha");
         //axios.get("http://localhost:4000/users/")
-        axios.get("http://143.110.210.169:4000/users")
+        axios.get("http://admin.laitespoir.com:8187/api/users/list")
       .then(res=>{
         setUsers(res.data);
           setIsLoading(false);

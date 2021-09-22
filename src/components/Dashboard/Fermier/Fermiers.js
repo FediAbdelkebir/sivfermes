@@ -26,7 +26,7 @@ export default function Fermiers() {
 
   useEffect(()=>{
     //axios.get("http://localhost:4000/Fermiers/")
-    axios.get("http://localhost:8187/api/employees/list")
+    axios.get("http://admin.laitespoir.com:8187/api/employees/list")
     .then(res=>{
       setTaches(res.data);
         setIsLoading(false);
@@ -39,7 +39,7 @@ export default function Fermiers() {
       if (keyword.length<1){
         console.log("Fergha");
         //axios.get("http://localhost:4000/Fermiers/")
-        axios.get("http://localhost:8187/api/employees/list")
+        axios.get("http://admin.laitespoir.com:8187/api/employees/list")
       .then(res=>{
           setTaches(res.data);
           setIsLoading(false);

@@ -10,46 +10,51 @@ import { useHistory } from "react-router-dom";
 export default function ModifierFerme(props) {
   let history = useHistory();
 const [isLoading, setIsLoading] = useState(true);
-const [Fermes,setFermes]=useState([]);
-  const [Ferme, oldFerme] = useState({
-    Nom: "",
-    Code: "",
-    SUPAD: "",
-  });
+const [Fermes,setFermes]=useState({
+  name: "",
+  address: "",
+  email:"",
+  password:"",
+  matriculeFiscal:"",
+  createdAt:"",
+  dateCreationSociete:""
+});
+const [Ferme, oldFerme] = useState({
+  name: "",
+  address: "",
+  email:"",
+  password:"",
+  matriculeFiscal:"",
+  createdAt:"",
+  dateCreationSociete:""
+});
+
+useEffect(()=>{
+
+  axios.get("http://admin.laitespoir.com:8187/api/Societe/one/"+props.id)
+  .then(res=>{
+      setFermes(res.data);
+      console.log(Fermes);
+      setIsLoading(false);
+  })
+  .catch(err=>console.log)
+}, []);
+
   const handleChange = (e) => {
     oldFerme({
         Ferme,
       [e.target.id]: e.target.value,
     });
   };
-  const [users,setUsers]=useState([]);
-  
-  useEffect(()=>{
-    axios.get("http://localhost:8187/api/employees/list")
-    .then(res=>{
-        setUsers(res.data);
-        setIsLoading(false);
-    })
-    .catch(err=>console.log)
-}, []);
-
-  const SelectList = isLoading ? <option>Chargements des utilisateurs ...</option> : users.length ? (
-    users
-        .map(user=>{
-            return(
-              
-              <option selected >{user.name}</option>
-            )
-        })
-    ): <h3>Aucun Utilisateur Trouvé !</h3>;
 
   const handleClick = (e) => {
 
-    Ferme.name = document.getElementById("NouveauNomFerme").value;
-    Ferme.adress = document.getElementById("NouveauCodeFerme").value;
-    Ferme.manager = document.getElementById("NouveauSUPAD").value;
-    Ferme.description =document.getElementById("Descriptionferme").value;
-    Ferme.numtel= document.getElementById("numtel").value;
+    Ferme.name = document.getElementById("nameFerme").value;
+    Ferme.address = document.getElementById("AdressFerme").value;
+    Ferme.password = document.getElementById("Password").value;
+    Ferme.email= document.getElementById("Email").value;
+    Ferme.matriculeFiscal= document.getElementById("Descriptionferme").value;
+
     console.log({ Ferme });
 
     Swal.fire({
@@ -67,17 +72,18 @@ const [Fermes,setFermes]=useState([]);
         
         axios
           //.put("http://localhost:4000/Fermes/UpdateFerme/"+props.id, {
-            .put("http://localhost:8187/api/farms/"+props.id, {
-              idFerme:Ferme.idFerme,
-              name: Ferme.name,
-              adress: Ferme.adress,
-              numtel: Ferme.numtel,
-              manager: Ferme.manager,
-              description: Ferme.description,
+            .put("http://admin.laitespoir.com:8187/api/Societe/update/"+props.id, {
+            name: Ferme.name,
+            address: Ferme.address,
+            matriculeFiscal: Ferme.matriculeFiscal,
+            email: Ferme.email,
+            //password: Ferme.password,
+            //images:"image",
+           // status:1,
           })
           .then((res) => {
             console.log(res.data);
-            history.push("/Fermes");
+            history.push("/Sociétés");
           })
           .catch((err) => {
             Swal.fire("Ooops", "Une Erreur au niveau de la Modification ", "error");
@@ -89,17 +95,8 @@ const [Fermes,setFermes]=useState([]);
     });
   };
 
-
-    useEffect(()=>{
-
-        axios.get("http://localhost:8187/api/farms/one/"+props.id)
-        .then(res=>{
-            setFermes(res.data);
-            console.log(Fermes);
-            setIsLoading(false);
-        })
-        .catch(err=>console.log)
-    }, []);
+var ListModif=[];
+ListModif.push(Fermes);
 
     const modifier = isLoading ?<div class="loader">
     <div class="dot">L</div>
@@ -129,78 +126,88 @@ const [Fermes,setFermes]=useState([]);
         <div class="bar"></div>
       </div>
     </div>
-  </div> : Fermes.length ? (
-        Fermes.map(Ferme=>{
+  </div> : ListModif.length ? (
+        ListModif.map(Ferme=>{
+          console.log(ListModif)
             return(
-                <div className="content-body"  key={Ferme.idFerme}>
-                <div className="container-fluid">
-                  <div className="page-titles">
-                    <ol className="breadcrumb">
-                      <li className="breadcrumb-item">
-                        <a href="javascript:void(0)">Modifier Ferme</a>
-                      </li>
-                    </ol>
-                  </div>
-                  <div className="card-body">
-                    <div className="basic-form">
-                      <form>
-                        <div className="form-row">
-                          <div className="form-group col-md-3">
-                            <label>Nouvelle Nom Ferme :</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Nouveau Nom Complet De la Ferme"
-                              type="text"
-                              id={"NouveauNomFerme"}
-                              name={"NouveauNomFerme"}
-                              defaultValue={Ferme.name}
-                              onChange={handleChange}
-                            />
-                          </div>
-                          <div class="form-group col-md-3">
-                          <label>Nouvelle Adress Ferme</label>
-                          <input type="text" class="form-control" id={"PlaceholderFermeCode"}defaultValue={Ferme.adress}/>
-                           </div>
-
-
-                           <div className="form-group col-md-2">
-                    <label>Numero Téléphone</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      placeholder="Numero de Télephone"
-                     
-                      id={"numtel"}
-                      name={"numtel"}
-                      defaultValue={Ferme.numTel}
-                    />
-                  </div>
-                          <div className="form-group col-md-5">
-              <label>Nouveaux Manager</label><br></br>
-              <select class="dropdown bootstrap-select show-tick form-control col-md-5 " id={"NouveauSUPAD"}
-                      name={"NouveauSUPAD"}>
-              {SelectList}
-</select>
-            </div> 
-            <div class="form-group col-md-9" >
-                                            <label>Nouvelle Description detaillé de la ferme </label>
-                                        <textarea class="form-control" rows="5" id="comment" placeholder="Description sur la ferme.."
-                                        id={"Descriptionferme"}
-                                        name={"Descriptionferme"}
-                                        defaultValue={Ferme.description}
-                                        ></textarea>
-                                        </div>
-                                        <br/>
+              <div className="content-body">
+              <div className="container-fluid">
+                <div className="page-titles">
+                  <ol className="breadcrumb">
+                    <li className="breadcrumb-item">
+                    <div class="toggle-sidebar" checked="checked"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>  <a href="javascript:void(0)"><strong>Ajouter Société</strong></a></div>
+                    
+                    </li>
+                  </ol>
+                </div>
+      
+                <div className="card-body">
+                  <div className="basic-form">
+                    <form>
+                      <div className="form-row">
+                        <div className="form-group col-md-3">
+                          <label><strong>Nom Société</strong></label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Nom Complet De la Ferme"
+                            type="text"
+                            id={"nameFerme"}
+                            name={"nameFerme"}
+                            defaultValue={Ferme.name}
+                          />
                         </div>
-                      </form>
-                      <button className="btn btn-primary" onClick={handleClick}>
-                        Modifier Ferme
-                      </button>
-                    </div>
+                        
+                        <div class="form-group col-md-3">
+                                                  <label><strong>Adress Société</strong></label>
+                                                  <input type="text" class="form-control" id={"AdressFerme"} name={"AdressFerme"}placeholder="Adress Complete De la Société"
+                                                  defaultValue={Ferme.address}/>
+                                                  </div>
+                        
+                                                  <div className="form-group col-md-3">
+                          <label><strong>E-mail Société</strong></label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Address Email Société"
+                            defaultValue={Ferme.email}
+                            id={"Email"}
+                            name={"Email"}
+                          />
+                        </div>
+                        
+       
+                        <div class="form-group col-md-6" >
+                                                  <label><strong>Description detaillé de la Société </strong></label>
+                                              <textarea class="form-control" rows="5" id="comment" placeholder="Description sur la ferme.."
+                                              id={"Descriptionferme"}
+                                              name={"Descriptionferme"}
+                                              defaultValue={Ferme.matriculeFiscal}
+                                              ></textarea>
+                                              </div>
+                                              <div className="form-group col-md-3">
+                          <label><strong>Mot de Pass</strong></label>
+                          <input
+                            type="password"
+                            className="form-control"
+                            placeholder="Mot de Pass Société"
+                           
+                            id={"Password"}
+                            name={"Password"}
+                            defaultValue={Ferme.Password}
+                          />
+                        </div>
+                        
+                      </div>
+                      
+                    </form>
+                    <button className="btn btn-primary" onClick={handleClick}>
+                    <strong><i className="fa fa-plus-square"></i> Modifier Société</strong>
+                    </button>
                   </div>
                 </div>
               </div>
+            </div>
             )
         })
     ): <h3>Vide</h3>;

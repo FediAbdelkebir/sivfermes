@@ -22,7 +22,7 @@ export default function AjouterVache() {
   const [isLoading, setIsLoading] = useState(true);
   
 useEffect(()=>{
-  axios.get("http://localhost:8187/api/employees/list")
+  axios.get("http://admin.laitespoir.com:8187/api/employees/list")
   .then(res=>{
     setFermiers(res.data);
       setIsLoading(false);
@@ -69,7 +69,7 @@ return false
         e.preventDefault();
         axios
           //.post("http://localhost:4000/vaches/create", {
-            .post("http://localhost:8187/api/animals/Vaches/save", {
+            .post("http://admin.laitespoir.com:8187/api/animals/Vaches/save", {
               birthday:Vache.birthday,
               dateajout:Vache.dateajout,
               Matricule:Vache.Matricule,

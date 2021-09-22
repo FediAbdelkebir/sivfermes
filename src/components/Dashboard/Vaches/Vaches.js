@@ -17,7 +17,7 @@ export default function Vaches() {
         var keyword = document.getElementById("ValeurRechercheVaches").value;
         if (keyword.length<1){
           console.log("Fergha");
-          axios.get("http://localhost:8187/api/animals/vaches/list")
+          axios.get("http://admin.laitespoir.com:8187/api/animals/vaches/list")
         .then(res=>{
             setVaches(res.data);
             setIsLoading(false);
@@ -43,7 +43,7 @@ export default function Vaches() {
         denyButtonText: `Non, Annuler`,
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete("http://localhost:8187/api/animals/vaches/delete"+id);
+          axios.delete("http://admin.laitespoir.com:8187/api/animals/vaches/delete"+id);
          // axios.delete("http://localhost:4000/vaches/"+id);
           Swal.fire("Success", "Votre tache a été Modifié :) ", "success");
         } else {
@@ -60,7 +60,7 @@ export default function Vaches() {
 
 
     useEffect(()=>{
-      axios.get("http://localhost:8187/api/animals/vaches/list")
+      axios.get("http://admin.laitespoir.com:8187/api/animals/vaches/list")
         .then(res=>{
             setVaches(res.data);
             setIsLoading(false);

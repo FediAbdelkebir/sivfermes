@@ -77,7 +77,7 @@ export default function Modifierstock(props) {
         e.preventDefault();
         
         //axios.put(`http://localhost:4000/stocks/updatestock/${id}`, {
-          axios.put(`http://localhost:8187/api/employees/update/${id}`, {
+          axios.put(`http://admin.laitespoir.com:8187/api/employees/update/${id}`, {
             Nom: document.getElementById("NouveauNomstock").value,
             Code: document.getElementById("NouveauCodestock").value,
             Description: document.getElementById("NouveauDescriptionstock").value,
@@ -104,7 +104,7 @@ export default function Modifierstock(props) {
   useEffect(() => {
     axios
       //.get(`http://localhost:4000/stocks/stock/${id}`)
-      .get(`http://localhost:8187/api/employees/one/${id}`)
+      .get(`http://admin.laitespoir.com:8187/api/employees/one/${id}`)
       .then((res) => {
         setstocks(res.data);
         setIsLoading(false);

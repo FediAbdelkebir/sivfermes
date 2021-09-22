@@ -17,7 +17,7 @@ export default function Fermes() {
         var keyword = document.getElementById("ValeurRechercheFermes").value;
         if (keyword.length<1){
           console.log("Fergha");
-          axios.get("http://localhost:8187/api/farms/list1")
+          axios.get("http://admin.laitespoir.com:8187/api/Societe/list")
         .then(res=>{
             setFermes(res.data);
             setIsLoading(false);
@@ -33,7 +33,7 @@ export default function Fermes() {
   }
   
 
-    const deletesociete = (id) => {
+    const deletesociete = (ferme) => {
       Swal.fire({
         title: "Vous etez sur?",
         text: "Veuillez Vérifier vos besoin avant de envoyé ",
@@ -43,7 +43,18 @@ export default function Fermes() {
         denyButtonText: `Non, Annuler`,
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete("http://localhost:8187/api/farms/"+id);
+          axios.delete("http://admin.laitespoir.com:8187/api/Societe/delete", {
+            idFerme:ferme.idFerme,
+           name: ferme.name,
+           address: ferme.adress,
+           matriculeFiscal: ferme.matriculeFiscal,
+           email: ferme.email,
+           //password: Ferme.password,
+           //images:"image",
+          // status:1,
+           createdAt:  ferme.createdAt,
+           dateCreationSociete:  ferme.dateCreationSociete,
+         });
          
           Swal.fire("Success", "Votre tache a été Modifié :) ", "success");
         } else {
@@ -61,7 +72,7 @@ export default function Fermes() {
 
     useEffect(()=>{
     
-        axios.get("http://localhost:8187/api/farms/list1")
+        axios.get("http://admin.laitespoir.com:8187/api/Societe/list")
         .then(res=>{
             setFermes(res.data);
             setIsLoading(false);
@@ -75,7 +86,7 @@ function Trienom(e){
 }
 function TrieAdress(e){
     e.preventDefault();
-  setFermes(sortBy(fermes, "adress"));
+  setFermes(sortBy(fermes, "address"));
 }
 function TrieEmail(e){
     e.preventDefault();
@@ -83,7 +94,7 @@ function TrieEmail(e){
 }
 function TrieDescription(e){
   e.preventDefault();
-setFermes(sortBy(fermes, "description"));
+setFermes(sortBy(fermes, "matriculeFiscal"));
 }
 
     const content = isLoading ? <div class="loader">
@@ -154,7 +165,7 @@ setFermes(sortBy(fermes, "description"));
                       alt=""
                       width="24"
                     />
-                    <span className="w-space-no">{ferme.adress}</span>
+                    <span className="w-space-no">{ferme.address}</span>
                   </div>
                 </td>
                 <td>
@@ -176,7 +187,7 @@ setFermes(sortBy(fermes, "description"));
                       alt=""
                       width="24"
                     />
-                    <span className="w-space-no">{ferme.description}</span>
+                    <span className="w-space-no">{ferme.matriculeFiscal}</span>
                   </div>
                 </td>
                 
@@ -184,12 +195,12 @@ setFermes(sortBy(fermes, "description"));
                 <td>
                   <div className="d-flex">
                     <Link
-                      to={`/ModifierFerme/`+ferme.idFerme}
+                      to={`/ModifierFerme/`+ferme.id}
                       className="btn btn-primary shadow btn-xs sharp mr-1"
                     >
                       <i className="fa fa-pencil"></i>
                     </Link>
-                    <a href="#" onClick={(e) =>deletesociete(ferme.idFerme, e)} className="btn btn-danger shadow btn-xs sharp">
+                    <a href="#" onClick={(e) =>deletesociete(ferme, e)} className="btn btn-danger shadow btn-xs sharp">
                       <i className="fa fa-trash"></i>
                       </a>
                   </div>
@@ -283,7 +294,7 @@ setFermes(sortBy(fermes, "description"));
                   <strong>E-mail</strong>
                 </th>
                 <th>
-                  <strong>Description</strong>
+                  <strong>Matricule</strong>
                 </th>
                 <th>
                   <strong>Gestion</strong>

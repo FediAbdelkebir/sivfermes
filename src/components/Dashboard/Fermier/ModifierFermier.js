@@ -77,7 +77,7 @@ export default function Modifierfermier(props) {
         e.preventDefault();
         
         //axios.put(`http://localhost:4000/fermiers/updatefermier/${id}`, {
-          axios.put(`http://localhost:8187/api/employees/update/${id}`, {
+          axios.put(`http://admin.laitespoir.com:8187/api/employees/update/${id}`, {
             Nom: document.getElementById("NouveauNomfermier").value,
             Code: document.getElementById("NouveauCodefermier").value,
             Description: document.getElementById("NouveauDescriptionfermier").value,
@@ -104,7 +104,7 @@ export default function Modifierfermier(props) {
   useEffect(() => {
     axios
       //.get(`http://localhost:4000/fermiers/fermier/${id}`)
-      .get(`http://localhost:8187/api/employees/one/${id}`)
+      .get(`http://admin.laitespoir.com:8187/api/employees/one/${id}`)
       .then((res) => {
         setfermiers(res.data);
         setIsLoading(false);

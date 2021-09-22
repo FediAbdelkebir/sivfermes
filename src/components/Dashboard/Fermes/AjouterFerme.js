@@ -5,15 +5,17 @@ import "../../css/style.css";
 import SideBar from "../SideBar";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
-
+import $ from "jquery";
 export default function AjouterFerme() {
   let history = useHistory();
   const [Ferme, setFerme] = useState({
     name: "",
     adress: "",
-    description: "",
-    Email:"",
-    password:""
+    email:"",
+    password:"",
+    matriculeFiscal:"",
+    createdAt:"",
+    dateCreationSociete:""
   });
 
 
@@ -21,14 +23,16 @@ function Verif(){
   if((document.getElementById("nameFerme").value=="")
   ||(document.getElementById("AdressFerme").value=="")
   ||(document.getElementById("Password").value=="")
-  ||(document.getElementById("Email").value=="")){
+  ||(document.getElementById("Email").value=="")
+  ||(document.getElementById("Descriptionferme").value=="")){
 return false
   }
   else{
     return true
   }     
 }
-
+var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
   const handleClick = (e) => {
     if(Verif()){
@@ -45,18 +49,25 @@ return false
         Ferme.name = document.getElementById("nameFerme").value;
         Ferme.adress = document.getElementById("AdressFerme").value;
         Ferme.password = document.getElementById("Password").value;
-        Ferme.description =document.getElementById("Descriptionferme").value;
-        Ferme.Email= document.getElementById("Email").value;
+        Ferme.email= document.getElementById("Email").value;
+        Ferme.matriculeFiscal= document.getElementById("Descriptionferme").value;
+        Ferme.createdAt=date;
+        Ferme.dateCreationSociete=date;
         console.log({ Ferme });
 
         e.preventDefault();
         axios
-            .post("http://localhost:8187/api/farms/save", {
+            .post("http://admin.laitespoir.com:8187/api/Societe/save", {
+             // idFerme:5,
             name: Ferme.name,
-            adress: Ferme.adress,
-            Email: Ferme.Email,
-            password: Ferme.password,
-            description: Ferme.description,
+            address: Ferme.adress,
+            matriculeFiscal: Ferme.matriculeFiscal,
+            email: Ferme.email,
+            //password: Ferme.password,
+            //images:"image",
+           // status:1,
+            createdAt:  Ferme.createdAt,
+            dateCreationSociete:  Ferme.dateCreationSociete,
             
           },{
             headers: {"Access-Control-Allow-Origin": "*"}
@@ -64,7 +75,7 @@ return false
           .then((res) => {
             Swal.fire("Success", "Votre Ferme a été créé :) ", "success");
             console.log(res.data);
-            history.push("/fermes");
+            history.push("/Sociétés");
           })
           .catch((err) => {
             Swal.fire("Ooops", "Une Erreur au niveau de l'insertion ", "error");

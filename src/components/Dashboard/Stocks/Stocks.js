@@ -16,7 +16,7 @@ export default function Stocks() {
 
   useEffect(()=>{
     //axios.get("http://localhost:4000/Stocks/")
-    axios.get("http://localhost:8187/api/stocks/list")
+    axios.get("http://admin.laitespoir.com:8187/api/stocks/list")
     .then(res=>{
       setStocks(res.data);
         setIsLoading(false);
@@ -29,7 +29,7 @@ export default function Stocks() {
       if (keyword.length<1){
         console.log("Fergha");
         //axios.get("http://localhost:4000/Stocks/")
-        axios.get("http://localhost:8187/api/stocks/list")
+        axios.get("http://admin.laitespoir.com:8187/api/stocks/list")
       .then(res=>{
           setStocks(res.data);
           setIsLoading(false);
@@ -143,7 +143,7 @@ export default function Stocks() {
       denyButtonText: `Non, Annuler`,
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete("http://localhost:8187/stocks/deletestock/"+id);
+        axios.delete("http://admin.laitespoir.com:8187/stocks/deletestock/"+id);
         Swal.fire("Success", "Stock Supprimé :) ", "success");
         let newList = Stocks.filter(Stock=>{
             return Stock.idStock !== id;
