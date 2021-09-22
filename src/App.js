@@ -25,6 +25,7 @@ import Error404 from "./components/Dashboard/ErrorPages/ErrorPage404";
 import Error400 from "./components/Dashboard/ErrorPages/ErrorPage400";
 import Error403 from "./components/Dashboard/ErrorPages/ErrorPage403";
 import Error500 from "./components/Dashboard/ErrorPages/ErrorPage500";
+import Error503 from "./components/Dashboard/ErrorPages/ErrorPage503";
 function App(props) {
     return (
         <div className="App" Style="letter-spacing: 0.7px;font-family: Roboto;text-transform: capitalize;">
@@ -34,6 +35,7 @@ function App(props) {
                 <Route path={"/Error400"} render={(props)=><Error400 {...props} />} />
                 <Route path={"/Error403"} render={(props)=><Error403 {...props} />} />
                 <Route path={"/Error500"} render={(props)=><Error500 {...props} />} />
+                <Route path={"/Error503"} render={(props)=><Error503 {...props} />} />
                 <Route path={"/AffecterFermier"} render={(props)=><AffecterFermier {...props} />} />
                 <Route path={"/AjouterFermier"} render={(props)=><AjouterFermier {...props} />} />
                 <Route path={"/AjouterStock"} render={(props)=><AjouterStock {...props} />} />

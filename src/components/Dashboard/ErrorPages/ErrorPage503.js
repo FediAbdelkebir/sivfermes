@@ -5,7 +5,7 @@ import '../../css/style.css';
 import '../../css/Error404.css'; 
 import $ from "jquery";
 import {Link} from "react-router-dom";
-export default function ErrorPage404() {
+export default function ErrorPage400() {
     $(document).ready(function () {       
        
     "use strict";
@@ -102,27 +102,21 @@ tl.add(animateNotes(notesG1))
     return (
         <div>
              <br/>
-        <div class="authincation h-100">
-            
+             <div class="authincation h-100">
         <div class="container h-100">
-            
-            <div class="row justify-content-center align-items-center">
-                
+            <div class="row justify-content-center h-100 align-items-center">
                 <div class="col-md-5">
                     <div class="form-input-content text-center error-page">
-                       
-                        <h1 class="error-text font-weight-bold">404</h1>
-                        <h4><i class="fa fa-exclamation-triangle text-warning"></i> The page you were looking for is not found!</h4>
-                        <p>You may have mistyped the address or the page may have moved.</p>
+                        <h1 class="error-text font-weight-bold">503</h1>
+                        <h4><i class="fa fa-times-circle text-danger"></i> Service Unavailable</h4>
+                        <p>Sorry, we are under maintenance!</p>
 						<div>
-            <Link to={`/Dashboard`} className="btn btn-primary "><i className="fa fa-arrow-left"></i>Retourner</Link>
+                        <Link to={`/Dashboard`} className="btn btn-primary "><i className="fa fa-arrow-left"></i>Retourner</Link>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        
     </div>
     <div class="container" Style="width:400px">
     <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 500.55 554.91">

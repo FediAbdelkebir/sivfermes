@@ -4,6 +4,7 @@ import '../../vendor/bootstrap/bootstrap.css';
 import '../../css/style.css'; 
 import '../../css/Error404.css'; 
 import $ from "jquery";
+import {Link} from "react-router-dom";
 export default function ErrorPage400() {
     $(document).ready(function () {       
        
@@ -110,7 +111,7 @@ tl.add(animateNotes(notesG1))
                         <h4><i class="fa fa-times-circle text-danger"></i> Internal Server Error</h4>
                         <p>You do not have permission to view this resource</p> 
 						<div>
-                            <a class="btn btn-primary" href="./index.html">Back to Home</a>
+                        <Link to={`/Dashboard`} className="btn btn-primary "><i className="fa fa-arrow-left"></i>Retourner</Link>
                         </div>	
                     </div>
                 </div>
