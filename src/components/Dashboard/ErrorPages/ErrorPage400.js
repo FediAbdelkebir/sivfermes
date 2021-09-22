@@ -112,7 +112,7 @@ tl.add(animateNotes(notesG1))
                         <p>Your Request resulted in an error</p>
 						<div>
                            
-                            <Link to={`/Dashboard`} className="btn btn-primary "><i className="fa fa-arrow-left"></i>Retourner</Link>
+                            <Link to={`/Dashboard`} className="btn btn-primary "><i className="fa fa-arrow-left"></i> Retourner</Link>
                         </div>
                     </div>
                 </div>

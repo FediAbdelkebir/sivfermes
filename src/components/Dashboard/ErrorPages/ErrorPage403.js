@@ -111,7 +111,7 @@ tl.add(animateNotes(notesG1))
                         <h4><i class="fa fa-times-circle text-danger"></i> Forbidden Error!</h4>
                         <p>You do not have permission to view this resource.</p>
 						<div>
-                        <Link to={`/Dashboard`} className="btn btn-primary "><i className="fa fa-arrow-left"></i>Retourner</Link>
+                        <Link to={`/Dashboard`} className="btn btn-primary "><i className="fa fa-arrow-left"></i> Retourner</Link>
                         </div>
                     </div>
                 </div>

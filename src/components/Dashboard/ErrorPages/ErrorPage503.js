@@ -111,7 +111,7 @@ tl.add(animateNotes(notesG1))
                         <h4><i class="fa fa-times-circle text-danger"></i> Service Unavailable</h4>
                         <p>Sorry, we are under maintenance!</p>
 						<div>
-                        <Link to={`/Dashboard`} className="btn btn-primary "><i className="fa fa-arrow-left"></i>Retourner</Link>
+                        <Link to={`/Dashboard`} className="btn btn-primary "><i className="fa fa-arrow-left"></i> Retourner</Link>
                         </div>
                     </div>
                 </div>
