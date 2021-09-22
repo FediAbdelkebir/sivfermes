@@ -15,34 +15,13 @@ export default function AjouterFerme() {
     Email:"",
     password:""
   });
-  const [users,setUsers]=useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(()=>{
-    //axios.get("http://localhost:4000/users")
-    axios.get("http://localhost:8187/api/employees/list")
-    .then(res=>{
-        setUsers(res.data);
-        setIsLoading(false);
-    })
-    .catch(err=>console.log)
-}, []);
 
-   const SelectList = isLoading ? <option>Chargements des utilisateurs ...</option> : users.length ? (
-    users
-        .map(user=>{
-            return(
-              <option selected>{user.name}</option>
-            )
-        })
-    ): <h3>Aucun Utilisateur Trouvé !</h3>;
-  const handleChange = (e) => {
-    setFerme({
-      Ferme,
-      [e.target.id]: e.target.value,
-    });
-  };
+
 function Verif(){
-  if((document.getElementById("nameFerme").value=="")||(document.getElementById("AdressFerme").value=="")||(document.getElementById("Password").value=="")||(document.getElementById("Email").value=="")){
+  if((document.getElementById("nameFerme").value=="")
+  ||(document.getElementById("AdressFerme").value=="")
+  ||(document.getElementById("Password").value=="")
+  ||(document.getElementById("Email").value=="")){
 return false
   }
   else{

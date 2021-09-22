@@ -12,18 +12,11 @@ export default function AjouterVache() {
 
   let history = useHistory();
   const [Vache, setVache] = useState({
-    animalsType: "string",
-    birthday: "2021-09-18T13:14:36.136Z",
-    bornStatus: 0,
-    born_weight: 0,
-    description: "string",
-    gender: "string",
-    images: "string",
-    matriculeAnimal: "string",
-    originFather: "string",
-    originMother: "string",
-    originWeight: 0,
-    receiveWeight: 0,
+    birthday: "",
+    Matricule: "",
+    dateajout:"",
+    Fermier:""
+
   });
   const [fermiers,setFermiers]=useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -46,7 +39,10 @@ const FermiersList = isLoading ? <option>Chargements des fermiers ...</option> :
       })
   ): <h3>Aucun Fermier Trouvé !</h3>;
 function Verif(){
-  if((document.getElementById("animalsType").value=="")){
+  if((document.getElementById("birthday").value=="")
+  ||(document.getElementById("Matricule").value=="")
+  ||(document.getElementById("dateajout").value=="")
+  ||(document.getElementById("Fermier").value=="")){
 return false
   }
   else{
@@ -68,35 +64,17 @@ return false
       if (result.isConfirmed) {
         
         Vache.animalsType = document.getElementById("animalsType").value;
-        Vache.birthday = document.getElementById("birthday").value;
-        Vache.bornStatus = document.getElementById("bornStatus").value;
-        Vache.born_weight = document.getElementById("born_weight").value;
-        Vache.description = document.getElementById("description").value;
-        Vache.gender = document.getElementById("gender").value;
-        Vache.images = document.getElementById("images").value;
-        Vache.matriculeAnimal = document.getElementById("matriculeAnimal").value;
-        Vache.originFather = document.getElementById("originFather").value;
-        Vache.originMother = document.getElementById("originMother").value;
-        Vache.originWeight = document.getElementById("originWeight").value;
-        Vache.receiveWeight = document.getElementById("receiveWeight").value;
         console.log({ Vache });
 
         e.preventDefault();
         axios
           //.post("http://localhost:4000/vaches/create", {
             .post("http://localhost:8187/api/animals/Vaches/save", {
-              animalsType:  Vache.animalsType,
-              birthday: Vache.birthday,
-              bornStatus:  Vache.bornStatus,
-              born_weight: Vache.born_weight,
-              description: Vache.description,
-              gender:Vache.gender,
-              images: Vache.images,
-              matriculeAnimal: Vache.matriculeAnimal,
-              originFather: Vache.originFather,
-              originMother: Vache.originMother,
-              originWeight: Vache.originWeight,
-              receiveWeight: Vache.receiveWeight,
+              birthday:Vache.birthday,
+              dateajout:Vache.dateajout,
+              Matricule:Vache.Matricule,
+              Fermier:Vache.Fermier
+
           })
           .then((res) => {
             Swal.fire("Success", "Votre Vache a été créé :) ", "success");
@@ -120,7 +98,8 @@ return false
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
     return local.toJSON().slice(0,10);
 });
-$(document).ready(function () {       
+$(document).ready(function () {     
+    
   document.getElementById('dateajout').value = new Date().toDateInputValue();})
   return (
     
