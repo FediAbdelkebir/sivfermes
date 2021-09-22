@@ -56,6 +56,7 @@ function App(props) {
                 <Route path="/ModifierCategorieStock/:id" render={(props) => <ModifierCategorieStock {...props} /> }/>
                 <Route path="/ModifierVaches/:id" render={(props) => <ModifierVaches {...props} /> }/>
                 <Route path="/ModifierVeaux/:id" render={(props) => <ModifierVeaux {...props} /> }/>
+                <Route component= {Error404}/>
             
             </Switch>
         </div>

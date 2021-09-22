@@ -102,13 +102,13 @@ tl.add(animateNotes(notesG1))
     return (
         <div>
              <br/>
-             <div class="authincation h-100">
-        <div class="container h-100">
-            <div class="row justify-content-center h-100 align-items-center">
-                <div class="col-md-5">
-                    <div class="form-input-content text-center error-page">
-                        <h1 class="error-text font-weight-bold">500</h1>
-                        <h4><i class="fa fa-times-circle text-danger"></i> Internal Server Error</h4>
+             <div className="authincation h-100">
+        <div className="container h-100">
+            <div className="row justify-content-center h-100 align-items-center">
+                <div className="col-md-5">
+                    <div className="form-input-content text-center error-page">
+                        <h1 className="error-text font-weight-bold">500</h1>
+                        <h4><i className="fa fa-times-circle text-danger"></i> Internal Server Error</h4>
                         <p>You do not have permission to view this resource</p> 
 						<div>
                         <Link to={`/Dashboard`} className="btn btn-primary "><i className="fa fa-arrow-left"></i> Retourner</Link>
@@ -118,25 +118,25 @@ tl.add(animateNotes(notesG1))
             </div>
         </div>
     </div>
-    <div class="container" Style="width:400px">
+    <div className="container" Style="width:400px">
     <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 500.55 554.91">
       <g id="bongo-cat">
-        <g class="head">
+        <g className="head">
           <path d="M280.4,221l383.8,62.6a171.4,171.4,0,0,0-9.2-40.5,174,174,0,0,0-28.7-50.5,163.3,163.3,0,0,0,3.2-73.8c-11.6-1.9-42,14.2-44.5,17.5-19.6-24-88.5-52.7-153.7-48.1A78.8,78.8,0,0,0,398,67.1c-9.8,2.9-19,29.7-19.4,33.7a320,320,0,0,0-31.7,23.6c-14,11.8-28.9,24.4-42.5,44.3A173,173,0,0,0,280.4,221Z"></path>
           <path d="M396.6,178.6c.4.9,2.7,6.5,8.5,8.4s13.4-1.2,17.2-7.9c-.9,7.5,3.8,14.3,10.4,16a14.4,14.4,0,0,0,15-5.7"></path>
           <path d="M474,179.2a6.6,6.6,0,0,0-4.9,3.6,6,6,0,0,0,1.5,7.3,6,6,0,0,0,7.9-1c2.3-2.6,2-7,.2-8s-5.9,1.6-5.7,3.5,1.9,2.8,3.2,2.3,1.1-2.2,1.1-2.3"></path>
           <path d="M365.4,168.9c0,.3-.8,3.6,1.5,6a5.9,5.9,0,0,0,7.2,1.4,6.1,6.1,0,0,0,2.2-7.7c-1.5-3.1-5.7-4.5-7.3-3.2s-.8,6,1,6.6,3.3-.7,3.3-2.1-1.5-1.8-1.6-1.9"></path>
-          <g class="headphone headphone-right">
-            <g class="speaker">
+          <g className="headphone headphone-right">
+            <g className="speaker">
               <path d="M400.7,80.2c-14.1-20.8-40.2.3-50.7,15-8.7,12.2-9.7,30.3,2.8,37.3,5.4-9,11.8-15.6,21-26.2A214.1,214.1,0,0,1,400.7,80.2Z"></path>
               <path d="M381.5,79.4c-6.6-7.5-9.6-5.8-12.3-5.5-16.3,1.3-32,20.3-27.8,33.9a21.8,21.8,0,0,0,5.9,8.5c1.7-2.6,3.5-5.1,5.4-7.7A150.7,150.7,0,0,1,381.5,79.4Z"></path>
               <path d="M367.3,77.8a13.1,13.1,0,0,0-5.1-1.8c-8.5-.9-18.7,7.5-18.4,16.1a12.8,12.8,0,0,0,2.6,7c3.1-3.3,6.3-6.8,9.6-10.2S363.6,81.3,367.3,77.8Z"></path>
             </g>
-            <path class="band" d="M515,40.6c-15.9-4.6-57-14.1-104,2.3a166.9,166.9,0,0,0-60.9,37.3"></path>
+            <path className="band" d="M515,40.6c-15.9-4.6-57-14.1-104,2.3a166.9,166.9,0,0,0-60.9,37.3"></path>
           </g>
         </g>
-        <g class="music music-right">
-          <g class="note">
+        <g className="music music-right">
+          <g className="note">
             <g>
               <path d="M368.5,46.5c.5,2.1,1.2,3.5,3.8,6.3s5.1,4.3,6.5,7.2a11.1,11.1,0,0,1,.7,2,10.5,10.5,0,0,1-.7,6.5"></path>
               <path d="M368.5,46.5a20.8,20.8,0,0,0,2.4,11.7c2.3,4.4,5,5.4,6.8,9.5a17.5,17.5,0,0,1,.4,11"></path>
@@ -150,7 +150,7 @@ tl.add(animateNotes(notesG1))
               <path d="M368.5,92.8c.1-3.1-4.7-6.3-9-6.3s-8.7,2.7-8.7,5.8,4.8,5.7,8.7,5.8S368.3,95.8,368.5,92.8Z"></path>
             </g>
           </g>
-          <g class="note">
+          <g className="note">
             <g>
               <polyline points="350 81.7 350 43.5 382.7 50.7 382.7 89.5"></polyline>
               <path d="M350,82.3c0-3.1-4.5-5.7-8.2-5.9s-9.3,2.8-9.2,6,4.7,5.7,8.6,5.7S349.9,85.5,350,82.3Z"></path>
@@ -162,14 +162,14 @@ tl.add(animateNotes(notesG1))
               <path d="M382.7,89.9c0-3.1-4.4-5.7-8.2-5.8s-9.3,2.7-9.2,5.9,4.7,5.7,8.7,5.7S382.7,93.1,382.7,89.9Z"></path>
             </g>
           </g>
-          <g class="note">
+          <g className="note">
             <polyline points="388.2 73.6 388.2 34.6 354.9 42.6 354.9 82.4"></polyline>
             <path d="M388.2,74.1c0-3-4.4-5.6-8.1-5.8s-9.2,2.8-9.1,6,4.6,5.6,8.6,5.6S388.2,77.3,388.2,74.1Z"></path>
             <path d="M354.9,81.9c0-3.1-4.4-5.7-8.2-5.9s-9.3,2.8-9.2,6,4.7,5.7,8.7,5.7S354.9,85.1,354.9,81.9Z"></path>
             <line x1="354.9" y1="48.4" x2="388.2" y2="40.3"></line>
             <line x1="354.9" y1="54.6" x2="388.2" y2="47"></line>
           </g>
-          <g class="note">
+          <g className="note">
             <g>
               <path d="M371.8,79.5c0-3.1-4.5-5.8-8.3-5.9s-9.3,2.8-9.2,6,4.7,5.7,8.7,5.7S371.8,82.7,371.8,79.5Z"></path>
               <line x1="371.8" y1="79.5" x2="371.8" y2="33.3"></line>
@@ -182,13 +182,13 @@ tl.add(animateNotes(notesG1))
             </g>
           </g>
         </g>
-        <g class="table">
+        <g className="table">
           <polygon points="25.3 158.5 783.2 293 513 354.9 25.3 158.5"></polygon>
           <line x1="25.3" y1="158.5" x2="783.2" y2="293" fill="none" stroke="#8d00fc" stroke-miterlimit="10" stroke-width="4"></line>
           <line x1="783.2" y1="293" x2="25.3" y2="158.5" fill="none"></line>
         </g>
-        <polygon class="laptop-base" points="103.2 263.6 258.9 219.3 636.5 294.4 452.1 339 103.2 263.6"></polygon>
-        <g class="laptop-keyboard">
+        <polygon className="laptop-base" points="103.2 263.6 258.9 219.3 636.5 294.4 452.1 339 103.2 263.6"></polygon>
+        <g className="laptop-keyboard">
           <polygon points="369.6 265.6 255.3 244.3 255.5 243.5 264.7 241.9 380.9 262.3 380.8 263.1 369.6 265.6"></polygon>
           <polygon points="235.9 256.4 219.8 253.2 219.9 252.5 228.7 251 245.3 253.4 245.1 254.2 235.9 256.4"></polygon>
           <polygon points="473.1 303.7 248.4 258.9 248.6 258.1 257.7 256.6 486.2 300.4 486 301.3 473.1 303.7"></polygon>
@@ -203,11 +203,11 @@ tl.add(animateNotes(notesG1))
           <polygon points="409.1 277.3 397.6 278.8 397.4 279.6 498.4 299.1 511.8 296.7 512 295.8 409.1 277.3"></polygon>
           <polygon points="394.2 274.5 394.4 273.6 246.7 246.5 237.7 248.1 237.5 248.8 382.8 276.8 394.2 274.5"></polygon>
         </g>
-        <g class="paw paw-right">
-          <path class="down" d="M289.1,181.7c-12.1,9.8-20.6,20.7-20.7,32.1-.2,9,3.8,20.4,13.3,25.2s20.1.6,29.6-3.4c13.4-5.7,23.9-14.6,29.4-21.5"></path>
-          <g class="up">
+        <g className="paw paw-right">
+          <path className="down" d="M289.1,181.7c-12.1,9.8-20.6,20.7-20.7,32.1-.2,9,3.8,20.4,13.3,25.2s20.1.6,29.6-3.4c13.4-5.7,23.9-14.6,29.4-21.5"></path>
+          <g className="up">
             <path d="M327.3,170c-.4-1.4-6.3-18.8-23.5-23.5-.8-.2-18.6-4.7-28.9,6.3-8.4,9.1-6,22.5-4.6,30.2a54.3,54.3,0,0,0,8.1,19.9"></path>
-            <g class="pads">
+            <g className="pads">
               <path d="M297.2,154.8c1-.5,2.7-.1,3,.6s-1.4,2.4-2.6,2.1a1.6,1.6,0,0,1-1.1-1.2A1.6,1.6,0,0,1,297.2,154.8Z"></path>
               <path d="M285.8,159.4c.3-.4,1-1.1,1.7-.8s.9,1.4.8,2.2-1.8,2.1-2.5,1.5S285.2,160.4,285.8,159.4Z"></path>
               <path d="M276.9,171c.5-.4,2.7-.3,3.2.6s-.6,1.8-1.4,1.8S276.2,171.6,276.9,171Z"></path>
@@ -215,8 +215,8 @@ tl.add(animateNotes(notesG1))
             </g>
           </g>
         </g>
-        <polygon class="terminal-frame" points="93.8 63.3 284.1 73 335.9 230.5 146.2 197.6 93.8 63.3"></polygon>
-        <g class="terminal-code">
+        <polygon className="terminal-frame" points="93.8 63.3 284.1 73 335.9 230.5 146.2 197.6 93.8 63.3"></polygon>
+        <g className="terminal-code">
           <line x1="260.2" y1="92.3" x2="212.2" y2="88.7"></line>
           <line x1="197.3" y1="87.5" x2="145.2" y2="83.5"></line>
           <line x1="251" y1="104.2" x2="223.4" y2="101.8"></line>
@@ -244,29 +244,29 @@ tl.add(animateNotes(notesG1))
           <line x2="213.8" y2="187.9" x1="251.1" y1="194.2"></line>
           <line x2="180.8" y2="182.3" x1="202.7" y1="186"></line>
         </g>
-        <polygon class="laptop-cover" points="103.2 263.6 452.1 339 360.8 12.4 2 2 103.2 263.6"></polygon>
-        <g class="paw paw-left">
-          <g class="up">
+        <polygon className="laptop-cover" points="103.2 263.6 452.1 339 360.8 12.4 2 2 103.2 263.6"></polygon>
+        <g className="paw paw-left">
+          <g className="up">
             <path d="M586.6,208.8c-.6-2.3-4.2-15.6-17.2-22.2-2.7-1.3-12.8-6.4-23.6-1.8s-14.6,16.5-14.8,18.4c-1.2,9-.7,18.4,2.4,26.1,2.4,6,7.5,17.2,9.7,20.2"></path>
-            <g class="pads">
+            <g className="pads">
               <path d="M561.4,194.9a2.7,2.7,0,0,1,3,.5c.4,1-1.4,2.4-2.6,2.2a1.5,1.5,0,0,1-1.1-1.3A1.2,1.2,0,0,1,561.4,194.9Z"></path>
               <path d="M550.7,200.4c.4-.5,1.1-1.1,1.7-.8a2,2,0,0,1,.8,2.2c-.3,1.2-1.8,2-2.5,1.5S550.1,201.3,550.7,200.4Z"></path>
               <path d="M541.1,211.1c.5-.4,2.7-.4,3.2.5s-.6,1.8-1.5,1.9S540.4,211.6,541.1,211.1Z"></path>
               <path d="M560.6,209.2c2.3-.9,6.4,6.3,7.6,9s-5.3,4.5-7.4,6-5.1-6-5.9-8.3S557.9,210.4,560.6,209.2Z"></path>
             </g>
           </g>
-          <path class="down" d="M534.1,231.4c-19.7,6-32.9,18.4-34.2,29.1a30.1,30.1,0,0,0,1.7,14.1,24.8,24.8,0,0,0,6.1,8.8c6,5.1,16.8,4,38-3.9a288.7,288.7,0,0,0,46.5-22.1"></path>
+          <path className="down" d="M534.1,231.4c-19.7,6-32.9,18.4-34.2,29.1a30.1,30.1,0,0,0,1.7,14.1,24.8,24.8,0,0,0,6.1,8.8c6,5.1,16.8,4,38-3.9a288.7,288.7,0,0,0,46.5-22.1"></path>
         </g>
-        <g class="headphone headphone-left">
-          <g class="speaker">
+        <g className="headphone headphone-left">
+          <g className="speaker">
             <path d="M609.5,137.3c-17.1,6.3-20.7,51.4-4.5,67.3,1.4,1.5,5.5,5.5,11.3,5.9,8.2.5,14.5-6.3,16.9-8.9,10.1-11,11.5-27.5,8.1-40.1-1.4-4.8-3.9-14-12.7-19.9C627.4,140.8,617.7,134.3,609.5,137.3Z"></path>
             <path d="M626.5,196.1c2.7-.4,5.9-2.6,9.3-6,6.6-6.6,6.8-16.6,5.8-24s-4.2-16.1-11.3-19.7a18.7,18.7,0,0,0-10.9-1.9C614,149.3,615.3,192.6,626.5,196.1Z"></path>
             <path d="M631.6,151c-4.5,3.3-.5,27.1,3.8,28.2s6.9-6.6,6.2-13.1S637.4,153.5,631.6,151Z"></path>
           </g>
-          <path class="band" d="M638.9,157.7c-4-16.8-25.9-61.9-75.3-95.3A155.5,155.5,0,0,0,515,40.6"></path>
+          <path className="band" d="M638.9,157.7c-4-16.8-25.9-61.9-75.3-95.3A155.5,155.5,0,0,0,515,40.6"></path>
         </g>
-        <g class="music music-left">
-          <g class="note">
+        <g className="music music-left">
+          <g className="note">
             <g>
               <path d="M633.3,119.9c.6,2,1.3,3.5,3.8,6.3s5.2,4.3,6.5,7.2a6.9,6.9,0,0,1,.7,1.9,10.2,10.2,0,0,1-.7,6.6"></path>
               <path d="M633.3,119.9a23,23,0,0,0,2.4,11.7c2.4,4.3,5.1,5.4,6.8,9.5a16.9,16.9,0,0,1,.5,11"></path>
@@ -280,7 +280,7 @@ tl.add(animateNotes(notesG1))
               <path d="M633.3,166.2c.2-3.2-4.6-6.3-8.9-6.3s-8.7,2.6-8.7,5.7,4.7,5.7,8.7,5.8S633.1,169.2,633.3,166.2Z"></path>
             </g>
           </g>
-          <g class="note">
+          <g className="note">
             <g>
               <polyline points="614.8 155 614.8 116.8 647.5 124 647.5 162.9"></polyline>
               <path d="M614.8,155.7c0-3.1-4.4-5.7-8.2-5.9s-9.2,2.8-9.2,6,4.7,5.6,8.7,5.6S614.8,158.8,614.8,155.7Z"></path>
@@ -292,14 +292,14 @@ tl.add(animateNotes(notesG1))
               <path d="M647.5,163.3c.1-3.1-4.4-5.7-8.2-5.9s-9.2,2.8-9.1,6,4.7,5.7,8.6,5.7S647.5,166.5,647.5,163.3Z"></path>
             </g>
           </g>
-          <g class="note">
+          <g className="note">
             <polyline points="646.5 148.5 646.5 109.4 613.2 117.4 613.2 157.2"></polyline>
             <path d="M646.5,149c0-3.1-4.4-5.7-8.1-5.8s-9.2,2.7-9.1,5.9,4.7,5.6,8.6,5.6S646.5,152.1,646.5,149Z"></path>
             <path d="M613.2,156.7c.1-3.1-4.4-5.7-8.2-5.8s-9.3,2.7-9.2,6,4.7,5.6,8.7,5.6S613.2,159.9,613.2,156.7Z"></path>
             <line x1="613.2" y1="123.2" x2="646.5" y2="115.1"></line>
             <line x1="613.2" y1="129.4" x2="646.5" y2="121.8"></line>
           </g>
-          <g class="note">
+          <g className="note">
             <g>
               <path d="M636.6,152.9c0-3.2-4.4-5.8-8.2-5.9s-9.3,2.8-9.3,6,4.8,5.7,8.7,5.7S636.6,156.1,636.6,152.9Z"></path>
               <line x1="636.6" y1="152.9" x2="636.6" y2="106.6"></line>
