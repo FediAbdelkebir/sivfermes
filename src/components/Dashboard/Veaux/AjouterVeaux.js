@@ -30,8 +30,9 @@ useEffect(()=>{
   })
   .catch(err=>console.log)
 }, []);
-$(document).ready(function () {       
-  document.getElementById('dateajout').value = new Date().toDateInputValue();})
+$(document).ready( function() {
+  document.getElementById('dateajout').valueAsDate = new Date();
+});
 const FermiersList = isLoading ? <option>Chargements des fermiers ...</option> : fermiers.length ? (
   fermiers
       .map(user=>{
@@ -88,7 +89,7 @@ return false
               Nom:  Veaux.Nom,
               birthday: Veaux.birthday,
               dateajout:Veaux.dateajout,
-              weight: Veaux.weight,
+              originWeight: Veaux.weight,
               gender:Veaux.gender,
               matriculeAnimal: Veaux.matriculeAnimal,
               originFather: Veaux.originFather,
@@ -124,7 +125,7 @@ return false
           <div className="page-titles">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> <a href="javascript:void(0)"><strong>Ajouter Veaux</strong></a>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> <a href="javascript:void(0)"><strong>Ajouter Veaux</strong></a>
               </li>
             </ol>
           </div>
@@ -191,9 +192,9 @@ return false
                       <option>F</option>
                     </select>
                   </div>
-                  <div class="form-group col-md-3" >
+                  <div className="form-group col-md-3" >
                                             <label><strong>Matricule :</strong></label>
-                                        <input type="text" class="form-control"  placeholder="Matricule de la Veaux.."
+                                        <input type="text" className="form-control"  placeholder="Matricule de la Veaux.."
                                         id={"matriculeAnimal"}
                                         name={"matriculeAnimal"}
                                         ></input>
@@ -229,7 +230,7 @@ return false
                   </div>
                   <div className="form-group col-md-2">
               <label><strong>Choisire Fermier : </strong></label><br></br>
-              <select class="dropdown form-control  " id={"Fermier"}
+              <select className="dropdown form-control  " id={"Fermier"}
                       name={"Fermier"}>
 
               {FermiersList}

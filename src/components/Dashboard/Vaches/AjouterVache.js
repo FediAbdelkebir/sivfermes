@@ -100,7 +100,7 @@ const handleClick = (e) => {
 
 $(document).ready(function () {     
     
-  document.getElementById('dateajout').value = new Date().toDateInputValue();})
+  document.getElementById('dateajout').valueAsDate = new Date();})
   return (
     
     <div Style="font-family: 'poppins', sans-serif;">

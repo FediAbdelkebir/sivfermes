@@ -76,9 +76,9 @@ function TrieoriginWeight(e){
     e.preventDefault();
   setVeaux(sortBy(veaux, "originWeight"));
 }
-function Trieborn_weight(e){
+function TrieoriginWeight(e){
     e.preventDefault();
-  setVeaux(sortBy(veaux, "born_weight"));
+  setVeaux(sortBy(veaux, "originWeight"));
 }
 function Triegender(e){
   e.preventDefault();
@@ -88,13 +88,13 @@ function Triebirthday(e){
   e.preventDefault();
 setVeaux(sortBy(veaux, "birthday"));
 }
-function TriebornStatus(e){
+function TrieNom(e){
   e.preventDefault();
-setVeaux(sortBy(veaux, "bornStatus"));
+setVeaux(sortBy(veaux, "Nom"));
 }
-function TrieanimalsType(e){
+function Triedateajout(e){
   e.preventDefault();
-setVeaux(sortBy(veaux, "animalsType"));
+setVeaux(sortBy(veaux, "dateajout"));
 }
 function TrieoriginFather(e){
   e.preventDefault();
@@ -108,10 +108,11 @@ function TriematriculeAnimal(e){
   e.preventDefault();
 setVeaux(sortBy(veaux, "matriculeAnimal"));
 }
-function Triedescription(e){
+function TrieFermier(e){
   e.preventDefault();
-setVeaux(sortBy(veaux, "description"));
+setVeaux(sortBy(veaux, "Fermier"));
 }
+
 
     const content = isLoading ? <div class="loader">
     <div class="dot">L</div>
@@ -162,37 +163,26 @@ setVeaux(sortBy(veaux, "description"));
                   </div>
                 </td>
                 
-                <td>
-                  <div className="d-flex align-items-center">
-                    <img
-                      src="images/avatar/1.jpg"
-                      className="rounded-lg mr-2"
-                      alt=""
-                      width="24"
-                    />
-                    <span className="w-space-no">{veaux.receiveWeight}</span>
-                  </div>
-                </td>
                 
+                
+                <td>{veaux.Nom}</td>
                 <td>{veaux.originWeight}</td>
-                <td>{veaux.born_weight}</td>
                 <td>{veaux.gender}</td>
                 <td>{veaux.birthday}</td>
-                <td>{veaux.bornStatus}</td>
-                <td>{veaux.animalsType}</td>
+                <td>{veaux.dateajout}</td>
                 <td>{veaux.originFather}</td>
                 <td>{veaux.originMother}</td>
                 <td>{veaux.matriculeAnimal}</td>
-                <td>{veaux.description}</td>
+                <td>{veaux.Fermier}</td>
                 <td>
                   <div className="d-flex">
                     <Link
-                      to={`/ModifierSociete/`+veaux._id}
+                      to={`/ModifierVeaux/`+veaux.id}
                       className="btn btn-primary shadow btn-xs sharp mr-1"
                     >
                       <i className="fa fa-pencil"></i>
                     </Link>
-                    <a href="#" onClick={(e) =>deletesociete(veaux._id, e)} className="btn btn-danger shadow btn-xs sharp">
+                    <a href="#" onClick={(e) =>deletesociete(veaux.id, e)} className="btn btn-danger shadow btn-xs sharp">
                       <i className="fa fa-trash"></i>
                       </a>
                   </div>
@@ -246,14 +236,11 @@ setVeaux(sortBy(veaux, "description"));
                 </th>
                 
                 <th>
-                  <a  href="#" className="btn btn-info ml-auto" onClick={Trieweightrecived}> <i className="fa fa-sort"></i></a>
+                  <a  href="#" className="btn btn-info ml-auto" onClick={TrieNom}> <i className="fa fa-sort"></i></a>
                 </th>
                 
                 <th>
                 <a  href="#" className="btn btn-info ml-auto" onClick={TrieoriginWeight}> <i className="fa fa-sort"></i></a>
-                </th>
-                <th>
-                <a  href="#" className="btn btn-info ml-auto" onClick={Trieborn_weight}> <i className="fa fa-sort"></i></a>
                 </th>
                 <th>
                 <a  href="#" className="btn btn-info ml-auto" onClick={Triegender}> <i className="fa fa-sort"></i></a>
@@ -262,10 +249,7 @@ setVeaux(sortBy(veaux, "description"));
                 <a  href="#" className="btn btn-info ml-auto" onClick={Triebirthday}> <i className="fa fa-sort"></i></a>
                 </th>
                 <th>
-                <a  href="#" className="btn btn-info ml-auto" onClick={TriebornStatus}> <i className="fa fa-sort"></i></a>
-                </th>
-                <th>
-                <a  href="#" className="btn btn-info ml-auto" onClick={TrieanimalsType}> <i className="fa fa-sort"></i></a>
+                <a  href="#" className="btn btn-info ml-auto" onClick={Triedateajout}> <i className="fa fa-sort"></i></a>
                 </th>
                 <th>
                 <a  href="#" className="btn btn-info ml-auto" onClick={TrieoriginMother}> <i className="fa fa-sort"></i></a>
@@ -277,8 +261,9 @@ setVeaux(sortBy(veaux, "description"));
                 <a  href="#" className="btn btn-info ml-auto" onClick={TriematriculeAnimal}> <i className="fa fa-sort"></i></a>
                 </th>
                 <th>
-                <a  href="#" className="btn btn-info ml-auto" onClick={Triedescription}> <i className="fa fa-sort"></i></a>
+                <a  href="#" className="btn btn-info ml-auto" onClick={TrieFermier}> <i className="fa fa-sort"></i></a>
                 </th>
+
               </tr>
               <tr>
                 <th className="width50">
@@ -294,14 +279,10 @@ setVeaux(sortBy(veaux, "description"));
                 </th>
                 
                 <th>
-                  <strong>Receive Weight</strong>
-                </th>
-                
-                <th>
-                  <strong>Origin Weight</strong>
+                  <strong>Nom</strong>
                 </th>
                 <th>
-                  <strong>Born Weight</strong>
+                  <strong>Poid</strong>
                 </th>
                 <th>
                   <strong>Gender</strong>
@@ -310,10 +291,7 @@ setVeaux(sortBy(veaux, "description"));
                   <strong>Birthday</strong>
                 </th>
                 <th>
-                  <strong>Born Status</strong>
-                </th>
-                <th>
-                  <strong>Type</strong>
+                  <strong>Date d'Ajout</strong>
                 </th>
                 <th>
                   <strong>Origine Mother</strong>
@@ -325,7 +303,10 @@ setVeaux(sortBy(veaux, "description"));
                   <strong>Matricule</strong>
                 </th>
                 <th>
-                  <strong>Description</strong>
+                  <strong>Fermier</strong>
+                </th>
+                <th>
+                  <strong>Gestion</strong>
                 </th>
               </tr>
             </thead>

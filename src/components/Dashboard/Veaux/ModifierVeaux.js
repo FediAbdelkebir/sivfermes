@@ -9,49 +9,46 @@ import { useHistory } from "react-router-dom";
 
 export default function ModifierVeaux(props) {
   let history = useHistory();
+const [Veaux, setVeauxs] = useState({
+  Nom:"Nom",
+  birthday: "2021-09-18T13:14:36.136Z",
+  dateajout:"2021-09-18T13:14:36.136Z",
+  weight: 0,
+  Fermier: "Fermier",
+  gender: "string",
+  matriculeAnimal: "string",
+  originFather: "string",
+  originMother: "string"
+});
+const [fermiers,setFermiers]=useState([]);
 const [isLoading, setIsLoading] = useState(true);
-const [Veauxs,setVeauxs]=useState([]);
-  const [Veaux, oldVeaux] = useState({
-    Nom: "",
-    Code: "",
-    SUPAD: "",
-  });
-  const handleChange = (e) => {
-    oldVeaux({
-        Veaux,
-      [e.target.id]: e.target.value,
-    });
-  };
-  const [users,setUsers]=useState([]);
-  
-  useEffect(()=>{
-    //axios.get("http://localhost:4000/users")
-    axios.get("http://143.110.210.169:4000/users")
-    .then(res=>{
-        setUsers(res.data);
-        setIsLoading(false);
-    })
-    .catch(err=>console.log)
+
+useEffect(()=>{
+axios.get("http://admin.laitespoir.com:8187/api/users/list")
+.then(res=>{
+  setFermiers(res.data);
+    setIsLoading(false);
+})
+.catch(err=>console.log)
 }, []);
-
-  const SelectList = isLoading ? <option>Chargements des utilisateurs ...</option> : users.length ? (
-    users
-        .map(user=>{
-            return(
-              
-              <option selected >{user.name}</option>
-            )
-        })
-    ): <h3>Aucun Utilisateur Trouvé !</h3>;
-
-    function GenerateCode(e){
-      e.preventDefault();
-            var uuid = require("uuid");
-      var id = uuid.v4();
-      document.getElementById("NouveauCodeVeaux").value=id;
-      document.getElementById("PlaceholderVeauxCode").value=id;
-      console.log(id)
-          }
+const FermiersList = isLoading ? <option>Chargements des fermiers ...</option> : fermiers.length ? (
+fermiers
+    .map(user=>{
+        return(
+          <option selected>{user.username}</option>
+        )
+    })
+): <h3>Aucun Fermier Trouvé !</h3>;
+  
+useEffect(()=>{
+  //axios.get("http://localhost:4000/Veauxs/"+props.id)
+  axios.get("http://admin.laitespoir.com:8187/api/animals/Veaux/one/"+props.id)
+  .then(res=>{
+      setVeauxs(res.data);
+      setIsLoading(false);
+  })
+  .catch(err=>console.log)
+}, []);
 
   const handleClick = (e) => {
     Veaux.Nom = document.getElementById("NouveauNomVeaux").value;
@@ -94,97 +91,165 @@ const [Veauxs,setVeauxs]=useState([]);
   };
 
 
-    useEffect(()=>{
-        //axios.get("http://localhost:4000/Veauxs/"+props.id)
-        axios.get("http://143.110.210.169:4000/Veauxs/"+props.id)
-        .then(res=>{
-            setVeauxs(res.data);
-            setIsLoading(false);
-        })
-        .catch(err=>console.log)
-    }, []);
-
-    const modifier = isLoading ?<div class="loader">
-    <div class="dot">L</div>
-    <div class="dot">O</div>
-    <div class="dot">A</div>
-    <div class="dot">D</div>
-    <div class="dot">I</div>
-    <div class="dot">N</div>
-    <div class="dot">G</div>
-    <div class="cogs">
-      <div class="cog cog0">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+  var ListModif=[];
+  ListModif.push(Veaux);
+    const modifier = isLoading ?<div className="loader">
+    <div className="dot">L</div>
+    <div className="dot">O</div>
+    <div className="dot">A</div>
+    <div className="dot">D</div>
+    <div className="dot">I</div>
+    <div className="dot">N</div>
+    <div className="dot">G</div>
+    <div className="cogs">
+      <div className="cog cog0">
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
       </div>
-      <div class="cog cog1">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+      <div className="cog cog1">
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
       </div>
-      <div class="cog cog2">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+      <div className="cog cog2">
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
       </div>
     </div>
-  </div> : Veauxs.length ? (
-        Veauxs.map(Veaux=>{
+  </div> : ListModif.length ? (
+        ListModif.map(Veaux=>{
             return(
-                <div className="content-body"  key={Veaux._id}>
-                <div className="container-fluid">
-                  <div className="page-titles">
-                    <ol className="breadcrumb">
-                      <li className="breadcrumb-item">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> <a><strong>Modifier Veaux</strong></a>
-                      </li>
-                    </ol>
-                  </div>
-                  <div className="card-body">
-                    <div className="basic-form">
-                      <form>
-                        <div className="form-row">
-                          <div className="form-group col-md-3">
-                            <label>Nom Veaux :</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Nouveau Nom Complet De la Veaux"
-                              type="text"
-                              id={"NouveauNomVeaux"}
-                              name={"NouveauNomVeaux"}
-                              defaultValue={Veaux.Nom}
-                              onChange={handleChange}
-                            />
-                          </div>
-                          <div class="form-group col-md-3">
-                          <label>Génerer Automatiquement Code Tache :</label>
-                          <button className="btn btn-primary form-control" onClick={GenerateCode} id={"NouveauCodeVeaux"} name={"NouveauCodeVeaux"} onChange={handleChange}><i className="fa fa-plus-square"></i> Génerer Code </button><br/>Génerer Manuellement :
-                          <input type="text" class="form-control" id={"PlaceholderVeauxCode"}defaultValue={Veaux.Code}/>
-                           </div>
-
-
-                         
-                          <div className="form-group col-md-5">
-              <label>Super Admin :</label><br></br>
-              <select class="dropdown bootstrap-select show-tick form-control col-md-5 " id={"NouveauSUPAD"}
-                      name={"NouveauSUPAD"}>
-              {SelectList}
-</select>
-            </div> 
+              <div className="content-body">
+              <div className="container-fluid">
+                <div className="page-titles">
+                  <ol className="breadcrumb">
+                    <li className="breadcrumb-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> <a href="javascript:void(0)"><strong>Ajouter Veaux</strong></a>
+                    </li>
+                  </ol>
+                </div>
+                <div className="card-body">
+                  <div className="basic-form">
+                    <form>
+                      <div className="form-row">
+                       
+                      <div className="form-group col-md-3">
+                          <label><strong>Nom Veaux : </strong></label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Nom du veaux"
+                            defaultValue={Veaux.Nom}
+                            id={"Nom"}
+                            name={"Nom"}
+                          />
                         </div>
-                      </form>
-                      <button className="btn btn-primary" onClick={handleClick}>
-                        Modifier Veaux
-                      </button>
-                    </div>
+      
+                        <div className="form-group col-md-2">
+                          <label><strong>Date Naissance :</strong> </label>
+                          <input
+                            type="date"
+                            className="form-control"
+                            placeholder="Date Naissance de la Veaux"
+                            defaultValue={Veaux.birthday}
+                            id={"birthday"}
+                            name={"birthday"}
+                          />
+                        </div>
+                        <div className="form-group col-md-2">
+                          <label><strong>Date d'Ajout :</strong> </label>
+                          <input
+                            type="date"
+                            className="form-control"
+                            placeholder="Date d'ajout de la Veaux"
+                            defaultValue={Veaux.dateajout}
+                            id={"dateajout"}
+                            name={"dateajout"}
+                          />
+                        </div>
+                        
+                        <div className="form-group col-md-2">
+                          <label><strong>Poid : </strong></label>
+                          <input
+                            type="number"
+                            className="form-control"
+                            placeholder="Poid  de la veaux"
+                            defaultValue={Veaux.originWeight}
+                            id={"weight"}
+                            name={"weight"}
+                          />
+                        </div>
+                        <div className="form-group col-md-1">
+                          <label><strong> Genre :</strong></label>
+                          <select
+                            className="form-control"
+                            defaultValue={Veaux.gender}
+                            id={"gender"}
+                            name={"gender"}
+                          >
+                            <option>M</option>
+                            <option>F</option>
+                          </select>
+                        </div>
+                        <div className="form-group col-md-3" >
+                                                  <label><strong>Matricule :</strong></label>
+                                              <input type="text" className="form-control"  placeholder="Matricule de la Veaux.."
+                                              id={"matriculeAnimal"}
+                                              name={"matriculeAnimal"}
+                                              defaultValue={Veaux.matriculeAnimal}
+                                              ></input>
+                                              </div>
+                       
+                          
+      
+                                              <br/>
+                                      
+      
+                                              <br/>
+                      <div className="form-group col-md-3">
+                          <label><strong>Pére d'origine :</strong></label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Pére d'origine De la Veaux"
+                            defaultValue={Veaux.originFather}
+                            id={"originFather"}
+                            name={"originFather"}
+                          />
+                        </div>
+                        <div className="form-group col-md-3">
+                          <label><strong>Mére d'origine :</strong></label>
+                          <input
+                            type="string"
+                            className="form-control"
+                            placeholder="Mére d'origine De la Veaux"
+                            defaultValue={Veaux.originMother}
+                            id={"originMother"}
+                            name={"originMother"}
+                          />
+                        </div>
+                        <div className="form-group col-md-2">
+                    <label><strong>Choisire Fermier : </strong></label><br></br>
+                    <select className="dropdown form-control  " id={"Fermier"}
+                    defaultValue={Veaux.Fermier}
+                            name={"Fermier"}>
+                    {FermiersList}
+      </select>
+                  </div>
+                        </div> 
+                    </form>
+                    <button className="btn btn-primary" onClick={handleClick}>
+                    <i className="fa fa-plus-square"></i> Ajouter Veaux
+                    </button>
                   </div>
                 </div>
               </div>
+            </div>
             )
         })
     ): <h3>Vide</h3>;
