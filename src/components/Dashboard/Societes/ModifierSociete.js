@@ -13,21 +13,25 @@ const [isLoading, setIsLoading] = useState(true);
 const [Fermes,setFermes]=useState({
   name: "",
   address: "",
-  numTel:"",
-  founding:"",
-  description:""
+  email:"",
+  password:"",
+  matriculeFiscal:"",
+  createdAt:"",
+  dateCreationSociete:""
 });
 const [Ferme, oldFerme] = useState({
   name: "",
   address: "",
-  numTel:"",
-  founding:"",
-  description:""
+  email:"",
+  password:"",
+  matriculeFiscal:"",
+  createdAt:"",
+  dateCreationSociete:""
 });
 
 useEffect(()=>{
 
-  axios.get("http://admin.laitespoir.com:8187/api/farms/one/"+props.id)
+  axios.get("http://admin.laitespoir.com:8187/api/Societe/one/"+props.id)
   .then(res=>{
       setFermes(res.data);
       console.log(Fermes);
@@ -40,8 +44,9 @@ useEffect(()=>{
 
     Ferme.name = document.getElementById("nameFerme").value;
     Ferme.address = document.getElementById("AdressFerme").value;
-    Ferme.numTel = document.getElementById("numTel").value;
-    Ferme.description= document.getElementById("Descriptionferme").value;
+    Ferme.password = document.getElementById("Password").value;
+    Ferme.email= document.getElementById("Email").value;
+    Ferme.matriculeFiscal= document.getElementById("Descriptionferme").value;
 
     console.log({ Ferme });
 
@@ -59,16 +64,20 @@ useEffect(()=>{
         e.preventDefault();
         
         axios
-            .put("http://admin.laitespoir.com:8187/api/farms/update/",{
+          //.put("http://localhost:4000/Societe/update/"+props.id, {
+            .put("http://admin.laitespoir.com:8187/api/Societe/update/",{
               id:props.id,
             name: Ferme.name,
             address: Ferme.address,
-            description: Ferme.description,
-            numTel: Ferme.numTel,
+            matriculeFiscal: Ferme.matriculeFiscal,
+            email: Ferme.email,
+            //password: Ferme.password,
+            //images:"image",
+           // status:1,
           })
           .then((res) => {
             console.log(res.data);
-            history.push("/Fermes");
+            history.push("/Sociétés");
           })
           .catch((err) => {
             Swal.fire("Ooops", "Une Erreur au niveau de la Modification ", "error");
@@ -120,7 +129,7 @@ ListModif.push(Fermes);
                 <div className="page-titles">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                    <div class="toggle-sidebar" checked="checked"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>  <a href="javascript:void(0)"><strong>Ajouter Ferme</strong></a></div>
+                    <div class="toggle-sidebar" checked="checked"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>  <a href="javascript:void(0)"><strong>Ajouter Société</strong></a></div>
                     
                     </li>
                   </ol>
@@ -131,7 +140,7 @@ ListModif.push(Fermes);
                     <form>
                       <div className="form-row">
                         <div className="form-group col-md-3">
-                          <label><strong>Nom Ferme</strong></label>
+                          <label><strong>Nom Société</strong></label>
                           <input
                             type="text"
                             className="form-control"
@@ -144,38 +153,50 @@ ListModif.push(Fermes);
                         </div>
                         
                         <div class="form-group col-md-3">
-                                                  <label><strong>Adress Ferme</strong></label>
-                                                  <input type="text" class="form-control" id={"AdressFerme"} name={"AdressFerme"}placeholder="Adress Complete De la Ferme"
+                                                  <label><strong>Adress Société</strong></label>
+                                                  <input type="text" class="form-control" id={"AdressFerme"} name={"AdressFerme"}placeholder="Adress Complete De la Société"
                                                   defaultValue={Ferme.address}/>
                                                   </div>
-                      
                         
                                                   <div className="form-group col-md-3">
-                    <label><strong>Numero Télephone</strong></label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Numero Télephone"
-                      defaultValue={Ferme.numTel}
-                      id={"numTel"}
-                      name={"numTel"}
-                    />
-                  </div>
+                          <label><strong>E-mail Société</strong></label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Address Email Société"
+                            defaultValue={Ferme.email}
+                            id={"Email"}
+                            name={"Email"}
+                          />
+                        </div>
+                        
+       
                         <div class="form-group col-md-6" >
-                                                  <label><strong>Description detaillé de la Ferme </strong></label>
+                                                  <label><strong>Description detaillé de la Société </strong></label>
                                               <textarea class="form-control" rows="5" id="comment" placeholder="Description sur la ferme.."
                                               id={"Descriptionferme"}
                                               name={"Descriptionferme"}
-                                              defaultValue={Ferme.description}
+                                              defaultValue={Ferme.matriculeFiscal}
                                               ></textarea>
                                               </div>
-                              
+                                              <div className="form-group col-md-3">
+                          <label><strong>Mot de Pass</strong></label>
+                          <input
+                            type="password"
+                            className="form-control"
+                            placeholder="Mot de Pass Société"
+                           
+                            id={"Password"}
+                            name={"Password"}
+                            defaultValue={Ferme.Password}
+                          />
+                        </div>
                         
                       </div>
                       
                     </form>
                     <button className="btn btn-primary" onClick={handleClick}>
-                    <strong><i className="fa fa-plus-square"></i> Modifier Ferme</strong>
+                    <strong><i className="fa fa-plus-square"></i> Modifier Société</strong>
                     </button>
                   </div>
                 </div>

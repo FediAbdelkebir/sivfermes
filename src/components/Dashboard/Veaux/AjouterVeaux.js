@@ -85,7 +85,7 @@ return false
         e.preventDefault();
         axios
           //.post("http://localhost:4000/veaux/create", {
-            .post("http://admin.laitespoir.com:8187/api/animals/Veaux/save", {
+            .post("http://admin.laitespoir.com:8187/api/animals/veaux/save", {
               Nom:  Veaux.Nom,
               birthday: Veaux.birthday,
               dateajout:Veaux.dateajout,

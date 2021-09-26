@@ -10,19 +10,20 @@ export default function AjouterFerme() {
   let history = useHistory();
   const [Ferme, setFerme] = useState({
     name: "",
-    address: "",
-    founding:"",
-    numTel:"",
-    description:"",
+    adress: "",
+    email:"",
+    password:"",
+    matriculeFiscal:"",
     createdAt:"",
-    updatedAt:""
+    dateCreationSociete:""
   });
 
 
 function Verif(){
   if((document.getElementById("nameFerme").value=="")
   ||(document.getElementById("AdressFerme").value=="")
-  ||(document.getElementById("numTel").value=="")
+  ||(document.getElementById("Password").value=="")
+  ||(document.getElementById("Email").value=="")
   ||(document.getElementById("Descriptionferme").value=="")){
 return false
   }
@@ -46,26 +47,27 @@ var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
       if (result.isConfirmed) {
         
         Ferme.name = document.getElementById("nameFerme").value;
-        Ferme.address = document.getElementById("AdressFerme").value;
-        Ferme.numTel = document.getElementById("numTel").value;
-        Ferme.description= document.getElementById("Descriptionferme").value;
-        Ferme.createdAt="2021-09-26T20:02:33.598Z";
-        Ferme.updatedAt="2021-09-26T20:02:33.598Z";
-        Ferme.founding="2021-09-26T20:02:33.598Z";
+        Ferme.adress = document.getElementById("AdressFerme").value;
+        Ferme.password = document.getElementById("Password").value;
+        Ferme.email= document.getElementById("Email").value;
+        Ferme.matriculeFiscal= document.getElementById("Descriptionferme").value;
+        Ferme.createdAt=date;
+        Ferme.dateCreationSociete=date;
         console.log({ Ferme });
 
         e.preventDefault();
         axios
-            .post("http://admin.laitespoir.com:8187/api/farms/save", {
+            .post("http://admin.laitespoir.com:8187/api/Societe/save", {
+             // idFerme:5,
             name: Ferme.name,
-            address: Ferme.address,
-            description: Ferme.description,
-            founding: Ferme.founding,
-            numTel: Ferme.numTel,
+            address: Ferme.adress,
+            matriculeFiscal: Ferme.matriculeFiscal,
+            email: Ferme.email,
+            //password: Ferme.password,
+            //images:"image",
+           // status:1,
             createdAt:  Ferme.createdAt,
-            updatedAt:  Ferme.updatedAt,
-            manager: 0,
-            totalAnimals: 0
+            dateCreationSociete:  Ferme.dateCreationSociete,
             
           },{
             headers: {"Access-Control-Allow-Origin": "*"}
@@ -73,7 +75,7 @@ var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
           .then((res) => {
             Swal.fire("Success", "Votre Ferme a été créé :) ", "success");
             console.log(res.data);
-            history.push("/Fermes");
+            history.push("/Sociétés");
           })
           .catch((err) => {
             Swal.fire("Ooops", "Une Erreur au niveau de l'insertion ", "error");
@@ -96,7 +98,7 @@ var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
           <div className="page-titles">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-              <div class="toggle-sidebar" checked="checked"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>  <a href="javascript:void(0)"><strong>Ajouter Ferme</strong></a></div>
+              <div class="toggle-sidebar" checked="checked"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>  <a href="javascript:void(0)"><strong>Ajouter Société</strong></a></div>
               
               </li>
             </ol>
@@ -107,7 +109,7 @@ var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
               <form>
                 <div className="form-row">
                   <div className="form-group col-md-3">
-                    <label><strong>Nom Ferme</strong></label>
+                    <label><strong>Nom Société</strong></label>
                     <input
                       type="text"
                       className="form-control"
@@ -119,37 +121,47 @@ var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
                   </div>
                   
                   <div class="form-group col-md-3">
-                                            <label><strong>Adress Ferme</strong></label>
-                                            <input type="text" class="form-control" id={"AdressFerme"} name={"AdressFerme"}placeholder="Adress Complete De la Ferme"/>
+                                            <label><strong>Adress Société</strong></label>
+                                            <input type="text" class="form-control" id={"AdressFerme"} name={"AdressFerme"}placeholder="Adress Complete De la Société"/>
                                             </div>
                   
-                      
-                  
                                             <div className="form-group col-md-3">
-                    <label><strong>Numero Télephone</strong></label>
+                    <label><strong>E-mail Société</strong></label>
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Numero Télephone"
+                      placeholder="Address Email Société"
                      
-                      id={"numTel"}
-                      name={"numTel"}
+                      id={"Email"}
+                      name={"Email"}
                     />
                   </div>
+                  
+ 
                   <div class="form-group col-md-6" >
-                                            <label><strong>Description detaillé de la Ferme </strong></label>
+                                            <label><strong>Description detaillé de la Société </strong></label>
                                         <textarea class="form-control" rows="5" id="comment" placeholder="Description sur la ferme.."
                                         id={"Descriptionferme"}
                                         name={"Descriptionferme"}
                                         ></textarea>
                                         </div>
-                                      
+                                        <div className="form-group col-md-3">
+                    <label><strong>Mot de Pass</strong></label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      placeholder="Mot de Pass Société"
+                     
+                      id={"Password"}
+                      name={"Password"}
+                    />
+                  </div>
                   
                 </div>
                 
               </form>
               <button className="btn btn-primary" onClick={handleClick}>
-              <strong><i className="fa fa-plus-square"></i> Ajouter Ferme</strong>
+              <strong><i className="fa fa-plus-square"></i> Ajouter Société</strong>
               </button>
             </div>
           </div>

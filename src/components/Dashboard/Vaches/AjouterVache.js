@@ -71,7 +71,7 @@ const handleClick = (e) => {
 
       e.preventDefault();
       axios
-          .post("http://admin.laitespoir.com:8187/api/Vache/save", {
+          .post("http://admin.laitespoir.com:8187/api/animals/Vache/save", {
            // idFerme:5,
           birthday: Vache.birthday,
           matriculeAnimal: Vache.Matricule,

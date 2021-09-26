@@ -28,13 +28,24 @@ export default function SideBar() {
                     </li>
 
                 <li><a className="has-arrow ai-icon"  aria-expanded="false">
+                    <i className="fa fa-building" Style="color:#859b28;"></i>
+							<span className="nav-text" Style="color:black;"><strong>Farms</strong></span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><Link to={`/AjouterFermes`}><i className="fa fa-plus" Style="color:#859b28;"></i>Ajouter Farms</Link></li>
+                            <li><Link to={`/Fermes`}><i className="fa fa-list" Style="color:#859b28;"></i>Lister Farms</Link></li>
+                            <li><Link to={`/AffecterFermier`}><i className="fa fa-tasks" Style="color:#859b28;"></i>Affecter Fermier</Link></li>
+                        </ul>
+                    </li>
+                    <li><a className="has-arrow ai-icon"  aria-expanded="false">
                     <i className="fa fa-building" Style="color:#0d6efd;"></i>
-							<span className="nav-text" Style="color:black;"><strong>Société</strong></span>
+							<span className="nav-text" Style="color:black;"><strong>Sociétés</strong></span>
 						</a>
                         <ul aria-expanded="false">
                             <li><Link to={`/AjouterSociété`}><i className="fa fa-plus" Style="color:#0d6efd;"></i>Ajouter Sociétés</Link></li>
                             <li><Link to={`/Sociétés`}><i className="fa fa-list" Style="color:#0d6efd;"></i>Lister Sociétés</Link></li>
-                            <li><Link to={`/AffecterFermier`}><i className="fa fa-tasks" Style="color:#0d6efd;"></i>Affecter Fermier</Link></li>
+                            <li><Link to={`/AffecterFermes`}><i className="fa fa-tasks" Style="color:#0d6efd;"></i>Affecter Farms</Link></li>
+                            
                         </ul>
                     </li>
                     

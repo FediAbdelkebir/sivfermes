@@ -14,7 +14,7 @@ export default function Fermes() {
     const [fermes,setFermes]=useState([]);
     useEffect(()=>{
     
-      axios.get("http://admin.laitespoir.com:8187/api/farms/list")
+      axios.get("http://admin.laitespoir.com:8187/api/Societe/list")
       .then(res=>{
           setFermes(res.data);
           setIsLoading(false);
@@ -25,7 +25,7 @@ export default function Fermes() {
         var keyword = document.getElementById("ValeurRechercheFermes").value;
         if (keyword.length<1){
           console.log("Fergha");
-          axios.get("http://admin.laitespoir.com:8187/api/farms/list")
+          axios.get("http://admin.laitespoir.com:8187/api/Societe/list")
         .then(res=>{
             setFermes(res.data);
             setIsLoading(false);
@@ -51,8 +51,17 @@ export default function Fermes() {
         denyButtonText: `Non, Annuler`,
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete("http://admin.laitespoir.com:8187/api/farms/delete", {
-            idFerme:ferme.idFerme
+          axios.delete("http://admin.laitespoir.com:8187/api/Societe/delete", {
+            idFerme:ferme.idFerme,
+           name: ferme.name,
+           address: ferme.adress,
+           matriculeFiscal: ferme.matriculeFiscal,
+           email: ferme.email,
+           //password: Ferme.password,
+           //images:"image",
+          // status:1,
+           createdAt:  ferme.createdAt,
+           dateCreationSociete:  ferme.dateCreationSociete,
          });
          
           Swal.fire("Success", "Votre tache a été Modifié :) ", "success");
@@ -78,13 +87,13 @@ function TrieAdress(e){
     e.preventDefault();
   setFermes(sortBy(fermes, "address"));
 }
-function TrienumTel(e){
+function TrieEmail(e){
     e.preventDefault();
-  setFermes(sortBy(fermes, "numTel"));
+  setFermes(sortBy(fermes, "email"));
 }
 function TrieDescription(e){
   e.preventDefault();
-setFermes(sortBy(fermes, "description"));
+setFermes(sortBy(fermes, "matriculeFiscal"));
 }
 
     const content = isLoading ? <div class="loader">
@@ -166,7 +175,7 @@ setFermes(sortBy(fermes, "description"));
                       alt=""
                       width="24"
                     />
-                    <span className="w-space-no">{ferme.numTel}</span>
+                    <span className="w-space-no">{ferme.email}</span>
                   </div>
                 </td>
                 <td>
@@ -177,7 +186,7 @@ setFermes(sortBy(fermes, "description"));
                       alt=""
                       width="24"
                     />
-                    <span className="w-space-no">{ferme.description}</span>
+                    <span className="w-space-no">{ferme.matriculeFiscal}</span>
                   </div>
                 </td>
                 
@@ -224,7 +233,7 @@ setFermes(sortBy(fermes, "description"));
         
 
  
-        <Link to={`/Ajouterfarms`} className="btn btn-primary ml-auto"><i className="fa fa-plus-circle"></i> Ajouter Farms</Link>
+        <Link to={`/AjouterSociétés`} className="btn btn-primary ml-auto"><i className="fa fa-plus-circle"></i> Ajouter Sociétés</Link>
       </div>
       <div className="card-body">
         <div className="table-responsive">
@@ -251,7 +260,7 @@ setFermes(sortBy(fermes, "description"));
                 <a href="#" className="btn btn-primary ml-auto" onClick={TrieAdress}><i className="fa fa-sort"></i></a>
                 </th>
                 <th>
-                <a href="#" className="btn btn-primary ml-auto" onClick={TrienumTel}><i className="fa fa-sort"></i></a>
+                <a href="#" className="btn btn-primary ml-auto" onClick={TrieEmail}><i className="fa fa-sort"></i></a>
                 </th>
                 <th>
                 <a href="#" className="btn btn-primary ml-auto" onClick={TrieDescription}><i className="fa fa-sort"></i></a>
@@ -281,10 +290,10 @@ setFermes(sortBy(fermes, "description"));
                   <strong>Adress</strong>
                 </th>
                 <th>
-                  <strong>NumTel</strong>
+                  <strong>E-mail</strong>
                 </th>
                 <th>
-                  <strong>Description</strong>
+                  <strong>Matricule</strong>
                 </th>
                 <th>
                   <strong>Gestion</strong>
