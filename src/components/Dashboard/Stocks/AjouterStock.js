@@ -6,16 +6,17 @@ import SideBar from '../SideBar';
 import Swal from "sweetalert2";
 export default function Ajouterstock({history}) {
     const [stock, setStock] = useState({
-        Nom: "",
-        Categorie: "",
+        "createdAt": "2021-09-29T16:03:12.751Z",
+        "updatedAt": "2021-09-29T16:03:12.751Z",
+        name: "",
+        categorie: "",
         Kg: ""
       });
  
       const [categories,setCategories]=useState([]);
       const [isLoading, setIsLoading] = useState(true);
   useEffect(()=>{
-    //axios.get("http://localhost:4000/categories")
-    axios.get("http://143.110.210.169:4000/categories")
+    axios.get("http://admin.laitespoir.com:8187/api/categories")
     .then(res=>{
         setCategories(res.data);
         setIsLoading(false);
@@ -30,7 +31,7 @@ const SelectList = isLoading ? <option>Chargements des Categories ...</option> :
             <option selected>{user.name}</option>
           )
       })
-  ): <h3>Aucun Categorie Trouvé !</h3>;
+  ): <h3>Aucun categorie Trouvé !</h3>;
     function Verif(){
       if ((document.getElementById("Nomstock").value=="")||(document.getElementById("Catégorie").value=="")||(document.getElementById("Kg").value=="")){
         return false;
@@ -52,18 +53,17 @@ const SelectList = isLoading ? <option>Chargements des Categories ...</option> :
         }).then((result) => {
           if (result.isConfirmed) {
             
-            stock.Nom = document.getElementById("Nomstock").value;
-            stock.Categorie = document.getElementById("Catégorie").value;
+            stock.name = document.getElementById("Nomstock").value;
+            stock.categorie = document.getElementById("Catégorie").value;
             stock.Kg = document.getElementById("Kg").value;
             console.log({ stock });
     
             e.preventDefault();
             axios
-              //.post("http://localhost:4000/stocks/createstock", {
-                .post("/api/employees/save", {
-                Nom: stock.Nom,
-                Categorie: stock.Categorie,
-                Kg: stock.Kg,
+                .post("http://admin.laitespoir.com:8187/api/AlimentationStaticDatas/save", {
+                name: stock.name,
+                categorie: stock.categorie,
+                matiereSeche: stock.Kg,
               })
               .then((res) => {
                 Swal.fire("Success", "Votre stock a été créé :) ", "success");
@@ -74,6 +74,7 @@ const SelectList = isLoading ? <option>Chargements des Categories ...</option> :
                 Swal.fire("Ooops", "Une Erreur au niveau de l'insertion ", "error");
                 console.error(err);
               });
+            
           } else {
             Swal.fire("Annulé", "Vous Avez Annulé l'ajout d'une stock.", "error");
           }
@@ -101,8 +102,8 @@ const SelectList = isLoading ? <option>Chargements des Categories ...</option> :
 
                                         <div class="form-row">
                                             <div class="form-group col-md-3">
-                                                <label>Nom Stock</label>
-                                                <input type="text" class="form-control" placeholder="Nom Complet De la stock"
+                                                <label>name Stock</label>
+                                                <input type="text" class="form-control" placeholder="name Complet De la stock"
                                                                       id={"Nomstock"}
                                                                       name={"Nomstock"}
                                                 />

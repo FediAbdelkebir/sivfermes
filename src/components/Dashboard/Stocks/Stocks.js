@@ -111,7 +111,7 @@ export default function Stocks() {
                     alt=""
                     width="24"
                   />{" "}
-                  <span className="w-space-no">{Stock.Nom}</span>
+                  <span className="w-space-no">{Stock.name}</span>
                 </div>
               </td>
               
