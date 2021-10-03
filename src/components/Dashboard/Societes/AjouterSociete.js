@@ -6,7 +6,10 @@ import SideBar from "../SideBar";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
 import $ from "jquery";
+import Cookies from 'universal-cookie';
 export default function AjouterFerme() {
+ // Pacman
+
   let history = useHistory();
   const [Ferme, setFerme] = useState({
     name: "",
@@ -57,30 +60,31 @@ var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
         e.preventDefault();
         axios
-            .post("http://admin.laitespoir.com:8187/api/Societe/save", {
-             // idFerme:5,
-            name: Ferme.name,
-            address: Ferme.adress,
-            matriculeFiscal: Ferme.matriculeFiscal,
-            email: Ferme.email,
-            //password: Ferme.password,
-            //images:"image",
-           // status:1,
-            createdAt:  Ferme.createdAt,
-            dateCreationSociete:  Ferme.dateCreationSociete,
-            
-          },{
-            headers: {"Access-Control-Allow-Origin": "*"}
-          })
-          .then((res) => {
-            Swal.fire("Success", "Votre Ferme a été créé :) ", "success");
-            console.log(res.data);
-            history.push("/Sociétés");
-          })
-          .catch((err) => {
-            Swal.fire("Ooops", "Une Erreur au niveau de l'insertion ", "error");
-            console.error(err);
-          });
+        .post("http://admin.laitespoir.com:8187/api/societe/save", {
+         // idFerme:5,
+        name: Ferme.name,
+        address: Ferme.adress,
+        matriculeFiscal: Ferme.matriculeFiscal,
+        email: Ferme.email,
+        //password: Ferme.password,
+        //images:"image",
+       // status:1,
+        createdAt:  Ferme.createdAt,
+        dateCreationSociete:  Ferme.dateCreationSociete,
+        
+      },{
+        headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Credentials": "true"}
+      })
+      .then((res) => {
+        Swal.fire("Success", "Votre Ferme a été créé :) ", "success");
+        console.log(res.data);
+        history.push("/Sociétés");
+      })
+      .catch((err) => {
+        Swal.fire("Ooops", "Une Erreur au niveau de l'insertion ", "error");
+        console.error(err);
+      });
+        
       } else {
         Swal.fire("Annulé", "Vous Avez Annulé l'ajout d'une Ferme.", "error");
       }

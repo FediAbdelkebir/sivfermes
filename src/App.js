@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import {Route, Switch} from "react-router-dom";
 import Fermier from "./components/Dashboard/Fermier/Fermiers"
 import AjouterFermier from "./components/Dashboard/Fermier/AjouterFermier";
@@ -30,7 +31,15 @@ import Error400 from "./components/Dashboard/ErrorPages/ErrorPage400";
 import Error403 from "./components/Dashboard/ErrorPages/ErrorPage403";
 import Error500 from "./components/Dashboard/ErrorPages/ErrorPage500";
 import Error503 from "./components/Dashboard/ErrorPages/ErrorPage503";
+import Cookies from 'universal-cookie';
 function App(props) {
+    const cookies = new Cookies();
+    cookies.set('JSESSIONID', '151CFE124A47C6822A02EAB84B78BBE0', { path: '/' });
+    console.log(cookies.get('JSESSIONID'));
+    axios.defaults.withCredentials = true;
+
+   
+  
     return (
         <div className="App" Style="letter-spacing: 0.7px;font-family: Roboto;text-transform: capitalize;">
             <Switch>

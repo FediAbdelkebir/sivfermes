@@ -14,18 +14,22 @@ export default function Fermes() {
     const [fermes,setFermes]=useState([]);
     useEffect(()=>{
     
-      axios.get("http://admin.laitespoir.com:8187/api/Societe/list")
+      axios.get("http://admin.laitespoir.com:8187/api/societe/list",{},{
+        headers: {"Access-Control-Allow-Credentials": "true","Access-Control-Allow-Origin": "http://admin.laitespoir.com",}
+      })
       .then(res=>{
+        console.log(res.data)
           setFermes(res.data);
           setIsLoading(false);
       })
-      .catch(err=>console.log)
+      .catch(err=>{Swal.fire("Ooops", "Une Erreur au niveau de la Recuperation de la Liste", "error");
+    console.log(err)})
   }, []);
     const handleChange = (e) => {
         var keyword = document.getElementById("ValeurRechercheFermes").value;
         if (keyword.length<1){
           console.log("Fergha");
-          axios.get("http://admin.laitespoir.com:8187/api/Societe/list")
+          axios.get("http://admin.laitespoir.com:8187/api/societe/list")
         .then(res=>{
             setFermes(res.data);
             setIsLoading(false);
@@ -51,7 +55,7 @@ export default function Fermes() {
         denyButtonText: `Non, Annuler`,
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete("http://admin.laitespoir.com:8187/api/Societe/delete", {
+          axios.delete("http://admin.laitespoir.com:8187/api/societe/delete", {
             idFerme:ferme.idFerme,
            name: ferme.name,
            address: ferme.adress,

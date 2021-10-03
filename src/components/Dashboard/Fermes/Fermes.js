@@ -7,19 +7,20 @@ import {Link} from "react-router-dom";
 import Swal from "sweetalert2";
 import {sortBy} from "underscore";
 import $ from 'jquery';
-
+import Cookies from 'universal-cookie';
 
 export default function Fermes() {
+ 
     const [isLoading, setIsLoading] = useState(true);
     const [fermes,setFermes]=useState([]);
     useEffect(()=>{
     
-      axios.get("http://admin.laitespoir.com:8187/api/farms/list")
-      .then(res=>{
+      axios.get("http://admin.laitespoir.com:8187/api/farms/list").then(res=>{
           setFermes(res.data);
           setIsLoading(false);
       })
       .catch(err=>console.log)
+      
   }, []);
     const handleChange = (e) => {
         var keyword = document.getElementById("ValeurRechercheFermes").value;
