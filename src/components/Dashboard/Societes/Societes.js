@@ -13,18 +13,22 @@ export default function Fermes() {
     const [isLoading, setIsLoading] = useState(true);
     const [fermes,setFermes]=useState([]);
     useEffect(()=>{
-    
       axios.get("http://admin.laitespoir.com:8187/api/societe/list",{},{
-        headers: {"Access-Control-Allow-Credentials": "true","Access-Control-Allow-Origin": "http://admin.laitespoir.com",}
+        headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Connection":"keep-alive",
+        'Content-Type': 'application/json',}
       })
       .then(res=>{
         console.log(res.data)
           setFermes(res.data);
           setIsLoading(false);
       })
-      .catch(err=>{Swal.fire("Ooops", "Une Erreur au niveau de la Recuperation de la Liste", "error");
+      .catch(err=>{
+        Swal.fire("Ooops", "Une Erreur au niveau de la Recuperation de la Liste", "error");
     console.log(err)})
   }, []);
+  
     const handleChange = (e) => {
         var keyword = document.getElementById("ValeurRechercheFermes").value;
         if (keyword.length<1){

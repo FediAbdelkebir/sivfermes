@@ -33,8 +33,9 @@ import Error500 from "./components/Dashboard/ErrorPages/ErrorPage500";
 import Error503 from "./components/Dashboard/ErrorPages/ErrorPage503";
 import Cookies from 'universal-cookie';
 function App(props) {
+    
     const cookies = new Cookies();
-    cookies.set('JSESSIONID', '151CFE124A47C6822A02EAB84B78BBE0', { path: '/' });
+    cookies.set('JSESSIONID', '3457755692FDDBBCD4A542DF898A28AA', { path: '/' });
     console.log(cookies.get('JSESSIONID'));
     axios.defaults.withCredentials = true;
 
