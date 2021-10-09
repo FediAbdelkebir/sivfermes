@@ -20,6 +20,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "readme-md-generator": "^1.0.0",
+    "request": "^2.88.2",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.1.2",
     "underscore": "^1.13.1",

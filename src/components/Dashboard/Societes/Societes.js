@@ -7,17 +7,44 @@ import {Link} from "react-router-dom";
 import Swal from "sweetalert2";
 import {sortBy} from "underscore";
 import $ from 'jquery';
+import Cookies from 'universal-cookie';
 
 
 export default function Fermes() {
     const [isLoading, setIsLoading] = useState(true);
     const [fermes,setFermes]=useState([]);
-    useEffect(()=>{
-      axios.get("http://admin.laitespoir.com:8187/api/societe/list",{},{
+    useEffect(()=>{/*
+      $.ajax({
+        url: "http://admin.laitespoir.com:8187/api/societe/list",
+        type: 'GET',
+        crossDomain: true,
         headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Connection":"keep-alive",
-        'Content-Type': 'application/json',}
+    "Authorization": "Basic YWRtaW46cGFzcw=="
+  },
+        dataType: 'JSON',
+        xhrFields: {
+        withCredentials: true
+        },
+        success: function(res) {
+          setFermes(res.data);
+            console.log(res);
+        }
+    });
+    */
+     // axios.get("http://admin.laitespoir.com:8187/api/societe/list",{
+        /*headers: {
+          
+        'Access-Control-Allow-Origin': 'http://admin.laitespoir.com:8187/',
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Methods':'*',
+        Accept: 'application/json',
+        Authorization: 'JSESSION '+"2A4894E5F79458AEED914346398CA8D3",
+        'Connection':'keep-alive',
+        'Content-Type': 'application/json',},*/
+       /* auth: {
+          username: 'admin',
+          password: 'pass'
+        }
       })
       .then(res=>{
         console.log(res.data)
@@ -27,6 +54,40 @@ export default function Fermes() {
       .catch(err=>{
         Swal.fire("Ooops", "Une Erreur au niveau de la Recuperation de la Liste", "error");
     console.log(err)})
+*/
+
+/*
+var settings = {
+  "url": "http://admin.laitespoir.com:8187/api/societe/list",
+  "method": "GET",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Basic YWRtaW46cGFzcw=="
+  },
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+*/
+
+/*
+var myHeaders = new Headers();
+//myHeaders.append("Authorization", "Basic YWRtaW46cGFzcw==");
+myHeaders.set('Authorization', 'Basic YWRtaW46cGFzcw==');
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("http://admin.laitespoir.com:8187/api/societe/list", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+
+  */
   }, []);
   
     const handleChange = (e) => {
